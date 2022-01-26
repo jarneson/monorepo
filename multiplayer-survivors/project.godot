@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "NetworkedNode",
+"language": "GDScript",
+"path": "res://scripts/base_classes/networked_node.gd"
+}, {
+"base": "Node",
+"class": "Networking",
+"language": "GDScript",
+"path": "res://scripts/networking/networking.gd"
+} ]
+_global_script_class_icons={
+"NetworkedNode": "",
+"Networking": ""
+}
+
 [application]
 
 config/name="Multiplayer Survivors"
