@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/game/player_physics.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/player_inputs.gd" type="Script" id=2]
+[ext_resource path="res://scripts/game/player.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 2.0
@@ -17,6 +18,7 @@ radius = 0.3
 mid_height = 0.5
 
 [node name="Player" type="KinematicBody"]
+script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2, 0 )

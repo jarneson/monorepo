@@ -38,40 +38,36 @@ func interp():
 
 func fan_out(name, data):
 	for peer_id in connected_peers:
-		rpc_id(peer_id, name, data)
+		if peer_id != 1:
+			rpc_id(peer_id, name, data)
 
 func fan_out_unreliable(name, data):
 	for peer_id in connected_peers:
-		rpc_unreliable_id(peer_id, name, data)
+		if peer_id != 1:
+			rpc_unreliable_id(peer_id, name, data)
 
 func _process(delta):
-	if is_server or interp():
+	if is_server:
 		var data = _process_data(delta)
 		if not data:
 			return
-		if get_tree().is_network_server():
-			fan_out_unreliable("_apply_process", data)
-		elif interp():
-			_apply_process(data)
+		fan_out_unreliable("_apply_process", data)
 
 func _process_data(_delta):
 	pass
 
-puppetsync func _apply_process(_data):
+puppet func _apply_process(_data):
 	pass
 
 func _physics_process(delta):
-	if is_server or interp():
+	if is_server:
 		var data = _physics_process_data(delta)
 		if not data:
 			return
-		if get_tree().is_network_server():
-			fan_out_unreliable("_apply_physics_process", data)
-		elif interp():
-			_apply_physics_process(data)
+		fan_out_unreliable("_apply_physics_process", data)
 
 func _physics_process_data(_delta):
 	pass
 
-puppetsync func _apply_physics_process(_data):
+puppet func _apply_physics_process(_data):
 	pass
