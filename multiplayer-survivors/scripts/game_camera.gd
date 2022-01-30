@@ -16,5 +16,5 @@ func _process(_delta):
 		return
 		
 	global_transform.origin.x = focus.global_transform.origin.x
-	global_transform.origin.z = focus.global_transform.origin.z
+	global_transform.origin.z = focus.global_transform.origin.z + 5
 	

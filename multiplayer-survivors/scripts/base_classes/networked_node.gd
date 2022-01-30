@@ -8,7 +8,10 @@ onready var my_peer_id: int = get_tree().get_network_unique_id()
 
 var trusted_peer: int = 1
 
+onready var network = get_tree().get_current_scene().get_node("Network")
+
 func _ready():
+	network.connect("player_disconnected", self, "end_connection")
 	rpc_id(1, "new_connection", my_peer_id)
 
 func _exit_tree():
@@ -23,8 +26,12 @@ master func new_connection(peer_id):
 master func end_connection(peer_id):
 	print("%s erasing %s" % [name, peer_id])
 	connected_peers.erase(peer_id)
+	_end_connection(peer_id)
 
 master func _new_connection(_peer_id):
+	pass
+
+master func _end_connection(_peer_id):
 	pass
 
 puppetsync func _connected():
@@ -51,6 +58,7 @@ func _process(delta):
 		var data = _process_data(delta)
 		if not data:
 			return
+		_apply_process(data)
 		fan_out_unreliable("_apply_process", data)
 
 func _process_data(_delta):
@@ -64,6 +72,7 @@ func _physics_process(delta):
 		var data = _physics_process_data(delta)
 		if not data:
 			return
+		_physics_process_data(data)
 		fan_out_unreliable("_apply_physics_process", data)
 
 func _physics_process_data(_delta):

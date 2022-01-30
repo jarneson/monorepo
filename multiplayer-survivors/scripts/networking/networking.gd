@@ -7,6 +7,8 @@ const MAX_PEERS = 20
 
 signal network_ready
 
+signal player_disconnected(peer_id)
+
 var player_name: String
 
 func _ready():
@@ -25,6 +27,7 @@ func _player_connected(id):
 
 func _player_disconnected(id):
 	print("player_disconnected: %s" % [id])
+	emit_signal("player_disconnected", id)
 
 func _connected_to_server():
 	emit_signal("network_ready")

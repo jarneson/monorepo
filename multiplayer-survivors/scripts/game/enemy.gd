@@ -8,5 +8,5 @@ onready var ai = $AI
 func _process(_delta):
 	if not get_tree().is_network_server():
 		return
-	if ai.target:
+	if ai.target and is_instance_valid(ai.target):
 		physics.velocity = (ai.target.global_transform.origin - global_transform.origin).normalized() * speed

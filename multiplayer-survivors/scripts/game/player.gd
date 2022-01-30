@@ -7,6 +7,7 @@ var direction: Vector3
 
 onready var inputs = $Inputs
 onready var physics = $Physics
+onready var abilities = $Abilities
 
 func _physics_process(_delta):
 	if get_tree().is_network_server() || get_tree().get_network_unique_id() == owner_id:
