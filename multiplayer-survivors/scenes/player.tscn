@@ -17,7 +17,7 @@ albedo_color = Color( 0.34902, 0, 0, 1 )
 radius = 0.3
 mid_height = 0.5
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" groups=["players"]]
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
