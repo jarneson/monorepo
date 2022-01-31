@@ -19,4 +19,4 @@ func _physics_process(delta):
 func _on_Area_body_entered(body):
 	var hp = body.get_node_or_null("Hitpoints")
 	if hp:
-		hp.hitpoints -= damage
+		hp.take_damage(damage)

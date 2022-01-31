@@ -10,6 +10,10 @@ func _process_data(_delta):
 		return [hitpoints]
 	last_hitpoints = hitpoints
 	return null
+
+func take_damage(amount):
+	if is_server:
+		hitpoints -= amount
 	
 func _apply_process(data):
 	hitpoints = data[0]

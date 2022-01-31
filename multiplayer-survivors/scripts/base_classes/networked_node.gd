@@ -7,6 +7,7 @@ onready var is_server: bool = get_tree().is_network_server()
 onready var my_peer_id: int = get_tree().get_network_unique_id()
 
 var trusted_peer: int = 1
+var server_freed = false
 
 onready var network = get_tree().get_current_scene().get_node("Network")
 
@@ -15,7 +16,8 @@ func _ready():
 	rpc_id(1, "new_connection", my_peer_id)
 
 func _exit_tree():
-	rpc_id(1, "end_connection", my_peer_id)
+	if not server_freed:
+		rpc_id(1, "end_connection", my_peer_id)
 
 master func new_connection(peer_id):
 	print("%s adding %s" % [name, peer_id])
