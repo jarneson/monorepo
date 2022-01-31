@@ -1,24 +1,24 @@
 extends NetworkedNode
 
-var input: Vector3
-var direction: Vector3
+var input: Vector2
+var direction: Vector2
 
 func _ready():
 	trusted_peer = get_parent().owner_id
 
-var last_direction: Vector3
+var last_direction: Vector2
 
 func _unhandled_input(event):
 	if my_peer_id != trusted_peer:
 		return
 	if event.is_action_pressed("movement_forward"):
-		input.z -= 1
+		input.y -= 1
 	if event.is_action_released("movement_forward"):
-		input.z += 1
+		input.y += 1
 	if event.is_action_pressed("movement_back"):
-		input.z += 1
+		input.y += 1
 	if event.is_action_released("movement_back"):
-		input.z -= 1
+		input.y -= 1
 	if event.is_action_pressed("movement_left"):
 		input.x -= 1
 	if event.is_action_released("movement_left"):

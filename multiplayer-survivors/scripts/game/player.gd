@@ -3,7 +3,7 @@ extends KinematicBody
 export var speed: float = 15.0
 
 var owner_id: int
-var direction: Vector3
+var direction: Vector2
 
 onready var inputs = $Inputs
 onready var physics = $Physics

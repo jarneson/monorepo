@@ -7,7 +7,7 @@ export var top_level: bool
 onready var abilities = get_parent()
 onready var next_cast = cooldown
 
-func _process_data(delta):
+func _process_data(_delta):
 	if next_cast <= 0:
 		abilities.trigger(scene)
 		next_cast += cooldown
