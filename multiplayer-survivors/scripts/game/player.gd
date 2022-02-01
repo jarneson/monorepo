@@ -13,3 +13,6 @@ func _physics_process(_delta):
 	if get_tree().is_network_server() || get_tree().get_network_unique_id() == owner_id:
 		direction = inputs.direction
 		physics.velocity = inputs.direction * speed
+
+func die():
+	pass # TODO

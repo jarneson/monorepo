@@ -4,6 +4,9 @@ export var hitpoints: int
 
 onready var last_hitpoints := hitpoints
 
+func _ready():
+	process_reliable = true
+
 func _process_data(_delta):
 	if hitpoints != last_hitpoints:
 		last_hitpoints = hitpoints
@@ -20,4 +23,4 @@ func _apply_process(data):
 	
 func _process(_delta):
 	if hitpoints <= 0:
-		get_parent().queue_free()
+		get_parent().die()

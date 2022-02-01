@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/game/players.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scripts/game/enemy_spawner.gd" type="Script" id=4]
 [ext_resource path="res://scripts/game/enemies.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/gui.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/game/experience.gd" type="Script" id=8]
 
 [sub_resource type="Environment" id=3]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -21,6 +23,9 @@ albedo_color = Color( 0, 0.32549, 0.0509804, 1 )
 data = PoolVector3Array( 64, 0, 64, -64, 0, 64, 64, 0, -64, -64, 0, 64, -64, 0, -64, 64, 0, -64 )
 
 [node name="World" type="Spatial"]
+
+[node name="Experience" type="Node" parent="."]
+script = ExtResource( 8 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
@@ -48,10 +53,36 @@ player_scene = ExtResource( 1 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.0623723, 0.998053, 0, -0.998053, 0.0623723, 0, 40, 5 )
 script = ExtResource( 3 )
+players_node_path = NodePath("../Players")
+
+[node name="GUI" parent="Camera" instance=ExtResource( 7 )]
+players_node_path = NodePath("../../Players")
 
 [node name="EnemySpawner" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5717, 0, 24.3579 )
 script = ExtResource( 4 )
+rate = 0.2
+enemies_node_path = NodePath("../Enemies")
+enemy_scene = ExtResource( 6 )
+
+[node name="EnemySpawner2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3206, 0, -27.3462 )
+script = ExtResource( 4 )
+rate = 0.2
+enemies_node_path = NodePath("../Enemies")
+enemy_scene = ExtResource( 6 )
+
+[node name="EnemySpawner3" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7789, 0, -29.6318 )
+script = ExtResource( 4 )
+rate = 0.2
+enemies_node_path = NodePath("../Enemies")
+enemy_scene = ExtResource( 6 )
+
+[node name="EnemySpawner4" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5382, 0, 34.7311 )
+script = ExtResource( 4 )
+rate = 0.2
 enemies_node_path = NodePath("../Enemies")
 enemy_scene = ExtResource( 6 )
 
