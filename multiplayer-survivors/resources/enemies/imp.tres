@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://scripts/resources/enemy.gd" type="Script" id=1]
+[ext_resource path="res://scenes/2d/enemies/enemy16.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/3d/enemies/enemy16.tscn" type="PackedScene" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "Imp"
+hp = 5
+speed = 250
+experience = 1
+scene_2d = ExtResource( 2 )
+scene_3d = ExtResource( 3 )

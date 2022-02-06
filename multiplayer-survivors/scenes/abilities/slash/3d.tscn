@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/abilities/slash/3d.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+width = 128
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+gravity = Vector3( 0, 0, 0 )
+scale_curve = SubResource( 4 )
+
+[sub_resource type="PlaneMesh" id=5]
+size = Vector2( 3, 2 )
+
+[node name="Spatial" type="Particles"]
+amount = 32
+lifetime = 0.5
+local_coords = false
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 5 )
+script = ExtResource( 1 )

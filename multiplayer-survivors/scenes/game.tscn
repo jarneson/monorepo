@@ -1,12 +1,48 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/networking/networking.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/inputs.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/game.gd" type="Script" id=2]
-[ext_resource path="res://scenes/world.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/3d/world_3d.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/2d/world_2d.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/3d/camera.gd" type="Script" id=5]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 0.02, 0.02 )
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("Physics")
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+albedo_texture = SubResource( 4 )
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 2 )
-world_scene = ExtResource( 3 )
 
-[node name="Network" type="Node" parent="."]
+[node name="Physics" type="Viewport" parent="."]
+size = Vector2( 1280, 1024 )
+transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+debug_draw = 1
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="World2D" parent="Physics" instance=ExtResource( 4 )]
+
+[node name="World3D" parent="." instance=ExtResource( 3 )]
+world_2d_path = NodePath("../Physics/World2D")
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 100, 0 )
+current = true
+script = ExtResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108, -0.056, -0.1 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="Inputs" type="Node" parent="."]
 script = ExtResource( 1 )

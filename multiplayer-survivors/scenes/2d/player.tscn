@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/sprites/player.png" type="Texture" id=1]
+[ext_resource path="res://scripts/2d/player.gd" type="Script" id=2]
+[ext_resource path="res://scripts/2d/enemy_physics.gd" type="Script" id=3]
+[ext_resource path="res://scripts/game/equipment.gd" type="Script" id=4]
+[ext_resource path="res://scenes/abilities/slash/slash_1.tres" type="Resource" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.0
+
+[node name="Player" type="KinematicBody2D" groups=["players"]]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Physics" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Equipment" type="Node" parent="."]
+
+[node name="Weapon" type="Node" parent="Equipment"]
+script = ExtResource( 4 )
+affixes = [ ExtResource( 5 ) ]
+
+[node name="Offhand" type="Node" parent="Equipment"]
+
+[node name="Armor" type="Node" parent="Equipment"]
+
+[node name="Ring" type="Node" parent="Equipment"]
+
+[node name="Amulet" type="Node" parent="Equipment"]
