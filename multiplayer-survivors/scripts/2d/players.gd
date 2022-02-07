@@ -4,7 +4,7 @@ signal child_added(node)
 
 export(PackedScene) var player_scene: PackedScene
 
-func trigger(scene: PackedScene, hp: int, position: Vector2, name: String):
+func trigger(scene: PackedScene, _hp: int, position: Vector2, name: String):
 	var inst = scene.instance()
 	inst.name = name
 	inst.global_position = position

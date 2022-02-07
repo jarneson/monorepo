@@ -20,6 +20,7 @@ func _on_child_added(node: Node2D, enemy: Enemy):
 	inst.target = node
 
 	var enemy_inst = enemy.scene_3d.instance()
+	enemy_inst.enemy_2d = node
 	inst.add_child(enemy_inst)
 
 	add_child(inst)

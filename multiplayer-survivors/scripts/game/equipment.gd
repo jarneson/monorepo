@@ -23,5 +23,5 @@ func _physics_process(delta):
 			continue
 		affix_cooldowns[idx] -= delta
 		if affix_cooldowns[idx] <= 0:
-			affix_cooldowns[idx] += affixes[idx].provide_ability.cooldown
+			affix_cooldowns[idx] += affixes[idx].provide_ability.cooldown * float(100-player.reduced_cooldown)/100.0
 			Singletons.projectiles_2d.trigger(affixes[idx].provide_ability, (player))

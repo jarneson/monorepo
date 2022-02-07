@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/gui/level_up.gd" type="Script" id=1]
+
+[node name="LevelUp" type="CenterContainer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 32.0
+margin_right = -64.0
+margin_bottom = -32.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="P" type="PanelContainer" parent="."]
+margin_left = 192.0
+margin_top = 140.0
+margin_right = 704.0
+margin_bottom = 396.0
+rect_min_size = Vector2( 512, 256 )
+
+[node name="V" type="VBoxContainer" parent="P"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 505.0
+margin_bottom = 249.0
+
+[node name="Label" type="Label" parent="P/V"]
+margin_right = 498.0
+margin_bottom = 14.0
+text = "Level Up!"
+align = 1
+
+[node name="Option1" type="Button" parent="P/V"]
+margin_top = 18.0
+margin_right = 498.0
+margin_bottom = 90.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="P/V/Option1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option2" type="Button" parent="P/V"]
+margin_top = 94.0
+margin_right = 498.0
+margin_bottom = 166.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="P/V/Option2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option3" type="Button" parent="P/V"]
+margin_top = 170.0
+margin_right = 498.0
+margin_bottom = 242.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="P/V/Option3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="P/V/Option1" to="." method="_on_Option1_pressed"]
+[connection signal="pressed" from="P/V/Option2" to="." method="_on_Option2_pressed"]
+[connection signal="pressed" from="P/V/Option3" to="." method="_on_Option3_pressed"]

@@ -6,10 +6,12 @@ signal child_added(node, res)
 
 const EnemyPhysics = preload("res://scripts/2d/enemy_physics.gd")
 
-func trigger(enemy: Enemy, hp: int, position: Vector2, name: String):
+func trigger(enemy: Enemy, position: Vector2, name: String):
 	var inst = enemy.scene_2d.instance()
 	inst.name = name
 	inst.global_position = position
+	inst.hitpoints = enemy.hp
+	inst.experience = enemy.experience
 	var phys = EnemyPhysics.new()
 	phys.name = "Physics"
 	phys.speed = enemy.speed

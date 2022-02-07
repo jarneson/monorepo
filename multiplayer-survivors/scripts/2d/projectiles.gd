@@ -9,6 +9,8 @@ func _ready():
 
 func trigger(ability: PlayerAbility, player: Player):
 	var inst = ability.scene_2d.instance()
+	inst.player = player
+	inst.calculate_stats()
 	inst.global_position = player.global_position
 	inst.direction = player.last_direction
 	inst.rotation = player.last_direction.angle()

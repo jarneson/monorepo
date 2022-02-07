@@ -28,9 +28,13 @@ script = ExtResource( 4 )
 affixes = [ ExtResource( 5 ) ]
 
 [node name="Offhand" type="Node" parent="Equipment"]
+script = ExtResource( 4 )
 
 [node name="Armor" type="Node" parent="Equipment"]
+script = ExtResource( 4 )
 
 [node name="Ring" type="Node" parent="Equipment"]
+script = ExtResource( 4 )
 
 [node name="Amulet" type="Node" parent="Equipment"]
+script = ExtResource( 4 )

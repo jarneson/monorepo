@@ -1,6 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/abilities/slash/3d.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.124224, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0.25, 0.25, 0.25, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
 
 [sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -12,12 +19,20 @@ curve = SubResource( 6 )
 [sub_resource type="ParticlesMaterial" id=2]
 gravity = Vector3( 0, 0, 0 )
 scale_curve = SubResource( 4 )
+color_ramp = SubResource( 8 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
 
 [sub_resource type="PlaneMesh" id=5]
-size = Vector2( 3, 2 )
+material = SubResource( 9 )
+size = Vector2( 1, 0.5 )
 
 [node name="Spatial" type="Particles"]
-amount = 32
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.107556, -0.0343919 )
+amount = 120
 lifetime = 0.5
 local_coords = false
 process_material = SubResource( 2 )

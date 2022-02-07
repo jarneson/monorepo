@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "PlayerAbility",
 "language": "GDScript",
 "path": "res://scripts/resources/player_ability.gd"
+}, {
+"base": "Resource",
+"class": "PlayerPerk",
+"language": "GDScript",
+"path": "res://scripts/resources/player_perk.gd"
 } ]
 _global_script_class_icons={
 "Affix": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "EnemyWave": "",
 "NetworkedNode": "",
 "Networking": "",
-"PlayerAbility": ""
+"PlayerAbility": "",
+"PlayerPerk": ""
 }
 
 [application]
@@ -56,6 +62,12 @@ run/main_scene="res://scenes/game.tscn"
 [autoload]
 
 Singletons="*res://scripts/autoload/singletons.gd"
+Perks="*res://scripts/autoload/perks.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 
 [global]
 
@@ -96,5 +108,5 @@ movement_left={
 [physics]
 
 common/physics_fps=30
-common/enable_pause_aware_picking=true
+common/physics_jitter_fix=0.0
 3d/physics_engine="GodotPhysics"

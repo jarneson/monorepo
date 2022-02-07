@@ -1,18 +1,20 @@
 extends MarginContainer
 
-export(NodePath) var players_node_path
-onready var players = get_node(players_node_path)
+export var level_up_scene: PackedScene
 
 onready var experience_level = $V/Experience/Level
 onready var experience_bar = $V/Experience/Bar
 
 var focus: Node
 
+func _ready():
+	Singletons.experience.connect("level_up", self, "_on_level_up")
+
 func _grab_player():
 	if focus and is_instance_valid(focus):
 		return
 	else:
-		focus = players.get_node_or_null("player_%s" % get_tree().get_network_unique_id())
+		focus = Singletons.follow_node_2d
 
 func _process(_delta):
 	experience_level.text = str(Singletons.experience.level)
@@ -21,3 +23,8 @@ func _process(_delta):
 	_grab_player()
 	if not focus:
 		return
+
+func _on_level_up():
+	var inst = level_up_scene.instance()
+	inst.player = focus
+	add_child(inst)

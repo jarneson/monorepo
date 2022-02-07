@@ -5,20 +5,10 @@ var input: Vector2
 func _ready():
 	Singletons.inputs = self
 
-func _unhandled_input(event):
-	if event.is_action_pressed("movement_forward"):
-		input.y += 1
-	if event.is_action_released("movement_forward"):
-		input.y -= 1
-	if event.is_action_pressed("movement_back"):
-		input.y -= 1
-	if event.is_action_released("movement_back"):
-		input.y += 1
-	if event.is_action_pressed("movement_left"):
-		input.x -= 1
-	if event.is_action_released("movement_left"):
-		input.x += 1
-	if event.is_action_pressed("movement_right"):
-		input.x += 1
-	if event.is_action_released("movement_right"):
-		input.x -= 1
+func _process(_delta):
+	var result = Vector2.ZERO
+	result.y += Input.get_action_strength("movement_forward")
+	result.y -= Input.get_action_strength("movement_back")
+	result.x += Input.get_action_strength("movement_right")
+	result.x -= Input.get_action_strength("movement_left")
+	input = result
