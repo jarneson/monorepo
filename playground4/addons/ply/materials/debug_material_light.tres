@@ -1,0 +1,5 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b4i0cps0lllg8"]
+
+[resource]
+shading_mode = 0
+uv1_triplanar = true
