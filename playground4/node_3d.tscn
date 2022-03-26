@@ -1,0 +1,97 @@
+[gd_scene load_steps=17 format=3 uid="uid://c42tgiqp1x3ld"]
+
+[ext_resource type="Shader" path="res://sky.gdshader" id="2_ihtpc"]
+[ext_resource type="Shader" path="res://postprocess.gdshader" id="2_tiksj"]
+[ext_resource type="Script" path="res://Position3D.gd" id="2_xxbff"]
+
+[sub_resource type="OpenSimplexNoise" id="OpenSimplexNoise_tjhyb"]
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_vaoj6"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource( "OpenSimplexNoise_tjhyb" )
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eevyp"]
+shader = ExtResource( "2_ihtpc" )
+shader_param/background_noise = SubResource( "NoiseTexture_vaoj6" )
+
+[sub_resource type="Sky" id="Sky_1iovh"]
+sky_material = SubResource( "ShaderMaterial_eevyp" )
+
+[sub_resource type="Environment" id="Environment_x3x0y"]
+background_mode = 2
+sky = SubResource( "Sky_1iovh" )
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 1.0
+glow_blend_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_2cu2r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvp65"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0.0431373, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0m10l"]
+shading_mode = 0
+albedo_color = Color(0.490196, 0.847059, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvl00"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0.168627, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ig4fx"]
+size = Vector3(2, 1.73, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wivnt"]
+shading_mode = 0
+albedo_color = Color(0.670588, 0.184314, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtg18"]
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dkks"]
+render_priority = 0
+shader = ExtResource( "2_tiksj" )
+shader_param/line_power = 2.0
+shader_param/outline_intensity = 5.0
+shader_param/glow_intensity = 25.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( "Environment_x3x0y" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource( "BoxMesh_2cu2r" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_vvp65" )
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.144204, 0.349077, -0.821712)
+mesh = SubResource( "BoxMesh_2cu2r" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_0m10l" )
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.312335, 0.565413, -0.0481408)
+mesh = SubResource( "BoxMesh_2cu2r" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_uvl00" )
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.312335, 2.42881, -0.0481408)
+mesh = SubResource( "PrismMesh_ig4fx" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wivnt" )
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52738, 0)
+script = ExtResource( "2_xxbff" )
+
+[node name="Camera3D" type="Camera3D" parent="Position3D"]
+transform = Transform3D(1, 0, 0, 0, 0.915599, 0.402092, 0, -0.402092, 0.915599, 0, 1.81886, 4.00512)
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Position3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.96667)
+mesh = SubResource( "QuadMesh_vtg18" )
+surface_material_override/0 = SubResource( "ShaderMaterial_4dkks" )
