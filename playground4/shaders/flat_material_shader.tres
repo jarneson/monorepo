@@ -1,0 +1,17 @@
+[gd_resource type="Shader" format=3 uid="uid://c4ulyd7d440be"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+
+uniform vec4 line_albedo : hint_color;
+uniform vec4 fill_albedo : hint_color;
+
+void fragment() {
+	ALBEDO = clamp(
+		max(
+			line_albedo/2.0,
+			step(0.0001, fill_albedo)*(fill_albedo+vec4(0.5))
+		), 0.0, 1.0).rgb;
+}
+"
