@@ -5,7 +5,7 @@ uniform float line_power = 1.0;
 uniform float outline_intensity = 1.0;
 uniform float line_glow_intensity = 1.0;
 uniform float fill_glow_intensity = 1.0;
-uniform float bias = -10.;
+uniform float bias = 0.0;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.);
@@ -18,6 +18,8 @@ float linear_depth(sampler2D depth_texture, vec2 uv, mat4 inv_proj) {
 }
 
 float calc_line_weight(vec2 screen_uv, vec2 screen_size, sampler2D depth_texture, mat4 inv_proj) {
+	vec4 proj = inv_proj*vec4(vec3(screen_uv, 1.0), 1.0);
+	proj.xyz /= proj.w;
 	float px = 0.5 / screen_size.x;
 	float py = 0.5 / screen_size.y;
 	float d = pow(texture(depth_texture, screen_uv).x, line_power);
@@ -30,9 +32,9 @@ float calc_line_weight(vec2 screen_uv, vec2 screen_size, sampler2D depth_texture
 	float dz = pow(texture(depth_texture, screen_uv+vec2(-px,-py)).x, line_power);
 	float dc = pow(texture(depth_texture, screen_uv+vec2(px,-py)).x, line_power);
 	float w = abs(abs(abs(d)-abs(du)) - abs(abs(d)-abs(dd))) + abs(abs(abs(d)-abs(dl)) - abs(abs(d)-abs(dr))) + abs(abs(abs(d)-abs(dq)) - abs(abs(d)-abs(dc))) + abs(abs(abs(d)-abs(dz)) - abs(abs(d)-abs(de)));
-	w *= 50000.0*outline_intensity;
-	w = floor(w);
-	return w;
+	w *= pow(-proj.z, 1.5);
+	w += bias-1.0;
+	return clamp(w, 0.0, 1.0);
 }
 
 vec3 calc_color(vec3 color) {

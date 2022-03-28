@@ -255,10 +255,10 @@ size = Vector2(2, 2)
 render_priority = -1
 shader = ExtResource( "2_tiksj" )
 shader_param/line_power = 2.0
-shader_param/outline_intensity = 2.0
+shader_param/outline_intensity = 1.0
 shader_param/line_glow_intensity = 25.0
 shader_param/fill_glow_intensity = 2.0
-shader_param/bias = null
+shader_param/bias = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_d72b6"]
 size = Vector2(4, 1)
