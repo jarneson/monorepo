@@ -16,51 +16,53 @@ const Collapse = preload("res://addons/ply/resources/collapse.gd")
 const Connect = preload("res://addons/ply/resources/connect.gd")
 const Generate = preload("res://addons/ply/resources/generate.gd")
 const ExportMesh = preload("res://addons/ply/resources/export.gd")
+const Import = preload("res://addons/ply/resources/import.gd")
 
 var plugin: EditorPlugin
 
-@onready var selection_mesh = $Mesh
-@onready var selection_face = $Face
-@onready var selection_edge = $Edge
-@onready var selection_vertex = $Vertex
+@onready var selection_mesh = $Scroll/Content/Mesh
+@onready var selection_face = $Scroll/Content/Face
+@onready var selection_edge = $Scroll/Content/Edge
+@onready var selection_vertex = $Scroll/Content/Vertex
 
-@onready var gizmo_global = $Global
-@onready var gizmo_local = $Local
-@onready var gizmo_normal = $Normal
+@onready var gizmo_global = $Scroll/Content/Global
+@onready var gizmo_local = $Scroll/Content/Local
+@onready var gizmo_normal = $Scroll/Content/Normal
 
-@onready var mesh_tools = $MeshTools
-@onready var mesh_subdivide = $MeshTools/Subdivide
-@onready var mesh_triangulate = $MeshTools/Triangulate
-@onready var mesh_invert_normals = $MeshTools/InvertNormals
-@onready var mesh_export_to_obj = $MeshTools/ExportOBJ
-@onready var mesh_generators = $MeshTools/Generators
-@onready var generators_modal = $GeneratorsModal
+@onready var mesh_tools = $Scroll/Content/MeshTools
+@onready var mesh_subdivide = $Scroll/Content/MeshTools/Subdivide
+@onready var mesh_triangulate = $Scroll/Content/MeshTools/Triangulate
+@onready var mesh_invert_normals = $Scroll/Content/MeshTools/InvertNormals
+@onready var mesh_import = $Scroll/Content/MeshTools/Import
+@onready var mesh_export_to_obj = $Scroll/Content/MeshTools/ExportOBJ
+@onready var mesh_generators = $Scroll/Content/MeshTools/Generators
+@onready var generators_modal = $Scroll/Content/GeneratorsModal
 
-@onready var face_tools = $FaceTools
-@onready var face_select_loop_1 = $FaceTools/FaceLoop1
-@onready var face_select_loop_2 = $FaceTools/FaceLoop2
-@onready var face_extrude = $FaceTools/Extrude
-@onready var face_connect = $FaceTools/Connect
-@onready var face_subdivide = $FaceTools/Subdivide
-@onready var face_triangulate = $FaceTools/Triangulate
+@onready var face_tools = $Scroll/Content/FaceTools
+@onready var face_select_loop_1 = $Scroll/Content/FaceTools/FaceLoop1
+@onready var face_select_loop_2 = $Scroll/Content/FaceTools/FaceLoop2
+@onready var face_extrude = $Scroll/Content/FaceTools/Extrude
+@onready var face_connect = $Scroll/Content/FaceTools/Connect
+@onready var face_subdivide = $Scroll/Content/FaceTools/Subdivide
+@onready var face_triangulate = $Scroll/Content/FaceTools/Triangulate
 
-@onready var face_set_shape_1 = $"FaceTools/Surfaces/1"
-@onready var face_set_shape_2 = $"FaceTools/Surfaces/2"
-@onready var face_set_shape_3 = $"FaceTools/Surfaces/3"
-@onready var face_set_shape_4 = $"FaceTools/Surfaces/4"
-@onready var face_set_shape_5 = $"FaceTools/Surfaces/5"
-@onready var face_set_shape_6 = $"FaceTools/Surfaces/6"
-@onready var face_set_shape_7 = $"FaceTools/Surfaces/7"
-@onready var face_set_shape_8 = $"FaceTools/Surfaces/8"
-@onready var face_set_shape_9 = $"FaceTools/Surfaces/9"
+@onready var face_set_shape_1 = $"Scroll/Content/FaceTools/Surfaces/1"
+@onready var face_set_shape_2 = $"Scroll/Content/FaceTools/Surfaces/2"
+@onready var face_set_shape_3 = $"Scroll/Content/FaceTools/Surfaces/3"
+@onready var face_set_shape_4 = $"Scroll/Content/FaceTools/Surfaces/4"
+@onready var face_set_shape_5 = $"Scroll/Content/FaceTools/Surfaces/5"
+@onready var face_set_shape_6 = $"Scroll/Content/FaceTools/Surfaces/6"
+@onready var face_set_shape_7 = $"Scroll/Content/FaceTools/Surfaces/7"
+@onready var face_set_shape_8 = $"Scroll/Content/FaceTools/Surfaces/8"
+@onready var face_set_shape_9 = $"Scroll/Content/FaceTools/Surfaces/9"
 
-@onready var edge_tools = $EdgeTools
-@onready var edge_select_loop = $EdgeTools/SelectLoop
-@onready var edge_cut_loop = $EdgeTools/CutLoop
-@onready var edge_subdivide = $EdgeTools/Subdivide
-@onready var edge_collapse = $EdgeTools/Collapse
+@onready var edge_tools = $Scroll/Content/EdgeTools
+@onready var edge_select_loop = $Scroll/Content/EdgeTools/SelectLoop
+@onready var edge_cut_loop = $Scroll/Content/EdgeTools/CutLoop
+@onready var edge_subdivide = $Scroll/Content/EdgeTools/Subdivide
+@onready var edge_collapse = $Scroll/Content/EdgeTools/Collapse
 
-@onready var vertex_tools = $VertexTools
+@onready var vertex_tools = $Scroll/Content/VertexTools
 
 
 func _ready() -> void:
@@ -79,6 +81,7 @@ func _ready() -> void:
 	gizmo_normal.connect("toggled",Callable(self,"_update_gizmo_mode"),[GizmoMode.NORMAL])
 
 	mesh_export_to_obj.connect("pressed",Callable(self,"_export_to_obj"))
+	mesh_import.connect("pressed",Callable(self,"_import_mesh"))
 	mesh_subdivide.connect("pressed",Callable(self,"_mesh_subdivide"))
 	mesh_triangulate.connect("pressed",Callable(self,"_mesh_triangulate"))
 	mesh_invert_normals.connect("pressed",Callable(self,"_mesh_invert_normals"))
@@ -424,6 +427,24 @@ func _export_to_obj():
 	var obj_file = File.new()
 	obj_file.open(file_name, File.WRITE)
 	ExportMesh.export_to_obj(plugin.selection.ply_mesh, obj_file)
+
+
+func _import_mesh():
+	if plugin.ignore_inputs:
+		return
+	if not plugin.selection or selection_mode != SelectionMode.MESH:
+		return
+	var fd = FileDialog.new()
+	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fd.set_filters(PackedStringArray(["*.res,*.tres; Resources"]))
+	var base_control = plugin.get_editor_interface().get_base_control()
+	base_control.add_child(fd)
+	fd.popup_centered(Vector2(480, 600))
+	var file_name = await fd.file_selected
+	var resource = load(file_name)
+	print(resource)
+	if resource is ArrayMesh:
+		Import.mesh(plugin.selection.ply_mesh, resource)
 
 
 func _mesh_subdivide():

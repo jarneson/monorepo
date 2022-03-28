@@ -1,8 +1,8 @@
-[gd_resource type="Shader" format=3 uid="uid://c4ulyd7d440be"]
+[gd_resource type="Shader" format=3 uid="uid://cd0aby7miynve"]
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;
 
 uniform vec4 line_albedo : hint_color;
 uniform vec4 fill_albedo : hint_color;

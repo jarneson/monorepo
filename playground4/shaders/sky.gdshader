@@ -1,4 +1,5 @@
 shader_type sky;
+render_mode disable_fog;
 
 uniform sampler2D background_noise;
 

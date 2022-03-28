@@ -26,7 +26,7 @@ func _on_selection_mode_changed(_mode) -> void:
 	_plugin.selection.select_geometry([], false)
 
 
-func _point_to_segment_dist(v, a, b) -> Vector3:
+func _point_to_segment_dist(v, a, b) -> float:
 	var ab = b - a
 	var av = v - a
 	if av.dot(ab) <= 0.0:
@@ -83,7 +83,7 @@ func handle_input(camera: Camera3D, event: InputEvent) -> bool:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				if event.pressed:
-					if _plugin.transform_gizmo.select(camera, event.position):
+					if not event.shift_pressed and _plugin.transform_gizmo.select(camera, event.position):
 						return true
 					if _plugin.selection:
 						_scan_selection(camera, event)

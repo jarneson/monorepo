@@ -1,6 +1,8 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dwq63b6l37366"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d2rdi3wl8ife4"]
+
+[ext_resource type="Texture2D" uid="uid://bb6kjype86gts" path="res://addons/ply/materials/debug.png" id="1"]
 
 [resource]
-shading_mode = 0
-albedo_color = Color(0.81, 0.81, 0, 1)
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = ExtResource( "1" )
 uv1_triplanar = true

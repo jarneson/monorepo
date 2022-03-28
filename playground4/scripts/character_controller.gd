@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 const MOUSE_SENSITIVITY = 0.002
 const SPEED = 15.0
-const JUMP_VELOCITY = 34.5
+const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
