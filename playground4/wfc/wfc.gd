@@ -62,14 +62,21 @@ func get_wfc_node(idx: Vector3) -> Node3D:
 	return get_node("%s_%s_%s" % [idx.x, idx.y, idx.z])
 
 func min_entropy_index() -> Vector3:
-	var min_idx := 0
+	var min_entropy := 1
+	var seen = {}
 	for idx in nodes.size():
 		var entropy: int = nodes[idx].entropy()
+		if seen.has(entropy):
+			seen[entropy].push_back(nodes[idx].grid_position)
+		else:
+			seen[entropy] = [nodes[idx].grid_position]
 		if entropy <= 1:
-			continue
-		if nodes[idx].entropy() < nodes[min_idx].entropy() or nodes[min_idx].entropy() <= 1:
-			min_idx = idx
-	return nodes[min_idx].grid_position
+			continue # skip marking as min
+		if entropy < min_entropy or min_entropy <= 1:
+			min_entropy = entropy
+	var opts = seen[min_entropy]
+	print(seen.keys(), ": ", min_entropy)
+	return opts[randi() % opts.size()]
 
 func iterate():
 	var t1 := Time.get_ticks_msec()

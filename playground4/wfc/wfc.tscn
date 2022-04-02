@@ -1,27 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1dw3uq6mdgjx"]
+[gd_scene load_steps=14 format=3 uid="uid://c1dw3uq6mdgjx"]
 
 [ext_resource type="Script" path="res://wfc/wfc.gd" id="1_5yuwa"]
 [ext_resource type="PackedScene" uid="uid://ciodc7gmn3kxe" path="res://wfc/wfc_node.tscn" id="2_7st3j"]
 [ext_resource type="Resource" uid="uid://cv8nj6csc81or" path="res://wfc/options/bridge.tres" id="3_672mq"]
 [ext_resource type="Resource" uid="uid://btrcdnark667f" path="res://wfc/options/floor.tres" id="5_8qkx8"]
 [ext_resource type="Resource" uid="uid://bq3s4ka335se5" path="res://wfc/options/solid_wall.tres" id="6_n8fro"]
+[ext_resource type="Script" path="res://free_look.gd" id="8_1jv6s"]
+[ext_resource type="Resource" uid="uid://bis28xfuasv7y" path="res://wfc/options/wall_hang_one.tres" id="8_gqa34"]
+[ext_resource type="Resource" uid="uid://c1gbwf4tliyf7" path="res://wfc/options/wall_hang_two.tres" id="9_mp18i"]
+[ext_resource type="Resource" path="res://wfc/options/wall_hang_three.tres" id="10_van1c"]
 [ext_resource type="Resource" uid="uid://ba25r3se5ncqe" path="res://wfc/options/empty.tres" id="11_5oolo"]
+[ext_resource type="Resource" uid="uid://djlibtd8gocvk" path="res://wfc/options/wall_hang_four.tres" id="11_ifsol"]
 [ext_resource type="PackedScene" uid="uid://ctmepqia6svt8" path="res://scenes/PostProcessQuad.tscn" id="11_o7inl"]
 [ext_resource type="PackedScene" uid="uid://bh6oapssql4n8" path="res://scenes/WorldEnvironment.tscn" id="12_312wr"]
-[ext_resource type="Script" path="res://Position3D.gd" id="13_vfscn"]
 
 [node name="Root" type="Node3D"]
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( "12_312wr" )]
-
-[node name="Position3D" type="Position3D" parent="."]
-script = ExtResource( "13_vfscn" )
-
-[node name="Camera3D" type="Camera3D" parent="Position3D"]
-transform = Transform3D(1, 0, 0, 0, 0.986435, 0.164152, 0, -0.164152, 0.986435, 0, 0.176843, 7.74033)
-
-[node name="PostProcessQuad" parent="Position3D/Camera3D" instance=ExtResource( "11_o7inl" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.002)
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource( "1_5yuwa" )
@@ -29,4 +24,14 @@ width = 16
 height = 16
 depth = 16
 wfc_node_scene = ExtResource( "2_7st3j" )
-wfc_options = [ExtResource( "3_672mq" ), ExtResource( "11_5oolo" ), ExtResource( "6_n8fro" ), ExtResource( "5_8qkx8" )]
+wfc_options = [ExtResource( "3_672mq" ), ExtResource( "11_5oolo" ), ExtResource( "6_n8fro" ), ExtResource( "5_8qkx8" ), ExtResource( "8_gqa34" ), ExtResource( "9_mp18i" ), ExtResource( "10_van1c" ), ExtResource( "11_ifsol" )]
+
+[node name="FreeLook" type="Node3D" parent="."]
+script = ExtResource( "8_1jv6s" )
+
+[node name="Pivot" type="Node3D" parent="FreeLook"]
+
+[node name="Camera3D" type="Camera3D" parent="FreeLook/Pivot"]
+
+[node name="PostProcessQuad" parent="FreeLook/Pivot/Camera3D" instance=ExtResource( "11_o7inl" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.002)
