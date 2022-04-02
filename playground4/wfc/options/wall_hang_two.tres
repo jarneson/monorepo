@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource( "1_uiytc" )
 scene = ExtResource( "1_842fi" )
+weight = 1.0
 allow_y_rot_90 = true
 allow_y_rot_180 = true
 allow_y_rot_270 = true
@@ -26,4 +27,4 @@ socket_mask_z_neg = 2
 socket_mask_x_pos = 2
 socket_mask_x_neg = 7
 socket_mask_y_pos = 6
-socket_mask_y_neg = 6
+socket_mask_y_neg = 3

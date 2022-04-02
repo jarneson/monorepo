@@ -11,6 +11,8 @@ enum Socket {
 }
 
 @export var scene: PackedScene
+@export var weight: float = 1.0
+
 @export var allow_y_rot_90: bool
 @export var allow_y_rot_180: bool
 @export var allow_y_rot_270: bool
@@ -37,9 +39,22 @@ enum Socket {
 
 func permute_rotations() -> Array:
 	var out = []
+	var rot_weight = weight;
+	var permutations = 1;
+	permutations += 1 if allow_y_rot_90 else 0
+	permutations += 1 if allow_y_rot_180 else 0
+	permutations += 1 if allow_y_rot_270 else 0
+	permutations += 1 if allow_x_rot_90 else 0
+	permutations += 1 if allow_x_rot_180 else 0
+	permutations += 1 if allow_x_rot_270 else 0
+	permutations += 1 if allow_z_rot_90 else 0
+	permutations += 1 if allow_z_rot_180 else 0
+	permutations += 1 if allow_z_rot_270 else 0
+	rot_weight /= permutations
 	if true: # identity
 		var inst = Instance.new()
 		inst.scene = scene
+		inst.weight = rot_weight
 		inst.rotation = Vector3(0, 0, 0)
 		inst.socket_z_pos = socket_z_pos
 		inst.socket_z_neg = socket_z_neg
@@ -57,6 +72,7 @@ func permute_rotations() -> Array:
 	if allow_y_rot_90:
 		var inst = Instance.new()
 		inst.scene = scene
+		inst.weight = rot_weight
 		inst.rotation = Vector3(0, 90, 0)
 		inst.socket_z_pos = socket_x_neg
 		inst.socket_z_neg = socket_x_pos
@@ -74,6 +90,7 @@ func permute_rotations() -> Array:
 	if allow_y_rot_180:
 		var inst = Instance.new()
 		inst.scene = scene
+		inst.weight = rot_weight
 		inst.rotation = Vector3(0, 180, 0)
 		inst.socket_z_pos = socket_z_neg
 		inst.socket_z_neg = socket_z_pos
@@ -91,6 +108,7 @@ func permute_rotations() -> Array:
 	if allow_y_rot_270:
 		var inst = Instance.new()
 		inst.scene = scene
+		inst.weight = rot_weight
 		inst.rotation = Vector3(0, 270, 0)
 		inst.socket_z_pos = socket_x_pos
 		inst.socket_z_neg = socket_x_neg
@@ -109,6 +127,7 @@ func permute_rotations() -> Array:
 
 class Instance extends Resource:
 	var scene: PackedScene
+	var weight: float
 	var rotation: Vector3
 	var socket_z_pos: Socket
 	var socket_z_neg: Socket

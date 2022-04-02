@@ -7,7 +7,16 @@ func entropy() -> int:
 	return options.size()
 
 func collapse():
-	var choice = randi() % entropy()
+	var weight_sum := 0.0
+	for o in options:
+		weight_sum += o.weight
+	var r_weight = randf_range(0.01, weight_sum)
+	var choice := 0
+	for o_idx in options.size():
+		r_weight -= options[o_idx].weight
+		if r_weight <= 0.0:
+			choice = o_idx
+			break
 	options = [options[choice]]
 
 func _process(_delta):
