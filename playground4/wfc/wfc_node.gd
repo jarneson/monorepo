@@ -1,6 +1,7 @@
 extends Node3D
 
 var options: Array = []
+var grid_position: Vector3
 
 func entropy() -> int:
 	return options.size()
@@ -18,7 +19,7 @@ func _process(_delta):
 		inst.rotate_y(deg2rad(options[0].rotation.y))
 		inst.rotate_z(deg2rad(options[0].rotation.z))
 
-const dir_to_field = {
+const dir_to_socket = {
 	Vector3.UP: "socket_y_pos",
 	Vector3.DOWN: "socket_y_neg",
 	Vector3.LEFT: "socket_x_neg",
@@ -27,18 +28,36 @@ const dir_to_field = {
 	Vector3.BACK: "socket_z_pos",
 }
 
-func sockets(dir: Vector3) -> Array[int]:
-	var valid_sockets = {}
-	for o in options:
-		valid_sockets[o.get(dir_to_field[dir])] = true
-	return valid_sockets.keys()
+const dir_to_mask = {
+	Vector3.UP: "socket_mask_y_pos",
+	Vector3.DOWN: "socket_mask_y_neg",
+	Vector3.LEFT: "socket_mask_x_neg",
+	Vector3.RIGHT: "socket_mask_x_pos",
+	Vector3.FORWARD: "socket_mask_z_neg",
+	Vector3.BACK: "socket_mask_z_pos",
+}
 
-func constrain(dir: Vector3, sockets: Array[int]) -> bool:
+func out_mask(dir: Vector3) -> int:
+	var out = 0
+	for o in options:
+		out |= o.get(dir_to_socket[dir])
+	return out
+
+func in_mask(dir: Vector3) -> int:
+	var out = 0
+	for o in options:
+		out |= o.get(dir_to_mask[dir])
+	return out
+
+# constrain based on `other` sending a signal along `dir`
+func constrain(other, dir: Vector3) -> bool:
 	if options.size() <= 1:
 		return false
 	var mutated := false
+	var other_out_mask: int = other.out_mask(dir)
+	var other_in_mask: int = other.in_mask(dir)
 	for o_idx in range(options.size() - 1, -1, -1):
-		if options[o_idx].get(dir_to_field[-dir]) not in sockets:
+		if other_out_mask & options[o_idx].get(dir_to_mask[-dir]) == 0 or other_in_mask & options[o_idx].get(dir_to_socket[-dir]) == 0:
 			options.remove_at(o_idx)
 			mutated = true
 	return mutated

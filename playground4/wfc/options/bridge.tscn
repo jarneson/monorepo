@@ -1,10 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://23u122ickts8"]
+[gd_scene load_steps=5 format=3 uid="uid://23u122ickts8"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_4v4kd"]
-size = Vector3(0.5, 0.2, 1)
+[ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_7iac2"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d48ts"]
+_surfaces = [{
+"aabb": AABB(-0.25, -0.2, -0.5, 0.50001, 0.2, 1.00001),
+"format": 4099,
+"index_count": 30,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 4, 0, 5, 0, 2, 0, 2, 0, 1, 0, 4, 0, 6, 0, 4, 0, 1, 0, 1, 0, 0, 0, 6, 0, 7, 0, 6, 0, 0, 0, 0, 0, 3, 0, 7, 0, 5, 0, 7, 0, 3, 0, 3, 0, 2, 0, 5, 0),
+"primitive": 3,
+"vertex_count": 8,
+"vertex_data": PackedByteArray(0, 0, 128, 62, 205, 204, 76, 190, 0, 0, 0, 63, 170, 170, 66, 53, 0, 0, 128, 62, 205, 204, 76, 190, 0, 0, 0, 191, 161, 187, 228, 18, 0, 0, 128, 190, 205, 204, 76, 190, 0, 0, 0, 191, 84, 169, 162, 10, 0, 0, 128, 190, 205, 204, 76, 190, 0, 0, 0, 63, 93, 184, 4, 45, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 191, 228, 254, 103, 3, 0, 0, 128, 190, 0, 0, 0, 0, 0, 0, 0, 191, 54, 252, 167, 17, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 200, 255, 71, 46, 0, 0, 128, 190, 0, 0, 0, 0, 0, 0, 0, 63, 26, 253, 135, 60)
+}, {
+"aabb": AABB(-0.25, 0, -0.5, 0.50001, 1e-05, 1.00001),
+"format": 4099,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0),
+"primitive": 3,
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 63, 255, 253, 255, 31, 0, 0, 128, 190, 0, 0, 0, 0, 0, 0, 0, 63, 255, 253, 255, 31, 0, 0, 128, 190, 0, 0, 0, 0, 0, 0, 0, 191, 255, 253, 255, 31, 0, 0, 128, 62, 0, 0, 0, 0, 0, 0, 0, 191, 255, 253, 255, 31)
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3n6he"]
+render_priority = 0
+shader = ExtResource( "1_7iac2" )
+shader_param/line_albedo = Color(0, 1, 0, 1)
+shader_param/fill_albedo = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxgif"]
+render_priority = 0
+shader = ExtResource( "1_7iac2" )
+shader_param/line_albedo = null
+shader_param/fill_albedo = Color(0, 1, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource( "BoxMesh_4v4kd" )
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource( "ArrayMesh_d48ts" )
+surface_material_override/0 = SubResource( "ShaderMaterial_3n6he" )
+surface_material_override/1 = SubResource( "ShaderMaterial_kxgif" )
