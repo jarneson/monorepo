@@ -13,9 +13,15 @@ _global_script_classes=[{
 "class": &"PlyMesh",
 "language": &"GDScript",
 "path": "res://addons/ply/resources/ply_mesh.gd"
+}, {
+"base": "Resource",
+"class": &"WFCOption",
+"language": &"GDScript",
+"path": "res://wfc/wfc_option.gd"
 }]
 _global_script_class_icons={
-"PlyMesh": ""
+"PlyMesh": "",
+"WFCOption": ""
 }
 
 [application]

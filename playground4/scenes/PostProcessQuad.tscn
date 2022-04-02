@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctmepqia6svt8"]
+
+[ext_resource type="Shader" path="res://shaders/postprocess.gdshader" id="1_fdk4a"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtg18"]
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dkks"]
+render_priority = -1
+shader = ExtResource( "1_fdk4a" )
+shader_param/line_power = 2.0
+shader_param/outline_intensity = 1.0
+shader_param/line_glow_intensity = 25.0
+shader_param/fill_glow_intensity = 2.0
+shader_param/bias = 0.0
+
+[node name="PostProcessQuad" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.965699)
+mesh = SubResource( "QuadMesh_vtg18" )
+skeleton = NodePath("")
+surface_material_override/0 = SubResource( "ShaderMaterial_4dkks" )

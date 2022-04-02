@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ba25r3se5ncqe"]
+
+[ext_resource type="Script" path="res://wfc/wfc_option.gd" id="1_emt1g"]
+[ext_resource type="PackedScene" uid="uid://bhbwmh55bnerl" path="res://wfc/options/empty.tscn" id="1_l2k1r"]
+
+[resource]
+script = ExtResource( "1_emt1g" )
+scene = ExtResource( "1_l2k1r" )
+rotation = null
+socket_z_pos = null
+socket_z_neg = null
+socket_x_pos = null
+socket_x_neg = null
+socket_y_pos = null
+socket_y_neg = null

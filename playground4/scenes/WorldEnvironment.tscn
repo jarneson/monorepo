@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh6oapssql4n8"]
+
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="1_2wsr0"]
+
+[sub_resource type="OpenSimplexNoise" id="OpenSimplexNoise_tjhyb"]
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_vaoj6"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource( "OpenSimplexNoise_tjhyb" )
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eevyp"]
+shader = ExtResource( "1_2wsr0" )
+shader_param/background_noise = SubResource( "NoiseTexture_vaoj6" )
+
+[sub_resource type="Sky" id="Sky_1iovh"]
+sky_material = SubResource( "ShaderMaterial_eevyp" )
+
+[sub_resource type="Environment" id="Environment_x3x0y"]
+background_mode = 2
+sky = SubResource( "Sky_1iovh" )
+ambient_light_color = Color(0.5, 0.5, 0.5, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 1
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.5
+glow_blend_mode = 1
+volumetric_fog_albedo = Color(0.32549, 0.32549, 0.32549, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource( "Environment_x3x0y" )
