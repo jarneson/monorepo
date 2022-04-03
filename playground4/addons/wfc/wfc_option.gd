@@ -2,13 +2,23 @@ extends Resource
 class_name WFCOption
 
 enum Socket {
-	NULL = 0,
-	AIR = 1,
-	WALL = 2,
-	FLOOR = 4,
-	LEDGE = 8,
-	RAMP = 16,
-	MAX = 32,
+	ZERO = 0,
+	ONE = 1,
+	TWO = 2,
+	THREE = 4,
+	FOUR = 8,
+	FIVE = 16,
+	SIX = 32,
+	SEVEN = 64,
+	EIGHT = 128,
+	NINE = 256,
+	TEN = 512,
+	ELEVEN = 1024,
+	TWELVE = 2048,
+	THIRTEEN = 4096,
+	FOURTEEN = 8192,
+	FIFTEEN = 16384,
+	SIXTEEN = 32768
 }
 
 @export var scene: PackedScene
@@ -31,12 +41,12 @@ enum Socket {
 @export var socket_y_pos: Socket
 @export var socket_y_neg: Socket
 
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_z_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_z_neg: int
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_x_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_x_neg: int
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_y_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_y_neg: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_z_pos: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_z_neg: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_x_pos: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_x_neg: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_y_pos: int
+@export_flags("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16") var socket_mask_y_neg: int
 
 func permute_rotations() -> Array:
 	var out = []

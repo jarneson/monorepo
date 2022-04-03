@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg2n7vqsoanlu"]
+[gd_scene load_steps=2 format=3 uid="uid://cg2n7vqsoanlu"]
 
 [ext_resource type="Script" path="res://addons/wfc/gui/gui.gd" id="1_wb06l"]
-[ext_resource type="PackedScene" uid="uid://bvxkmcbn1tq2y" path="res://addons/wfc/gui/option_panel.tscn" id="2_ojylc"]
 
 [node name="WFCGUI" type="VBoxContainer"]
 clip_contents = true
@@ -85,16 +84,3 @@ offset_bottom = 2596.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 16
-
-[node name="OptionPanel" parent="Scroll/Container" instance=ExtResource( "2_ojylc" )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 1024.0
-offset_bottom = 256.0
-
-[node name="OptionPanel2" parent="Scroll/Container" instance=ExtResource( "2_ojylc" )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 272.0
-offset_right = 1024.0
-offset_bottom = 528.0

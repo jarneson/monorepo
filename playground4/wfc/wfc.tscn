@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3r056tjvxats"]
+[gd_scene load_steps=8 format=3 uid="uid://b3r056tjvxats"]
 
 [ext_resource type="Script" path="res://addons/wfc/wfc.gd" id="1_5yuwa"]
 [ext_resource type="PackedScene" path="res://wfc/wfc_node.tscn" id="2_7st3j"]
 [ext_resource type="Resource" path="res://wfc/options2/air.tres" id="4_aqfmd"]
+[ext_resource type="Resource" uid="uid://77p8tmf0o460" path="res://bar.tres" id="4_kux18"]
 [ext_resource type="Script" path="res://free_look.gd" id="8_1jv6s"]
 [ext_resource type="PackedScene" uid="uid://ctmepqia6svt8" path="res://scenes/PostProcessQuad.tscn" id="11_o7inl"]
 [ext_resource type="PackedScene" uid="uid://bh6oapssql4n8" path="res://scenes/WorldEnvironment.tscn" id="12_312wr"]
@@ -17,6 +18,7 @@ width = 32
 height = 16
 depth = 32
 wfc_node_scene = ExtResource( "2_7st3j" )
+wfc_option_set = ExtResource( "4_kux18" )
 wfc_air = ExtResource( "4_aqfmd" )
 
 [node name="FreeLook" type="Node3D" parent="."]

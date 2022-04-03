@@ -72,4 +72,8 @@ func refresh_gui():
 		p.option = opt
 		p.editor_interface = editor_interface
 		options_container.add_child(p)
-	
+		p.deleted.connect(Callable(self, "option_deleted").bind(opt))
+
+func option_deleted(opt):
+	current_set.options.erase(opt)
+	refresh_gui()

@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccs4vcc1ijrvi"]
+[gd_scene load_steps=6 format=3 uid="uid://ccs4vcc1ijrvi"]
+
+[ext_resource type="Script" path="res://addons/wfc/gui/mask_selector.gd" id="1_yxvoq"]
 
 [sub_resource type="Gradient" id="Gradient_ub0vg"]
 offsets = PackedFloat32Array(0)
@@ -18,6 +20,8 @@ gradient = SubResource( "Gradient_j23cj" )
 offset_right = 156.0
 offset_bottom = 36.0
 columns = 8
+script = ExtResource( "1_yxvoq" )
+is_selector_not_mask = false
 
 [node name="Button1" type="TextureButton" parent="."]
 minimum_size = Vector2(16, 16)
