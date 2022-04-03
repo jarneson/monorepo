@@ -8,7 +8,8 @@ extends Node3D
 @export var iterate_speed: float = 0.0;
 
 @export var wfc_node_scene: PackedScene
-@export var wfc_options: Array[Resource]
+@export var wfc_option_set: Resource
+@export var wfc_air: Resource
 
 var wfc_option_instances: Array
 
@@ -18,7 +19,7 @@ func _ready():
 
 func permute_options():
 	wfc_option_instances = []
-	for o in wfc_options:
+	for o in wfc_option_set.options:
 		wfc_option_instances.append_array(o.permute_rotations())
 
 func reset():
@@ -46,6 +47,17 @@ func create_children():
 				add_child(inst)
 				inst.global_transform.origin = (Vector3(i,j,k)-Vector3(width,height,depth)/2.0) * grid_size;
 				nodes.push_back(inst)
+	initial_constraints()
+
+func initial_constraints():
+	# air on top
+	var air_inst = wfc_air.permute_rotations()
+	var y = height-1;
+	for x in width:
+		for z in depth:
+			get_wfc_node(Vector3(x,y,z)).options = air_inst
+			propogate(Vector3(x,y,z))
+	pass
 
 @onready var next_iteration := iterate_speed
 
@@ -75,21 +87,20 @@ func min_entropy_index() -> Vector3:
 		if entropy < min_entropy or min_entropy <= 1:
 			min_entropy = entropy
 	var opts = seen[min_entropy]
-	print(seen.keys(), ": ", min_entropy)
 	return opts[randi() % opts.size()]
 
 func iterate():
-	var t1 := Time.get_ticks_msec()
-	var min_index := min_entropy_index()
-	var t2 := Time.get_ticks_msec()
-	if get_wfc_node(min_index).entropy() <= 1:
-		return
-	get_wfc_node(min_index).collapse()
-	var t3 := Time.get_ticks_msec()
-	propogate(min_index)
-	var t4 := Time.get_ticks_msec()
+	var ts = Time.get_ticks_msec()
+	var elapsed = 0
+	while elapsed < 10:
+		var min_index := min_entropy_index()
+		if get_wfc_node(min_index).entropy() <= 1:
+			print("done")
+			return
+		get_wfc_node(min_index).collapse()
+		propogate(min_index)
+		elapsed += Time.get_ticks_msec() - ts
 	
-	print("%s, %s, %s" % [t2-t1, t3-t2, t4-t3])
 
 const directions = [
 	Vector3.UP,

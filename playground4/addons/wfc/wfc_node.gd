@@ -69,4 +69,7 @@ func constrain(other, dir: Vector3) -> bool:
 		if other_out_mask & options[o_idx].get(dir_to_mask[-dir]) == 0 or other_in_mask & options[o_idx].get(dir_to_socket[-dir]) == 0:
 			options.remove_at(o_idx)
 			mutated = true
+	if options.size() == 0:
+		print("emptied options at %s from %s is %s" % [grid_position, other.grid_position, other_out_mask])
+		return false
 	return mutated

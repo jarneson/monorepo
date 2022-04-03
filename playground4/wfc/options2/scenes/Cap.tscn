@@ -1,0 +1,43 @@
+[gd_scene load_steps=14 format=3 uid="uid://d1xcyygoa3rw"]
+
+[ext_resource type="Material" uid="uid://b4i0cps0lllg8" path="res://addons/ply/materials/debug_material_light.tres" id="1_krrw1"]
+[ext_resource type="Script" path="res://addons/ply/nodes/ply.gd" id="2_itqcp"]
+[ext_resource type="Script" path="res://addons/ply/resources/ply_mesh.gd" id="3_0dk5y"]
+[ext_resource type="Material" uid="uid://b5hltcvsr8ow7" path="res://addons/ply/materials/debug_material_medium.tres" id="4_txce7"]
+[ext_resource type="Material" uid="uid://skrl8khxn3qq" path="res://addons/ply/materials/debug_material_dark.tres" id="5_wbw66"]
+[ext_resource type="Material" uid="uid://dacfunt7kmw4i" path="res://addons/ply/materials/debug_material_red.tres" id="6_7q62j"]
+[ext_resource type="Material" uid="uid://c3fj8shvw38ya" path="res://addons/ply/materials/debug_material_orange.tres" id="7_ffkwm"]
+[ext_resource type="Material" uid="uid://dopi0ecblkm83" path="res://addons/ply/materials/debug_material_yellow.tres" id="8_b1d8y"]
+[ext_resource type="Material" uid="uid://f6xd80u8vkfw" path="res://addons/ply/materials/debug_material_green.tres" id="9_ymytb"]
+[ext_resource type="Material" uid="uid://l5ph4ka5c0uq" path="res://addons/ply/materials/debug_material_blue.tres" id="10_t51uy"]
+[ext_resource type="Material" uid="uid://m4fm1mohv8oo" path="res://addons/ply/materials/debug_material_purple.tres" id="11_hjymp"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rry4q"]
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1.00001, 1, 1.00001),
+"format": 4099,
+"index_count": 18,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 2, 0, 1, 0, 4, 0, 1, 0, 0, 0, 4, 0, 0, 0, 3, 0, 4, 0, 3, 0, 2, 0, 4, 0),
+"primitive": 3,
+"vertex_count": 5,
+"vertex_data": PackedByteArray(0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 63, 15, 187, 242, 48, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 191, 103, 83, 119, 9, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 191, 239, 184, 242, 14, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 63, 151, 80, 119, 54, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 255, 253, 255, 31)
+}]
+
+[sub_resource type="Resource" id="Resource_oth4y"]
+script = ExtResource( "3_0dk5y" )
+vertexes = PackedVector3Array(-0.5, 0, -0.5, 0.5, 0, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0, 1, 0)
+vertex_edges = PackedInt32Array(0, 1, 2, 3, 4)
+edge_vertexes = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 0, 4, 1, 4, 2, 4, 3)
+edge_faces = PackedInt32Array(0, 1, 0, 2, 0, 3, 0, 4, 4, 1, 1, 2, 2, 3, 3, 4)
+edge_edges = PackedInt32Array(3, 5, 0, 6, 1, 7, 2, 4, 7, 0, 4, 1, 5, 2, 6, 3)
+face_edges = PackedInt32Array(0, 4, 5, 6, 7)
+face_surfaces = PackedInt32Array(0, 0, 0, 0, 0)
+
+[node name="Cap" type="MeshInstance3D"]
+mesh = SubResource( "ArrayMesh_rry4q" )
+surface_material_override/0 = ExtResource( "1_krrw1" )
+
+[node name="PlyEditor" type="Node3D" parent="."]
+script = ExtResource( "2_itqcp" )
+ply_mesh = SubResource( "Resource_oth4y" )
+materials = [ExtResource( "1_krrw1" ), ExtResource( "4_txce7" ), ExtResource( "5_wbw66" ), ExtResource( "6_7q62j" ), ExtResource( "7_ffkwm" ), ExtResource( "8_b1d8y" ), ExtResource( "9_ymytb" ), ExtResource( "10_t51uy" ), ExtResource( "11_hjymp" )]

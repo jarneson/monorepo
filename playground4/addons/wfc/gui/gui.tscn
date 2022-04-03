@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg2n7vqsoanlu"]
+
+[ext_resource type="Script" path="res://addons/wfc/gui/gui.gd" id="1_wb06l"]
+[ext_resource type="PackedScene" uid="uid://bvxkmcbn1tq2y" path="res://addons/wfc/gui/option_panel.tscn" id="2_ojylc"]
+
+[node name="WFCGUI" type="VBoxContainer"]
+clip_contents = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2040.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( "1_wb06l" )
+
+[node name="Toolbar" type="Panel" parent="."]
+minimum_size = Vector2(0, 40)
+offset_right = 1024.0
+offset_bottom = 40.0
+
+[node name="M" type="MarginContainer" parent="Toolbar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+__meta__ = {
+"_edit_layout_mode": 1,
+"_edit_use_custom_anchors": false
+}
+
+[node name="H" type="HBoxContainer" parent="Toolbar/M"]
+offset_left = 10.0
+offset_right = 1024.0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
+
+[node name="NewSet" type="Button" parent="Toolbar/M/H"]
+offset_right = 43.0
+offset_bottom = 40.0
+text = "New"
+flat = true
+
+[node name="LoadSet" type="Button" parent="Toolbar/M/H"]
+offset_left = 47.0
+offset_right = 93.0
+offset_bottom = 40.0
+text = "Load"
+flat = true
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/M/H"]
+offset_left = 97.0
+offset_right = 101.0
+offset_bottom = 40.0
+
+[node name="LoadedSet" type="Label" parent="Toolbar/M/H"]
+offset_left = 105.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 33.0
+text = "None"
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Toolbar/M/H"]
+offset_left = 151.0
+offset_right = 155.0
+offset_bottom = 40.0
+
+[node name="AddScene" type="Button" parent="Toolbar/M/H"]
+offset_left = 159.0
+offset_right = 247.0
+offset_bottom = 40.0
+text = "Add Scene"
+flat = true
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+offset_top = 44.0
+offset_right = 1024.0
+offset_bottom = 2640.0
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Container" type="VBoxContainer" parent="Scroll"]
+offset_right = 1024.0
+offset_bottom = 2596.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="OptionPanel" parent="Scroll/Container" instance=ExtResource( "2_ojylc" )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1024.0
+offset_bottom = 256.0
+
+[node name="OptionPanel2" parent="Scroll/Container" instance=ExtResource( "2_ojylc" )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 272.0
+offset_right = 1024.0
+offset_bottom = 528.0

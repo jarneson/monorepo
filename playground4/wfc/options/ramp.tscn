@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl3ib13q70f6h"]
+
+[ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_ejbrx"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n55wx"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
+"format": 4099,
+"index_count": 18,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 4, 0, 5, 0, 0, 0, 0, 0, 3, 0, 4, 0, 4, 0, 3, 0, 2, 0, 0, 0, 5, 0, 1, 0),
+"primitive": 3,
+"vertex_count": 6,
+"vertex_data": PackedByteArray(0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 191, 84, 169, 162, 10, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 149, 84, 242, 31, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 228, 218, 240, 31, 0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 191, 38, 99, 131, 13, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 228, 254, 103, 3, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 149, 252, 87, 9)
+}, {
+"aabb": AABB(-0.5, -0.5, -0.5, 1.00001, 1, 1.00001),
+"format": 4099,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0),
+"primitive": 3,
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 63, 0, 0, 0, 191, 0, 0, 0, 63, 255, 165, 157, 54, 0, 0, 0, 191, 0, 0, 0, 191, 0, 0, 0, 63, 255, 165, 157, 54, 0, 0, 0, 191, 0, 0, 0, 63, 0, 0, 0, 191, 255, 165, 157, 54, 0, 0, 0, 63, 0, 0, 0, 63, 0, 0, 0, 191, 255, 165, 157, 54)
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i23w5"]
+render_priority = 0
+shader = ExtResource( "1_ejbrx" )
+shader_param/line_albedo = Color(0, 1, 0, 1)
+shader_param/fill_albedo = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dyrd"]
+render_priority = 0
+shader = ExtResource( "1_ejbrx" )
+shader_param/line_albedo = null
+shader_param/fill_albedo = Color(1, 0, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource( "ArrayMesh_n55wx" )
+surface_material_override/0 = SubResource( "ShaderMaterial_i23w5" )
+surface_material_override/1 = SubResource( "ShaderMaterial_4dyrd" )

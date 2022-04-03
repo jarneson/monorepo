@@ -17,11 +17,17 @@ _global_script_classes=[{
 "base": "Resource",
 "class": &"WFCOption",
 "language": &"GDScript",
-"path": "res://wfc/wfc_option.gd"
+"path": "res://addons/wfc/wfc_option.gd"
+}, {
+"base": "Resource",
+"class": &"WFCOptionSet",
+"language": &"GDScript",
+"path": "res://addons/wfc/wfc_option_set.gd"
 }]
 _global_script_class_icons={
 "PlyMesh": "",
-"WFCOption": ""
+"WFCOption": "",
+"WFCOptionSet": ""
 }
 
 [application]
@@ -33,7 +39,7 @@ config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ply/plugin.cfg")
+enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/wfc/plugin.cfg")
 
 [input]
 

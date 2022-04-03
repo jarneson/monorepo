@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://niax5gdfrjyq"]
+
+[ext_resource type="Script" path="res://addons/wfc/wfc_option_set.gd" id="1_kyy7p"]
+
+[resource]
+script = ExtResource( "1_kyy7p" )
+options = []

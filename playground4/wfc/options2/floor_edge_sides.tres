@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://addons/wfc/wfc_option.gd" id="1_5830g"]
+[ext_resource type="PackedScene" uid="uid://bslapac1ytaje" path="res://wfc/options2/scenes/FloorEdgeSides.tscn" id="1_y7xy7"]
+
+[resource]
+script = ExtResource( "1_5830g" )
+scene = ExtResource( "1_y7xy7" )
+weight = 0.0
+allow_y_rot_90 = true
+allow_y_rot_180 = true
+allow_y_rot_270 = true
+allow_x_rot_90 = false
+allow_x_rot_180 = null
+allow_x_rot_270 = null
+allow_z_rot_90 = null
+allow_z_rot_180 = null
+allow_z_rot_270 = null
+socket_z_pos = 4
+socket_z_neg = 4
+socket_x_pos = 4
+socket_x_neg = 4
+socket_y_pos = 4
+socket_y_neg = 4
+socket_mask_z_pos = 3
+socket_mask_z_neg = 3
+socket_mask_x_pos = 28
+socket_mask_x_neg = 28
+socket_mask_y_pos = 1
+socket_mask_y_neg = 2

@@ -3,7 +3,6 @@
 [ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_mk8q3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a5pri"]
-size = Vector3(1, 0.5, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_okjpj"]
 render_priority = 0
@@ -14,6 +13,5 @@ shader_param/fill_albedo = null
 [node name="Floor" type="Node3D"]
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 mesh = SubResource( "BoxMesh_a5pri" )
 surface_material_override/0 = SubResource( "ShaderMaterial_okjpj" )

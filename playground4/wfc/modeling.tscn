@@ -1,0 +1,34 @@
+[gd_scene load_steps=11 format=3 uid="uid://csjoeiwr7rvr5"]
+
+[ext_resource type="PackedScene" uid="uid://dxxvfnhxajouc" path="res://wfc/options2/scenes/Empty.tscn" id="1_71rbx"]
+[ext_resource type="PackedScene" uid="uid://647uclqi14t" path="res://wfc/options2/scenes/Solid.tscn" id="2_q13ul"]
+[ext_resource type="PackedScene" uid="uid://cgxue7el2bcmn" path="res://wfc/options2/scenes/FloorEdge1.tscn" id="3_54l13"]
+[ext_resource type="PackedScene" uid="uid://h51hgnf6gt7w" path="res://wfc/options2/scenes/Solid2.tscn" id="3_dn43m"]
+[ext_resource type="PackedScene" uid="uid://de2ea2nevw1hd" path="res://wfc/options2/scenes/FloorEdge2.tscn" id="4_1gr0j"]
+[ext_resource type="PackedScene" uid="uid://10hk3ttc1bp3" path="res://wfc/options2/scenes/FloorEdge3.tscn" id="5_d0s2q"]
+[ext_resource type="PackedScene" uid="uid://cuqi5eome2ug1" path="res://wfc/options2/scenes/Bridge.tscn" id="6_qlby6"]
+[ext_resource type="PackedScene" uid="uid://yho567tv68df" path="res://wfc/options2/scenes/Ramp.tscn" id="7_mjxyx"]
+[ext_resource type="PackedScene" uid="uid://bslapac1ytaje" path="res://wfc/options2/scenes/FloorEdgeSides.tscn" id="9_eb5so"]
+[ext_resource type="PackedScene" uid="uid://d1xcyygoa3rw" path="res://wfc/options2/scenes/Cap.tscn" id="10_gqmjl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Empty" parent="." instance=ExtResource( "1_71rbx" )]
+
+[node name="Solid" parent="." instance=ExtResource( "2_q13ul" )]
+
+[node name="Solid2" parent="." instance=ExtResource( "3_dn43m" )]
+
+[node name="FloorEdge1" parent="." instance=ExtResource( "3_54l13" )]
+
+[node name="FloorEdge2" parent="." instance=ExtResource( "4_1gr0j" )]
+
+[node name="FloorEdge3" parent="." instance=ExtResource( "5_d0s2q" )]
+
+[node name="Bridge" parent="." instance=ExtResource( "6_qlby6" )]
+
+[node name="Ramp" parent="." instance=ExtResource( "7_mjxyx" )]
+
+[node name="FloorEdgeSides" parent="." instance=ExtResource( "9_eb5so" )]
+
+[node name="Cap" parent="." instance=ExtResource( "10_gqmjl" )]

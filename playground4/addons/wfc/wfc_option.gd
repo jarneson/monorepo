@@ -7,6 +7,7 @@ enum Socket {
 	WALL = 2,
 	FLOOR = 4,
 	LEDGE = 8,
+	RAMP = 16,
 	MAX = 32,
 }
 
@@ -30,12 +31,12 @@ enum Socket {
 @export var socket_y_pos: Socket
 @export var socket_y_neg: Socket
 
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_z_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_z_neg: int
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_x_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_x_neg: int
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_y_pos: int
-@export_flags("Air", "Wall", "Floor", "Ledge") var socket_mask_y_neg: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_z_pos: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_z_neg: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_x_pos: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_x_neg: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_y_pos: int
+@export_flags("Air", "Wall", "Floor", "Ledge", "Ramp") var socket_mask_y_neg: int
 
 func permute_rotations() -> Array:
 	var out = []

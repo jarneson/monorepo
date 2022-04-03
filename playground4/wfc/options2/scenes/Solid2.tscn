@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://h51hgnf6gt7w"]
+
+[ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_4klr7"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_haj5i"]
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1.00001, 1.00001, 1.00001),
+"format": 4099,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 4, 0, 5, 0, 6, 0, 6, 0, 7, 0, 4, 0, 3, 0, 2, 0, 6, 0, 6, 0, 5, 0, 3, 0, 0, 0, 3, 0, 5, 0, 5, 0, 4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 4, 0, 7, 0, 1, 0, 2, 0, 1, 0, 7, 0, 7, 0, 6, 0, 2, 0),
+"primitive": 3,
+"vertex_count": 8,
+"vertex_data": PackedByteArray(0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 84, 83, 173, 42, 0, 0, 0, 191, 0, 0, 128, 63, 0, 0, 0, 63, 46, 65, 27, 58, 0, 0, 0, 191, 0, 0, 128, 63, 0, 0, 0, 191, 170, 80, 77, 21, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 191, 208, 66, 219, 5, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 63, 170, 170, 66, 53, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 191, 161, 187, 228, 18, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 191, 84, 169, 162, 10, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 63, 93, 184, 4, 45)
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pehk"]
+render_priority = 0
+shader = ExtResource( "1_4klr7" )
+shader_param/line_albedo = Color(0, 0, 0, 1)
+shader_param/fill_albedo = Color(0.247059, 0, 0, 1)
+
+[node name="Solid2" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0)
+mesh = SubResource( "ArrayMesh_haj5i" )
+surface_material_override/0 = SubResource( "ShaderMaterial_1pehk" )
