@@ -195,7 +195,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/posx/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="negx" type="VBoxContainer" parent="H/R"]
 offset_left = 377.0
@@ -225,7 +224,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/negx/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="posy" type="VBoxContainer" parent="H/R"]
 offset_top = 82.0
@@ -255,7 +253,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/posy/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="negy" type="VBoxContainer" parent="H/R"]
 offset_left = 377.0
@@ -286,7 +283,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/negy/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="posz" type="VBoxContainer" parent="H/R"]
 offset_top = 164.0
@@ -316,7 +312,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/posz/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="negz" type="VBoxContainer" parent="H/R"]
 offset_left = 377.0
@@ -347,7 +342,6 @@ offset_bottom = 36.0
 [node name="MaskSelector2" parent="H/R/negz/HBoxContainer" instance=ExtResource( "2_auclk" )]
 offset_left = 176.0
 offset_right = 332.0
-is_selector_not_mask = false
 
 [node name="M" type="VBoxContainer" parent="H"]
 offset_left = 1007.0

@@ -2,6 +2,7 @@
 extends Panel
 
 signal deleted
+signal changed
 
 const MaskSelector = preload("res://addons/wfc/gui/mask_selector.gd")
 
@@ -100,6 +101,7 @@ func update_resource():
 	option.socket_mask_y_neg = masks[3].get_value()
 	option.socket_mask_z_pos = masks[4].get_value()
 	option.socket_mask_z_neg = masks[5].get_value()
+	changed.emit()
 
 func parse_resource():
 	weight_input.value = option.weight

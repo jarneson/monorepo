@@ -58,6 +58,9 @@ func add_scene_pressed():
 	current_set.options.push_back(opt)
 	refresh_gui()
 
+func save():
+	ResourceSaver.save(current_set.resource_path, current_set)
+
 func refresh_gui():
 	for c in options_container.get_children():
 		c.queue_free()
@@ -73,6 +76,7 @@ func refresh_gui():
 		p.editor_interface = editor_interface
 		options_container.add_child(p)
 		p.deleted.connect(Callable(self, "option_deleted").bind(opt))
+		p.changed.connect(save)
 
 func option_deleted(opt):
 	current_set.options.erase(opt)
