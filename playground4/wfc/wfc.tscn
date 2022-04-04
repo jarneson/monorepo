@@ -14,9 +14,9 @@
 
 [node name="WFC" type="Node3D" parent="."]
 script = ExtResource( "1_5yuwa" )
-width = 32
-height = 16
-depth = 32
+width = 128
+height = 8
+depth = 128
 wfc_node_scene = ExtResource( "2_7st3j" )
 wfc_option_set = ExtResource( "4_kux18" )
 wfc_air = ExtResource( "4_aqfmd" )

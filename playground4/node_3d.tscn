@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://0vnej71bw7vq"]
+[gd_scene load_steps=55 format=3 uid="uid://0vnej71bw7vq"]
 
 [ext_resource type="Script" path="res://addons/ply/nodes/ply.gd" id="2_878g5"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_ihtpc"]
@@ -15,8 +15,9 @@
 [ext_resource type="Material" uid="uid://l5ph4ka5c0uq" path="res://addons/ply/materials/debug_material_blue.tres" id="11_w4qxp"]
 [ext_resource type="Material" uid="uid://m4fm1mohv8oo" path="res://addons/ply/materials/debug_material_purple.tres" id="12_36l0y"]
 [ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="13_42xm0"]
-[ext_resource type="Shader" path="res://shaders/decal.gdshader" id="15_ikf3q"]
-[ext_resource type="Texture2D" uid="uid://sjgcon7v884a" path="res://test_tex.png" id="16_vn6o5"]
+[ext_resource type="PackedScene" uid="uid://uhnnoq4mvsai" path="res://gun.tscn" id="16_26frh"]
+[ext_resource type="Script" path="res://gun.gd" id="17_e36m8"]
+[ext_resource type="PackedScene" uid="uid://b8gbwsj6axi15" path="res://bullets/bullet.tscn" id="18_cwpvp"]
 
 [sub_resource type="OpenSimplexNoise" id="OpenSimplexNoise_tjhyb"]
 
@@ -260,47 +261,6 @@ shader_param/line_glow_intensity = 25.0
 shader_param/fill_glow_intensity = 2.0
 shader_param/bias = 0.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_d72b6"]
-size = Vector2(4, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r4qwj"]
-render_priority = 0
-shader = ExtResource( "15_ikf3q" )
-shader_param/color = Color(1, 0, 0, 1)
-shader_param/intensity = 25.0
-shader_param/tex = ExtResource( "16_vn6o5" )
-
-[sub_resource type="SphereMesh" id="SphereMesh_mdsps"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8ka7"]
-render_priority = 0
-shader = ExtResource( "15_ikf3q" )
-shader_param/color = Color(1, 0, 0, 1)
-shader_param/intensity = 25.0
-shader_param/tex = ExtResource( "16_vn6o5" )
-
-[sub_resource type="Curve" id="Curve_3ym6g"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-
-[sub_resource type="CurveTexture" id="CurveTexture_j8rs3"]
-curve = SubResource( "Curve_3ym6g" )
-
-[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_4hb1v"]
-spread = 0.0
-gravity = Vector3(0, 0, 9.8)
-initial_velocity_min = -2.0
-initial_velocity_max = 2.0
-scale_curve = SubResource( "CurveTexture_j8rs3" )
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p81jo"]
-render_priority = 0
-shader = ExtResource( "13_42xm0" )
-shader_param/line_albedo = null
-shader_param/fill_albedo = Color(0.309804, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_1r1ra"]
-material = SubResource( "ShaderMaterial_p81jo" )
-
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -507,26 +467,7 @@ mesh = SubResource( "QuadMesh_vtg18" )
 skeleton = NodePath("")
 surface_material_override/0 = SubResource( "ShaderMaterial_4dkks" )
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.991012, 0, 0.133779, 0, 1, 0, -0.133779, 0, -0.991012, 0.435923, 4, 15)
-mesh = SubResource( "QuadMesh_d72b6" )
-surface_material_override/0 = SubResource( "ShaderMaterial_r4qwj" )
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60525, 8.55024)
-mesh = SubResource( "SphereMesh_mdsps" )
-surface_material_override/0 = SubResource( "ShaderMaterial_p8ka7" )
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(-0.0282706, -0.999507, 0.0136252, 0, 0.0136306, 0.999907, -0.9996, 0.028268, -0.000385346, 0, 0.219, 8.615)
-amount = 32
-lifetime = 2.0
-process_material = SubResource( "ParticlesMaterial_4hb1v" )
-draw_pass_1 = SubResource( "SphereMesh_1r1ra" )
-
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
-transform = Transform3D(-0.0282706, -0.999507, 0.0136252, 0, 0.0136306, 0.999907, -0.9996, 0.028268, -0.000385346, 0, 0.219, -8.47271)
-amount = 32
-lifetime = 2.0
-process_material = SubResource( "ParticlesMaterial_4hb1v" )
-draw_pass_1 = SubResource( "SphereMesh_1r1ra" )
+[node name="Rifle" parent="CharacterBody3D/Pivot" instance=ExtResource( "16_26frh" )]
+transform = Transform3D(0.062024, 0.00696781, 0.99805, -0.0069678, 0.999953, -0.00654809, -0.998049, -0.00654808, 0.0620697, 0.816015, -0.412223, -1.19726)
+script = ExtResource( "17_e36m8" )
+bullet_scene = ExtResource( "18_cwpvp" )
