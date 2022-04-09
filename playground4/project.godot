@@ -47,6 +47,10 @@ config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
 enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/wfc/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_left={

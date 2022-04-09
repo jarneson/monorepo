@@ -9,9 +9,14 @@ var speed = 4.0
 
 func _ready():
 	nav_agent.set_target_location(target_node.global_transform.origin)
+	nav_agent.velocity_computed.connect(_velocity_computed)
+
+func _velocity_computed(v: Vector3):
+	velocity = v
+	move_and_slide()
 
 func _physics_process(delta):
 	print(nav_agent.get_next_location())
 	velocity = (nav_agent.get_next_location() - global_transform.origin).normalized() * speed
-	move_and_slide()
+	nav_agent.set_velocity(velocity)
 	pass
