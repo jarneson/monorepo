@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://d15qvhisf3sq0"]
+
+[ext_resource type="ArrayMesh" uid="uid://bfgmcirxkq76d" path="res://guns/bodies/ar-brow.res" id="1_hvl6u"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.341451)
+mesh = ExtResource( "1_hvl6u" )
+
+[node name="BarrelAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0919383, -0.607036)
+
+[node name="GripAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0912758, 0.000100113)
+
+[node name="StockAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.150865)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmc6p802lm5f2"]
+
+[ext_resource type="ArrayMesh" uid="uid://cmwx018aj0tyy" path="res://guns/barrels/long-accurate.res" id="1_hfbi3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.360262)
+mesh = ExtResource( "1_hfbi3" )

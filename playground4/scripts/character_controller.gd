@@ -7,6 +7,8 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@onready var gun = $Pivot/Gun
+
 func _ready():
 	print("ready")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -24,10 +26,22 @@ func _unhandled_input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			print("lock")
 
+@export_range(10.0, 100.0) var fov: float = 75.0
+@export var gun_offset := Vector3(0.6, -0.4, -1)
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	
+	if Input.is_action_pressed("shoot"):
+		gun.fire()
+	if Input.is_action_pressed("zoom"):
+		$Pivot/Camera3D.fov = lerp($Pivot/Camera3D.fov, fov/2.0, delta*10.0)
+		gun.position = Vector3(0.0, gun_offset.y, gun_offset.z)
+	else:
+		$Pivot/Camera3D.fov = lerp($Pivot/Camera3D.fov, fov, delta*10.0)
+		gun.position = gun_offset
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://uhnnoq4mvsai"]
+[gd_scene load_steps=7 format=3 uid="uid://uhnnoq4mvsai"]
 
-[ext_resource type="PackedScene" uid="uid://bsn7r2viln3gb" path="res://quaternius/Barrel_Sniper_1.gltf" id="6_iqvfw"]
+[ext_resource type="PackedScene" uid="uid://wd8qcmytf5bn" path="res://quaternius/Barrel_Sniper_1.gltf" id="6_iqvfw"]
 [ext_resource type="PackedScene" uid="uid://c4g1riglv3p0m" path="res://quaternius/Stock_AR_1.gltf" id="6_j7rc2"]
 [ext_resource type="PackedScene" uid="uid://bjudct2o0kjhu" path="res://quaternius/Scope_2.gltf" id="6_kgwt6"]
-[ext_resource type="PackedScene" uid="uid://be03hh3ese2rb" path="res://quaternius/Body_AR_6.gltf" id="7_82ihn"]
-[ext_resource type="PackedScene" uid="uid://dslikek1upmlg" path="res://quaternius/Handguard_Pistol_3.gltf" id="7_h7kgc"]
+[ext_resource type="PackedScene" uid="uid://b3ce7o01brxcb" path="res://quaternius/Body_AR_6.gltf" id="7_82ihn"]
 [ext_resource type="PackedScene" uid="uid://djaem63iffg26" path="res://quaternius/Magazine_AR.gltf" id="10_vtreu"]
 [ext_resource type="PackedScene" uid="uid://q46csyf5ib0x" path="res://quaternius/Grip_AR_6.gltf" id="33_3ggus"]
 
@@ -16,7 +15,7 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866069, 0, 0)
 
 [node name="Grip_AR_6" parent="." instance=ExtResource( "33_3ggus" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.244608, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.222446, 0)
 
 [node name="Magazine_AR" parent="." instance=ExtResource( "10_vtreu" )]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.439473, -0.270426, 0)
@@ -28,7 +27,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.759608, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84858, 0, 0)
 
 [node name="Scope_2" parent="." instance=ExtResource( "6_kgwt6" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.488445, 0.0989469, 0)
-
-[node name="Handguard_Pistol_3" parent="." instance=ExtResource( "7_h7kgc" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.861242, -0.115065, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.488445, 0.0722028, 0)

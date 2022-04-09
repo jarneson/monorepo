@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://magb1kyf7kth"]
+
+[ext_resource type="ArrayMesh" uid="uid://debsexfft25av" path="res://guns/barrels/grenade.res" id="1_nc3ao"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.000132605)
+mesh = ExtResource( "1_nc3ao" )

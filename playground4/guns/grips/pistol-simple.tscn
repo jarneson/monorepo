@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cagw0sn22cfi1"]
+
+[ext_resource type="ArrayMesh" uid="uid://7ebix8vhtmsx" path="res://guns/grips/pistol-simple.res" id="1_ay3gh"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108183, 0.0876745)
+mesh = ExtResource( "1_ay3gh" )

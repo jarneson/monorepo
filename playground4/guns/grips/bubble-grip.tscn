@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bion48ppm7oej"]
+
+[ext_resource type="ArrayMesh" uid="uid://br6av0u12ptls" path="res://guns/grips/bubble-grip.res" id="1_nrcbt"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0878954, 0.145977)
+mesh = ExtResource( "1_nrcbt" )

@@ -10,6 +10,11 @@ config_version=5
 
 _global_script_classes=[{
 "base": "Resource",
+"class": &"GunModBase",
+"language": &"GDScript",
+"path": "res://guns/resources/mod_base.gd"
+}, {
+"base": "Resource",
 "class": &"PlyMesh",
 "language": &"GDScript",
 "path": "res://addons/ply/resources/ply_mesh.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[{
 "path": "res://addons/wfc/wfc_option_set.gd"
 }]
 _global_script_class_icons={
+"GunModBase": "",
 "PlyMesh": "",
 "WFCOption": "",
 "WFCOptionSet": ""
@@ -68,3 +74,15 @@ shoot={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
 ]
 }
+zoom={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
+]
+}
+
+[layer_names]
+
+3d_physics/layer_1="Static"
+3d_physics/layer_2="Entity"
+3d_physics/layer_3="Ricochet"
+3d_physics/layer_4="Pierce"

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://up4j0o7xcum4"]
+
+[ext_resource type="ArrayMesh" uid="uid://dqisbuv6t66eu" path="res://guns/bodies/smg-fancy.res" id="1_wgrj2"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.722352)
+mesh = ExtResource( "1_wgrj2" )
+
+[node name="BarrelAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0921287, -1.21525)
+
+[node name="GripAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, -0.095572, 0.003187)
+
+[node name="StockAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0571319, 0.0828684)

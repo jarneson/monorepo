@@ -2,7 +2,7 @@ extends Node3D
 
 @export var bullet_scene: PackedScene
 @export var cooldown: float
-@export var count: int = 75
+@export var count: int = 5
 
 func _unhandled_input(event):
 	if event.is_action("shoot"):

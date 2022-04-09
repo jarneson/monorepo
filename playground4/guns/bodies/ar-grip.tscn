@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce73ogkxkcpji"]
+
+[ext_resource type="ArrayMesh" uid="uid://cfmuu7w17bru8" path="res://guns/bodies/ar-grip.res" id="1_aaldj"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.290411)
+mesh = ExtResource( "1_aaldj" )
+
+[node name="BarrelAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0768429, -0.613598)
+
+[node name="GripAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0785514, 0.000772506)
+
+[node name="StockAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0322187, 0.190919)

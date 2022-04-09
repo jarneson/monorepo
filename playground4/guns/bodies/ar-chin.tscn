@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b81nwq4ea3a33"]
+
+[ext_resource type="ArrayMesh" uid="uid://uio7ms3r5wqc" path="res://guns/bodies/ar-chin.res" id="1_bwglu"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.472442)
+mesh = ExtResource( "1_bwglu" )
+
+[node name="BarrelAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0399233, -0.738027)
+
+[node name="GripAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0354233, -0.031306)
+
+[node name="StockAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.064294, 0.0598875)

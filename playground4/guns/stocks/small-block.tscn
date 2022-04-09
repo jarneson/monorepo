@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://tm5e6psyvuu2"]
+
+[ext_resource type="ArrayMesh" uid="uid://cai0gwtl7tvvm" path="res://guns/stocks/small-block.res" id="1_1kj02"]
+
+[node name="Stock" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0754711, 0.0521801)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0820615, -0.0594618)
+mesh = ExtResource( "1_1kj02" )

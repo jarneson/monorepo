@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvpl1mu1ve8vd"]
+
+[ext_resource type="ArrayMesh" uid="uid://d0b0u00q66o4d" path="res://guns/barrels/long-wide.res" id="1_q6le8"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource( "1_q6le8" )

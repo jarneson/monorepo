@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1fyn3t4f6hh3"]
+
+[ext_resource type="ArrayMesh" uid="uid://cfguw4mwaucb0" path="res://guns/bodies/ar-tube.res" id="1_dx8my"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.095659)
+mesh = ExtResource( "1_dx8my" )
+
+[node name="BarrelAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286912, -0.611273)
+
+[node name="GripAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, -0.110261, -0.000100873)
+
+[node name="StockAnchor" type="Position3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164424, 0.80927)

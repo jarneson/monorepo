@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc7neonjq0306"]
+
+[ext_resource type="ArrayMesh" uid="uid://cdlesjwycpi0a" path="res://guns/stocks/bubbly.res" id="1_rx2sf"]
+
+[node name="Stock" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.124181, 0.146378)
+mesh = ExtResource( "1_rx2sf" )

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxrk871pbig13"]
+
+[ext_resource type="ArrayMesh" uid="uid://crdt0mtnxniwt" path="res://guns/grips/p90ish.res" id="1_hmvxy"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108183, 0.15369)
+mesh = ExtResource( "1_hmvxy" )

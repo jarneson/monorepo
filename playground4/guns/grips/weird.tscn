@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ed63e55snq7"]
+
+[ext_resource type="ArrayMesh" uid="uid://cpx83m75jcwxq" path="res://guns/grips/weird.res" id="1_nuv4k"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.135207, 0.0997882)
+mesh = ExtResource( "1_nuv4k" )

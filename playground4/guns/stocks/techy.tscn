@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cli6xwy6c235v"]
+
+[ext_resource type="ArrayMesh" uid="uid://22g4yruem7sh" path="res://guns/stocks/techy.res" id="1_2slnt"]
+
+[node name="Stock" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0754711, 0.0521801)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0820615, -0.0582091)
+mesh = ExtResource( "1_2slnt" )

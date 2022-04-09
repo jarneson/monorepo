@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ysci4nq2bj4y"]
+
+[ext_resource type="ArrayMesh" uid="uid://52w2igim0gqg" path="res://guns/grips/bubble-heavy.res" id="1_3kx8p"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.177009, 0.124898)
+mesh = ExtResource( "1_3kx8p" )

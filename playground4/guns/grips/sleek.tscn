@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://deut7sg4p65b5"]
+
+[ext_resource type="ArrayMesh" uid="uid://bvwltfbckn3l5" path="res://guns/grips/sleek.res" id="1_d51mj"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0785327, 0.0566738)
+mesh = ExtResource( "1_d51mj" )

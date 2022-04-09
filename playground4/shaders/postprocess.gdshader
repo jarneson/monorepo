@@ -41,12 +41,24 @@ vec3 calc_color(vec3 color) {
 	return step(vec3(0.5), color);
 }
 
+vec3 adjust_luminance2(vec3 col) {
+	return col / (0.299*col.r+0.587*col.g+0.114*col.b);
+}
+
+vec3 adjust_luminance3(vec3 col) {
+	return col / (0.23*col.r+0.73*col.g+0.04*col.b);
+}
+
+vec3 adjust_luminance(vec3 col) {
+	return col / (0.2126*col.r+0.7152*col.g+0.0722*col.b);
+}
+
 vec3 outline_color(vec3 color) {
-	return smoothstep(vec3(0.0), vec3(0.4),color)*clamp(color+vec3(1), 0.0, 1.0) * line_glow_intensity;
+	return adjust_luminance(smoothstep(vec3(0.0), vec3(0.4),color)*clamp(color+vec3(1), 0.0, 1.0)) * line_glow_intensity;
 }
 
 vec3 fill_color(vec3 color) {
-	return smoothstep(vec3(0.5), vec3(1.0), color) * fill_glow_intensity;
+	return adjust_luminance3(smoothstep(vec3(0.5), vec3(1.0), color)) * fill_glow_intensity;
 }
 
 void fragment() {

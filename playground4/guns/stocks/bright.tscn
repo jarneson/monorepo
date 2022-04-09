@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://v0wkqvtmqqqx"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctbf87wjuxf6j" path="res://guns/stocks/bright.res" id="1_02rwa"]
+
+[node name="Stock" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.107509, 0.2354)
+mesh = ExtResource( "1_02rwa" )

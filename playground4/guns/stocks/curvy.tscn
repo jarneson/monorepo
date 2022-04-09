@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkpsf4buw0nv5"]
+
+[ext_resource type="ArrayMesh" uid="uid://codi4brxrgdbr" path="res://guns/stocks/curvy.res" id="1_g150g"]
+
+[node name="Stock" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.109475, -0.00857008)
+mesh = ExtResource( "1_g150g" )

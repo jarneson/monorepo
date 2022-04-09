@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm32khgnkq6oj"]
+
+[ext_resource type="ArrayMesh" uid="uid://dpkyur1s4re7d" path="res://guns/grips/long-heavy.res" id="1_wkbbj"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.15349, 0.0769018)
+mesh = ExtResource( "1_wkbbj" )

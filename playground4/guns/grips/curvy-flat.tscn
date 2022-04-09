@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3oj7wv8rm0ut"]
+
+[ext_resource type="ArrayMesh" uid="uid://bwx1uli1qsc" path="res://guns/grips/curvy-flat.res" id="1_2bbv3"]
+
+[node name="Grip" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0843409, 0.0705479)
+mesh = ExtResource( "1_2bbv3" )
