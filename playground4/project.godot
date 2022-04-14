@@ -43,6 +43,15 @@ run/main_scene="res://node_3d.tscn"
 config/icon="res://icon.png"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
+[autoload]
+
+AIState="*res://scripts/ai_state.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/wfc/plugin.cfg")
@@ -90,3 +99,5 @@ zoom={
 3d_physics/layer_2="Entity"
 3d_physics/layer_3="Ricochet"
 3d_physics/layer_4="Pierce"
+3d_physics/layer_5="Player"
+3d_physics/layer_6="Enemy"

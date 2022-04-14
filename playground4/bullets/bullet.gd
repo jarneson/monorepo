@@ -53,7 +53,6 @@ func _move_and_collide(motion: Vector3):
 
 func _physics_process(delta):
 	# query physics state
-	var physics_state = PhysicsServer3D.space_get_direct_state(get_world_3d().space)
 	var motion = direction * speed * delta
 	var impacts = []
 	for i in 5:

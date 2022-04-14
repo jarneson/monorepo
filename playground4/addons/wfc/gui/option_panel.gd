@@ -55,7 +55,7 @@ var option: WFCOption
 func _ready():
 	scene_name_label.text = option.scene.resource_path.get_file()
 	if editor_interface:
-		editor_interface.get_resource_previewer().queue_resource_preview(option.scene.resource_path, self, "set_scene_preview", null)
+		editor_interface.get_resource_previewer().queue_edited_resource_preview(option.scene, self, "set_scene_preview", null)
 	parse_resource()
 	for s in sockets:
 		s.value_changed.connect(update_resource)
