@@ -1,11 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://dv77owmdll7h1"]
+[gd_scene load_steps=20 format=3 uid="uid://dv77owmdll7h1"]
 
 [ext_resource type="Script" path="res://scripts/character_controller.gd" id="1_1gqo8"]
 [ext_resource type="Shader" path="res://shaders/postprocess.gdshader" id="2_fahc8"]
 [ext_resource type="Script" path="res://PostProcessQuad.gd" id="3_6cptd"]
 [ext_resource type="PackedScene" uid="uid://beeqmycilo1f4" path="res://guns/gun.tscn" id="4_o86u2"]
+[ext_resource type="Script" path="res://scripts/character/movement_state_machine.gd" id="5_6mono"]
+[ext_resource type="Script" path="res://scripts/character/state_idle.gd" id="6_arm7q"]
+[ext_resource type="Script" path="res://scripts/character/state_walk.gd" id="7_uywk8"]
+[ext_resource type="Script" path="res://scripts/character/state_crouch_idle.gd" id="8_jla35"]
+[ext_resource type="Script" path="res://scripts/character/state_run.gd" id="8_uafhm"]
+[ext_resource type="Script" path="res://scripts/character/state_slide.gd" id="9_h74ek"]
+[ext_resource type="Script" path="res://scripts/character/state_crouch_walk.gd" id="11_rcho5"]
+[ext_resource type="Script" path="res://scripts/character/state_jumping.gd" id="12_xfalo"]
+[ext_resource type="Script" path="res://scripts/character/state_falling.gd" id="13_kpn28"]
+[ext_resource type="Script" path="res://scripts/character/state_climbing.gd" id="14_nheef"]
+[ext_resource type="Script" path="res://scripts/character/state_wall_running.gd" id="15_gpbkt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxln2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rippb"]
+height = 1.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_vtg18"]
 size = Vector2(2, 2)
@@ -20,14 +34,23 @@ shader_param/fill_glow_intensity = 1.0
 shader_param/bias = 0.0
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
-transform = Transform3D(-0.0697565, -0.00696425, -0.99754, 2.32831e-10, 0.999976, -0.00698126, 0.997564, -0.000486989, -0.0697548, -0.02, 0, 24.525)
+transform = Transform3D(-0.0697565, -0.00696425, -0.99754, 2.32831e-10, 0.999976, -0.00698126, 0.997564, -0.000486989, -0.0697548, 0, 0, 0)
 collision_layer = 18
 collision_mask = 3
 script = ExtResource( "1_1gqo8" )
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="StandingShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource( "CapsuleShape3D_sxln2" )
+
+[node name="StandUpRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, -5.82077e-11, -7.45058e-09, -2.91038e-11, 1, -2.25555e-10, 0, 2.874e-10, 1, -5.82077e-11, 1, 2.874e-10)
+target_position = Vector3(0, 1, 0)
+
+[node name="CrounchingShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource( "CapsuleShape3D_rippb" )
+disabled = true
 
 [node name="Pivot" type="Position3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -46,3 +69,41 @@ script = ExtResource( "3_6cptd" )
 [node name="Gun" parent="Pivot" instance=ExtResource( "4_o86u2" )]
 transform = Transform3D(0.999999, -1.16415e-10, 0, 0, 1, -2.29193e-10, 1.49012e-08, 7.71252e-10, 1, 0, -1.7, 0)
 bullet_pool_node_path = NodePath("../../../BulletPool")
+
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource( "5_6mono" )
+is_active = true
+
+[node name="Idle" type="Node" parent="Movement"]
+script = ExtResource( "6_arm7q" )
+
+[node name="Walk" type="Node" parent="Movement"]
+script = ExtResource( "7_uywk8" )
+
+[node name="Run" type="Node" parent="Movement"]
+script = ExtResource( "8_uafhm" )
+
+[node name="Slide" type="Node" parent="Movement"]
+script = ExtResource( "9_h74ek" )
+
+[node name="Crouch" type="Node" parent="Movement"]
+script = ExtResource( "8_jla35" )
+
+[node name="CrouchWalk" type="Node" parent="Movement"]
+script = ExtResource( "11_rcho5" )
+
+[node name="Jumping" type="Node" parent="Movement"]
+script = ExtResource( "12_xfalo" )
+
+[node name="Falling" type="Node" parent="Movement"]
+script = ExtResource( "13_kpn28" )
+
+[node name="Climbing" type="Node" parent="Movement"]
+script = ExtResource( "14_nheef" )
+
+[node name="WallRunning" type="Node" parent="Movement"]
+script = ExtResource( "15_gpbkt" )

@@ -113,6 +113,7 @@ var cooldown: float
 func fire():
 	if remaining_cooldown > 0:
 		return
+	$AudioStreamPlayer3D.play()
 	for i in bullets_per_shot:
 		bullet_pool.make_bullet(
 			$Body/BarrelAnchor.global_transform.origin-global_transform.basis.z,

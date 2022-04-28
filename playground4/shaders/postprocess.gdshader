@@ -43,7 +43,7 @@ vec3 calc_color(vec3 color) {
 
 vec3 adjust_luminance(vec3 col) {
 	float lum = (col.r*0.23 + col.g*0.73 + col.b*0.04);
-	return col/lum;
+	return ceil(col)*col/lum;
 }
 
 vec3 outline_color(vec3 color) {

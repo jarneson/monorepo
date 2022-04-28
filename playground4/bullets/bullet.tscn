@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8gbwsj6axi15"]
+[gd_scene load_steps=6 format=3 uid="uid://b8gbwsj6axi15"]
 
 [ext_resource type="Script" path="res://bullets/bullet.gd" id="1_3ht2f"]
 [ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_7vcr0"]
+[ext_resource type="AudioStream" uid="uid://lt7av83cwkpr" path="res://sfx/zapsplat_warfare_bullet_whizz_by_001_61427.mp3" id="3_vwcp4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_chf17"]
 render_priority = 0
@@ -18,3 +19,7 @@ script = ExtResource( "1_3ht2f" )
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource( "BoxMesh_fpu3w" )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( "3_vwcp4" )
+unit_db = -1.51

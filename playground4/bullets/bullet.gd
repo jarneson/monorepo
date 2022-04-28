@@ -63,6 +63,7 @@ func _physics_process(delta):
 		motion = motion.bounce(result[2])
 		direction = motion.normalized()
 		# decide if we ricochet, pierce, or terminate
+		$AudioStreamPlayer3D.play()
 		impacts.push_back(global_transform.origin)
 	if impacts:
 		print(impacts)

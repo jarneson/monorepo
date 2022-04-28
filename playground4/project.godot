@@ -19,6 +19,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://addons/ply/resources/ply_mesh.gd"
 }, {
+"base": "Node",
+"class": &"StateMachine",
+"language": &"GDScript",
+"path": "res://addons/statemachine/machine.gd"
+}, {
+"base": "Node",
+"class": &"StateMachineState",
+"language": &"GDScript",
+"path": "res://addons/statemachine/state.gd"
+}, {
 "base": "Resource",
 "class": &"WFCOption",
 "language": &"GDScript",
@@ -32,6 +42,8 @@ _global_script_classes=[{
 _global_script_class_icons={
 "GunModBase": "",
 "PlyMesh": "",
+"StateMachine": "",
+"StateMachineState": "",
 "WFCOption": "",
 "WFCOptionSet": ""
 }
@@ -39,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="playground4"
-run/main_scene="res://node_3d.tscn"
+run/main_scene="res://scenes/demo/demo.tscn"
 config/icon="res://icon.png"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
@@ -54,7 +66,7 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/wfc/plugin.cfg")
+enabled=PackedStringArray("res://addons/ply/plugin.cfg", "res://addons/statemachine/plugin.cfg", "res://addons/wfc/plugin.cfg")
 
 [filesystem]
 
@@ -92,6 +104,21 @@ zoom={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
 ]
 }
+move_jump={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"unicode":0,"echo":false,"script":null)
+]
+}
+move_crouch={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":0,"physical_keycode":16777238,"unicode":0,"echo":false,"script":null)
+]
+}
+move_sprint={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":0,"physical_keycode":16777237,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -101,3 +128,7 @@ zoom={
 3d_physics/layer_4="Pierce"
 3d_physics/layer_5="Player"
 3d_physics/layer_6="Enemy"
+
+[physics]
+
+3d/default_gravity=29.4
