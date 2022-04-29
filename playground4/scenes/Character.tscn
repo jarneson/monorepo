@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://dv77owmdll7h1"]
+[gd_scene load_steps=21 format=3 uid="uid://dv77owmdll7h1"]
 
 [ext_resource type="Script" path="res://scripts/character_controller.gd" id="1_1gqo8"]
 [ext_resource type="Shader" path="res://shaders/postprocess.gdshader" id="2_fahc8"]
 [ext_resource type="Script" path="res://PostProcessQuad.gd" id="3_6cptd"]
+[ext_resource type="Script" path="res://scripts/gui/hud.gd" id="4_2wyxe"]
 [ext_resource type="PackedScene" uid="uid://beeqmycilo1f4" path="res://guns/gun.tscn" id="4_o86u2"]
 [ext_resource type="Script" path="res://scripts/character/movement_state_machine.gd" id="5_6mono"]
 [ext_resource type="Script" path="res://scripts/character/state_idle.gd" id="6_arm7q"]
@@ -66,13 +67,42 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource( "ShaderMaterial_4dkks" )
 script = ExtResource( "3_6cptd" )
 
+[node name="HUD" type="MarginContainer" parent="Pivot/Camera3D"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource( "4_2wyxe" )
+actor_node_path = NodePath("../../..")
+movement_node_path = NodePath("../../../Movement")
+metadata/_edit_use_custom_anchors = false
+
+[node name="H" type="HBoxContainer" parent="Pivot/Camera3D/HUD"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="L" type="VBoxContainer" parent="Pivot/Camera3D/HUD/H"]
+offset_right = 50.0
+offset_bottom = 1080.0
+
+[node name="Debug" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
+offset_right = 50.0
+offset_bottom = 26.0
+text = "Debug"
+
+[node name="MovementState" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
+offset_top = 30.0
+offset_right = 50.0
+offset_bottom = 53.0
+
+[node name="PositionVelocity" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
+offset_top = 57.0
+offset_right = 50.0
+offset_bottom = 80.0
+
 [node name="Gun" parent="Pivot" instance=ExtResource( "4_o86u2" )]
 transform = Transform3D(0.999999, -1.16415e-10, 0, 0, 1, -2.29193e-10, 1.49012e-08, 7.71252e-10, 1, 0, -1.7, 0)
 bullet_pool_node_path = NodePath("../../../BulletPool")
-
-[node name="CoyoteTime" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource( "5_6mono" )

@@ -14,6 +14,8 @@ func physics_process(_delta):
 	print("crouch")
 	if not Input.is_action_pressed("move_crouch") and not fsm.actor.stand_up_raycast.is_colliding():
 		return fsm.back()
+	fsm.actor.velocity.x = move_toward(fsm.actor.velocity.x, 0.0, 1.0)
+	fsm.actor.velocity.z = move_toward(fsm.actor.velocity.z, 0.0, 1.0)
 	if Input.get_vector("move_left", "move_right", "move_front", "move_back").length_squared() > 0.0:
 		return fsm.next("CrouchWalk")
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cajxcu8y8ywqg"]
+[gd_scene load_steps=20 format=3 uid="uid://cajxcu8y8ywqg"]
 
 [ext_resource type="Shader" uid="uid://cd0aby7miynve" path="res://shaders/flat_material_shader.tres" id="1_nknnb"]
 [ext_resource type="Material" uid="uid://b4i0cps0lllg8" path="res://addons/ply/materials/debug_material_light.tres" id="1_sq2dv"]
 [ext_resource type="Script" path="res://addons/ply/nodes/ply.gd" id="2_47c6t"]
-[ext_resource type="Script" path="res://scripts/character/state_crouch_idle.gd" id="2_o054l"]
 [ext_resource type="Script" path="res://addons/ply/resources/ply_mesh.gd" id="3_h4ox5"]
 [ext_resource type="Material" uid="uid://b5hltcvsr8ow7" path="res://addons/ply/materials/debug_material_medium.tres" id="4_8f20i"]
 [ext_resource type="Material" uid="uid://skrl8khxn3qq" path="res://addons/ply/materials/debug_material_dark.tres" id="5_fi2oe"]
@@ -16,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://dv77owmdll7h1" path="res://scenes/Character.tscn" id="12_un3rp"]
 [ext_resource type="PackedScene" uid="uid://c5aur21ujwls" path="res://scenes/BulletPool.tscn" id="13_bpoyr"]
 [ext_resource type="PackedScene" uid="uid://bh6oapssql4n8" path="res://scenes/WorldEnvironment.tscn" id="16_puxca"]
-[ext_resource type="AudioStream" uid="uid://d320v133osp6q" path="res://sfx/music_zapsplat_game_music_action_agressive_pounding_tense_electro_synth_028.mp3" id="16_uqy0h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4exw"]
 render_priority = 0
@@ -59,9 +57,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.2735
 [node name="Gun" parent="Actors/Player/Pivot" index="1"]
 bullet_pool_node_path = NodePath("../../../../BulletPool")
 
-[node name="CrouchIdle" parent="Actors/Player/Movement" index="4"]
-script = ExtResource( "2_o054l" )
-
 [node name="WorldEnvironment" parent="." instance=ExtResource( "16_puxca" )]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -84,10 +79,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.79547, -54.89)
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.366, 11.958, 65.791)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( "16_uqy0h" )
-volume_db = -10.0
-autoplay = true
 
 [editable path="Actors/Player"]

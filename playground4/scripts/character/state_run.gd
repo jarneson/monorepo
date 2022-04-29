@@ -1,6 +1,7 @@
 extends StateMachineState
 
 @export var speed = 12.0
+@export var jump_velocity = 9.8
 
 func physics_process(_delta):
 	print("run")
@@ -16,6 +17,8 @@ func physics_process(_delta):
 		return fsm.back()
 	if Input.is_action_pressed("move_crouch"):
 		return fsm.next("Slide")
+	if Input.is_action_pressed("move_jump"):
+		return fsm.next("Jumping", [jump_velocity])
 	if dir:
 		fsm.actor.velocity.x = move_toward(fsm.actor.velocity.x, dir.x*speed, speed)
 		fsm.actor.velocity.z = move_toward(fsm.actor.velocity.z, dir.z*speed, speed)

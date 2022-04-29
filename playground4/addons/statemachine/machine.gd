@@ -27,7 +27,8 @@ func _enter_state(s, args = []):
 	state = s
 	_state_args = args
 	state.fsm = self
-	state.callv("enter", args)
+	if state.has_method("enter"):
+		state.callv("enter", args)
 
 func initialize():
 	pass

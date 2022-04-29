@@ -7,8 +7,6 @@ var JUMP_VELOCITY = ProjectSettings.get_setting("physics/3d/default_gravity")/2.
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@onready var coyote_time = $CoyoteTime
-
 @onready var gun = $Pivot/Gun
 @onready var camera_pivot = $Pivot
 
