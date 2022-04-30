@@ -3,7 +3,6 @@ extends StateMachineState
 @export var jump_velocity = 4.9
 
 func physics_process(_delta):
-	print("idle")
 	if not fsm.actor.is_on_floor():
 		return fsm.next("Falling")
 	if Input.is_action_pressed("move_crouch"):

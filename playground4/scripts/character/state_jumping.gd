@@ -7,6 +7,11 @@ func enter(vel):
 	fsm.actor.velocity.y += vel
 
 func physics_process(delta):
+	if fsm.actor.is_on_wall() and Input.is_action_pressed("move_sprint"):
+		fsm.back()
+		fsm.next("Falling")
+		return fsm.next("WallRunning")
+
 	if fsm.actor.velocity.y <= 0.0:
 		return fsm.back()
 	fsm.actor.velocity.y -= gravity * delta

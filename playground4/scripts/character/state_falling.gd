@@ -7,6 +7,8 @@ func physics_process(delta):
 	print("fall")
 	if fsm.actor.is_on_floor():
 		return fsm.back()
+	if fsm.actor.is_on_wall() and Input.is_action_pressed("move_sprint"):
+		return fsm.next("WallRunning")
 	fsm.actor.velocity.y -= gravity * delta
 	var in_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")
 	if in_dir != Vector2.ZERO:

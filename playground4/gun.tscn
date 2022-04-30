@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://uhnnoq4mvsai"]
+[gd_scene load_steps=8 format=3 uid="uid://uhnnoq4mvsai"]
 
+[ext_resource type="Script" path="res://debug.gd" id="1_mr6sl"]
 [ext_resource type="PackedScene" uid="uid://wd8qcmytf5bn" path="res://quaternius/Barrel_Sniper_1.gltf" id="6_iqvfw"]
-[ext_resource type="PackedScene" uid="uid://c4g1riglv3p0m" path="res://quaternius/Stock_AR_1.gltf" id="6_j7rc2"]
+[ext_resource type="PackedScene" uid="uid://b16keexd4jy8g" path="res://quaternius/Stock_AR_1.gltf" id="6_j7rc2"]
 [ext_resource type="PackedScene" uid="uid://bjudct2o0kjhu" path="res://quaternius/Scope_2.gltf" id="6_kgwt6"]
 [ext_resource type="PackedScene" uid="uid://b3ce7o01brxcb" path="res://quaternius/Body_AR_6.gltf" id="7_82ihn"]
 [ext_resource type="PackedScene" uid="uid://djaem63iffg26" path="res://quaternius/Magazine_AR.gltf" id="10_vtreu"]
-[ext_resource type="PackedScene" uid="uid://q46csyf5ib0x" path="res://quaternius/Grip_AR_6.gltf" id="33_3ggus"]
+[ext_resource type="PackedScene" uid="uid://cagibvmknt4bm" path="res://quaternius/Grip_AR_6.gltf" id="33_3ggus"]
 
 [node name="Rifle" type="Node3D"]
+script = ExtResource( "1_mr6sl" )
 
 [node name="Body_AR_6" parent="." instance=ExtResource( "7_82ihn" )]
 

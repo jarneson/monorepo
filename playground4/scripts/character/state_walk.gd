@@ -4,8 +4,6 @@ extends StateMachineState
 @export var jump_velocity = 4.9
 
 func physics_process(_delta):
-	print("walk")
-
 	var in_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")
 	var dir = fsm.actor.transform.basis * Vector3(in_dir.x, 0.0, in_dir.y)
 	dir = dir.normalized()

@@ -22,7 +22,6 @@ func exit():
 	fsm.actor.camera_pivot.transform.origin.y = 1.7
 
 func physics_process(delta):
-	print("slide")
 	if not fsm.actor.is_on_floor():
 		return fsm.next("Falling")
 	if remainder <= 0.0:

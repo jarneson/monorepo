@@ -15,4 +15,6 @@ func _process(delta):
 	position_velocity.text = str(actor.global_transform.origin) + "\n" + \
 		str(actor.velocity) + "\n" + \
 		str(actor.velocity.length()) + "\n" + \
-		str(Vector2(actor.velocity.x, actor.velocity.z).length())
+		str(Vector2(actor.velocity.x, actor.velocity.z).length()) + "\n" + \
+		"on floor: " + str(actor.is_on_floor()) + "\n" + \
+		"on wall : " + str(actor.is_on_wall())

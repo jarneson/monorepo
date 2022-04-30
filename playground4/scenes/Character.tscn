@@ -19,8 +19,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxln2"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rippb"]
-height = 1.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_ua213"]
+radius = 0.5
 
 [sub_resource type="QuadMesh" id="QuadMesh_vtg18"]
 size = Vector2(2, 2)
@@ -49,8 +49,8 @@ transform = Transform3D(1, -5.82077e-11, -7.45058e-09, -2.91038e-11, 1, -2.25555
 target_position = Vector3(0, 1, 0)
 
 [node name="CrounchingShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource( "CapsuleShape3D_rippb" )
+transform = Transform3D(1, 2.91038e-11, -1.79995e-21, -2.91038e-11, 1, -2.874e-10, -6.56451e-21, 2.874e-10, 1, 0, 0.5, 0)
+shape = SubResource( "SphereShape3D_ua213" )
 disabled = true
 
 [node name="Pivot" type="Position3D" parent="."]
@@ -72,6 +72,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource( "4_2wyxe" )
 actor_node_path = NodePath("../../..")
 movement_node_path = NodePath("../../../Movement")
@@ -80,6 +81,7 @@ metadata/_edit_use_custom_anchors = false
 [node name="H" type="HBoxContainer" parent="Pivot/Camera3D/HUD"]
 offset_right = 1920.0
 offset_bottom = 1080.0
+mouse_filter = 2
 
 [node name="L" type="VBoxContainer" parent="Pivot/Camera3D/HUD/H"]
 offset_right = 50.0
@@ -90,12 +92,12 @@ offset_right = 50.0
 offset_bottom = 26.0
 text = "Debug"
 
-[node name="MovementState" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
+[node name="PositionVelocity" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
 offset_top = 30.0
 offset_right = 50.0
 offset_bottom = 53.0
 
-[node name="PositionVelocity" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
+[node name="MovementState" type="Label" parent="Pivot/Camera3D/HUD/H/L"]
 offset_top = 57.0
 offset_right = 50.0
 offset_bottom = 80.0

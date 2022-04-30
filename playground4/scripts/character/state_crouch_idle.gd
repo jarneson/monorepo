@@ -11,7 +11,6 @@ func exit():
 	fsm.actor.camera_pivot.transform.origin.y = 1.7
 
 func physics_process(_delta):
-	print("crouch")
 	if not Input.is_action_pressed("move_crouch") and not fsm.actor.stand_up_raycast.is_colliding():
 		return fsm.back()
 	fsm.actor.velocity.x = move_toward(fsm.actor.velocity.x, 0.0, 1.0)
