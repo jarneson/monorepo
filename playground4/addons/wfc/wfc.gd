@@ -16,6 +16,7 @@ var wfc_option_instances: Array
 func _ready():
 	permute_options()
 	reset()
+	one_shot()
 
 func permute_options():
 	wfc_option_instances = []
@@ -31,7 +32,7 @@ func clear():
 		nodes.clear()
 
 func _unhandled_input(event):
-	if event.is_action("ui_accept"):
+	if event.is_action("debug_level_regen"):
 		reset()
 
 var nodes = []
@@ -51,7 +52,7 @@ func create_children():
 
 func initial_constraints():
 	# air on top
-	var air_inst = wfc_air.permute_rotations()
+	var air_inst = wfc_option_set.options[0].permute_rotations()
 	var y = height-1;
 	for x in width:
 		for z in depth:
@@ -60,6 +61,11 @@ func initial_constraints():
 	pass
 
 @onready var next_iteration := iterate_speed
+
+func one_shot():
+	create_children()
+	while not iterate():
+		pass
 
 func _process(delta):
 	if get_child_count() == 0:
@@ -95,8 +101,7 @@ func iterate():
 	while elapsed < 10:
 		var min_index := min_entropy_index()
 		if get_wfc_node(min_index).entropy() <= 1:
-			print("done")
-			return
+			return true
 		get_wfc_node(min_index).collapse()
 		propogate(min_index)
 		elapsed += Time.get_ticks_msec() - ts

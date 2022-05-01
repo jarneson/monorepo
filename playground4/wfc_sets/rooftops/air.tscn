@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cle25mmyuxxjr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dydmt"]
+
+[node name="Air" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource( "BoxMesh_dydmt" )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dv77owmdll7h1"]
+[gd_scene load_steps=24 format=3 uid="uid://dv77owmdll7h1"]
 
 [ext_resource type="Script" path="res://scripts/character_controller.gd" id="1_1gqo8"]
 [ext_resource type="Shader" path="res://shaders/postprocess.gdshader" id="2_fahc8"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/character/state_falling.gd" id="13_kpn28"]
 [ext_resource type="Script" path="res://scripts/character/state_climbing.gd" id="14_nheef"]
 [ext_resource type="Script" path="res://scripts/character/state_wall_running.gd" id="15_gpbkt"]
+[ext_resource type="Script" path="res://scripts/character/state_zip.gd" id="17_57yts"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxln2"]
 
@@ -33,6 +34,14 @@ shader_param/outline_intensity = 1.0
 shader_param/line_glow_intensity = 1.0
 shader_param/fill_glow_intensity = 1.0
 shader_param/bias = 0.0
+
+[sub_resource type="Gradient" id="Gradient_oqsg1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w3jm8"]
+gradient = SubResource( "Gradient_oqsg1" )
+width = 4
+height = 4
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 transform = Transform3D(-0.0697565, -0.00696425, -0.99754, 2.32831e-10, 0.999976, -0.00698126, 0.997564, -0.000486989, -0.0697548, 0, 0, 0)
@@ -102,6 +111,19 @@ offset_top = 57.0
 offset_right = 50.0
 offset_bottom = 80.0
 
+[node name="CenterContainer" type="CenterContainer" parent="Pivot/Camera3D/HUD"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pivot/Camera3D/HUD/CenterContainer"]
+offset_left = 958.0
+offset_top = 538.0
+offset_right = 962.0
+offset_bottom = 542.0
+mouse_filter = 2
+texture = SubResource( "GradientTexture2D_w3jm8" )
+
 [node name="Gun" parent="Pivot" instance=ExtResource( "4_o86u2" )]
 transform = Transform3D(0.999999, -1.16415e-10, 0, 0, 1, -2.29193e-10, 1.49012e-08, 7.71252e-10, 1, 0, -1.7, 0)
 bullet_pool_node_path = NodePath("../../../BulletPool")
@@ -139,3 +161,6 @@ script = ExtResource( "14_nheef" )
 
 [node name="WallRunning" type="Node" parent="Movement"]
 script = ExtResource( "15_gpbkt" )
+
+[node name="Zip" type="Node" parent="Movement"]
+script = ExtResource( "17_57yts" )

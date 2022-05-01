@@ -4,15 +4,16 @@ extends StateMachineState
 @export var speed = 16.0
 @export var acceleration = 8.0
 @export var horizontal_jump_velocity = 8.0
-@export var jump_velocity = 4.0
+@export var jump_velocity = 8.0
 
 func physics_process(delta):
 	if not fsm.actor.is_on_wall() or not Input.is_action_pressed("move_sprint"):
 		return fsm.back()
 	if Input.is_action_pressed("move_jump"):
+		var curr = Vector2(fsm.actor.velocity.x, fsm.actor.velocity.z).length()
 		fsm.actor.velocity = fsm.actor.velocity.slide(fsm.actor.get_wall_normal())
-		fsm.actor.velocity.x += fsm.actor.get_wall_normal().x * horizontal_jump_velocity
-		fsm.actor.velocity.z += fsm.actor.get_wall_normal().z * horizontal_jump_velocity
+		fsm.actor.velocity.x += fsm.actor.get_wall_normal().x * max(horizontal_jump_velocity, curr)
+		fsm.actor.velocity.z += fsm.actor.get_wall_normal().z * max(horizontal_jump_velocity, curr)
 		return fsm.next("Jumping", [jump_velocity])
 	fsm.actor.velocity.y = max(0, fsm.actor.velocity.y - gravity * delta)
 	var in_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")

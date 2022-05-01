@@ -1,0 +1,26 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2u0tf17ielrw"]
+
+[ext_resource type="PackedScene" uid="uid://cle25mmyuxxjr" path="res://wfc_sets/rooftops/air.tscn" id="1_7ehiy"]
+[ext_resource type="PackedScene" uid="uid://dygbqd1ldybx0" path="res://wfc_sets/rooftops/empty_floor.tscn" id="2_5febt"]
+[ext_resource type="PackedScene" uid="uid://d180uo5mrc6q6" path="res://wfc_sets/rooftops/solid_wall.tscn" id="3_g53vc"]
+[ext_resource type="PackedScene" uid="uid://cjegvdwds1xh8" path="res://wfc_sets/rooftops/floor_pipes.tscn" id="4_fhi0s"]
+[ext_resource type="PackedScene" uid="uid://cffd63jhamqj7" path="res://wfc_sets/rooftops/edge_one_empty.tscn" id="5_hn4s1"]
+[ext_resource type="PackedScene" uid="uid://1g1i61wuc8fr" path="res://wfc_sets/rooftops/edge_two_empty.tscn" id="6_6oeb2"]
+[ext_resource type="PackedScene" uid="uid://k38uvqwqriyu" path="res://wfc_sets/rooftops/edge_three_empty.tscn" id="7_0pbop"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Air" parent="." instance=ExtResource( "1_7ehiy" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="EmptyFloor" parent="." instance=ExtResource( "2_5febt" )]
+
+[node name="SolidWall" parent="." instance=ExtResource( "3_g53vc" )]
+
+[node name="FloorPipes" parent="." instance=ExtResource( "4_fhi0s" )]
+
+[node name="OneSidedEdge" parent="." instance=ExtResource( "5_hn4s1" )]
+
+[node name="TwoSidedEdge" parent="." instance=ExtResource( "6_6oeb2" )]
+
+[node name="ThreeSidedEdge" parent="." instance=ExtResource( "7_0pbop" )]

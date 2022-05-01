@@ -9,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var gun = $Pivot/Gun
 @onready var camera_pivot = $Pivot
+@onready var camera = $Pivot/Camera3D
 
 @onready var stand_up_raycast = $StandUpRaycast
 @onready var standing_shape = $StandingShape

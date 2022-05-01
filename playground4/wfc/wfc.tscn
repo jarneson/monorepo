@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b3r056tjvxats"]
 
 [ext_resource type="Script" path="res://addons/wfc/wfc.gd" id="1_5yuwa"]
-[ext_resource type="PackedScene" path="res://wfc/wfc_node.tscn" id="2_7st3j"]
+[ext_resource type="PackedScene" uid="uid://b8eyq0fxbx27l" path="res://wfc/wfc_node.tscn" id="2_7st3j"]
 [ext_resource type="Resource" path="res://wfc/options2/air.tres" id="4_aqfmd"]
 [ext_resource type="Resource" uid="uid://77p8tmf0o460" path="res://bar.tres" id="4_kux18"]
 [ext_resource type="Script" path="res://free_look.gd" id="8_1jv6s"]
