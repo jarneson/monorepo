@@ -12,28 +12,28 @@
 
 [node name="Actors" type="Node3D" parent="."]
 
-[node name="Player" parent="Actors" instance=ExtResource( "12_un3rp" )]
+[node name="Player" parent="Actors" instance=ExtResource("12_un3rp")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 50.6587, 0)
 
 [node name="Gun" parent="Actors/Player/Pivot" index="1"]
 bullet_pool_node_path = NodePath("../../../../BulletPool")
 
-[node name="WorldEnvironment" parent="." instance=ExtResource( "16_puxca" )]
+[node name="WorldEnvironment" parent="." instance=ExtResource("16_puxca")]
 
-[node name="BulletPool" parent="." instance=ExtResource( "13_bpoyr" )]
+[node name="BulletPool" parent="." instance=ExtResource("13_bpoyr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.79547, -54.89)
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.366, 11.958, 65.791)
 
 [node name="WFC" type="Node3D" parent="."]
-script = ExtResource( "4_rmjv6" )
+script = ExtResource("4_rmjv6")
 width = 16
 height = 16
 depth = 16
 grid_size = 8.0
-wfc_node_scene = ExtResource( "5_j2mlv" )
-wfc_option_set = ExtResource( "6_j3cvv" )
-wfc_air = ExtResource( "7_2fyyb" )
+wfc_node_scene = ExtResource("5_j2mlv")
+wfc_option_set = ExtResource("6_j3cvv")
+wfc_air = ExtResource("7_2fyyb")
 
 [editable path="Actors/Player"]

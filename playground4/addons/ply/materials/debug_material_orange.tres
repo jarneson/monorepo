@@ -4,5 +4,5 @@
 
 [resource]
 albedo_color = Color(1, 0.490196, 0, 1)
-albedo_texture = ExtResource( "1" )
+albedo_texture = ExtResource("1")
 uv1_triplanar = true

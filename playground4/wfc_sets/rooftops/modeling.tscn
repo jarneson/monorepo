@@ -10,17 +10,17 @@
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Air" parent="." instance=ExtResource( "1_7ehiy" )]
+[node name="Air" parent="." instance=ExtResource("1_7ehiy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
-[node name="EmptyFloor" parent="." instance=ExtResource( "2_5febt" )]
+[node name="EmptyFloor" parent="." instance=ExtResource("2_5febt")]
 
-[node name="SolidWall" parent="." instance=ExtResource( "3_g53vc" )]
+[node name="SolidWall" parent="." instance=ExtResource("3_g53vc")]
 
-[node name="FloorPipes" parent="." instance=ExtResource( "4_fhi0s" )]
+[node name="FloorPipes" parent="." instance=ExtResource("4_fhi0s")]
 
-[node name="OneSidedEdge" parent="." instance=ExtResource( "5_hn4s1" )]
+[node name="OneSidedEdge" parent="." instance=ExtResource("5_hn4s1")]
 
-[node name="TwoSidedEdge" parent="." instance=ExtResource( "6_6oeb2" )]
+[node name="TwoSidedEdge" parent="." instance=ExtResource("6_6oeb2")]
 
-[node name="ThreeSidedEdge" parent="." instance=ExtResource( "7_0pbop" )]
+[node name="ThreeSidedEdge" parent="." instance=ExtResource("7_0pbop")]

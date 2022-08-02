@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://jmkk6op6prv1"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_83yco"]
+[ext_resource type="ArrayMesh" uid="uid://4xjkdxh0y8mb" path="res://cloak_mesh.res" id="1_f0o5v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iymmf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6qfud"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea13k"]
+cull_mode = 2
+albedo_color = Color(1, 0.376471, 0.0823529, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s0r2w"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jvlfw"]
+
+[sub_resource type="Sky" id="Sky_tpwvl"]
+sky_material = SubResource("ProceduralSkyMaterial_jvlfw")
+
+[sub_resource type="Environment" id="Environment_34ks3"]
+background_mode = 2
+sky = SubResource("Sky_tpwvl")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_83yco")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_iymmf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82645, 0)
+mesh = SubResource("SphereMesh_6qfud")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.980955, 0.194234, 0, -0.194234, 0.980955, 0, 2, 3)
+current = true
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+
+[node name="SoftDynamicBody3D" type="SoftDynamicBody3D" parent="CharacterBody3D/Node3D"]
+material_override = SubResource("StandardMaterial3D_ea13k")
+mesh = ExtResource("1_f0o5v")
+skeleton = NodePath("../..")
+collision_layer = 3
+collision_mask = 3
+parent_collision_ignore = NodePath("../..")
+total_mass = 10.0
+linear_stiffness = 1.0
+damping_coefficient = 0.07
+disable_mode = 1
+pinned_points = [104, 76, 48, 23, 22, 134]
+attachments/0/point_index = 104
+attachments/0/spatial_attachment_path = NodePath("..")
+attachments/0/offset = Vector3(-0.5, -0.0154095, 0.290703)
+attachments/1/point_index = 76
+attachments/1/spatial_attachment_path = NodePath("..")
+attachments/1/offset = Vector3(-0.3, -0.0154097, 0.396826)
+attachments/2/point_index = 48
+attachments/2/spatial_attachment_path = NodePath("..")
+attachments/2/offset = Vector3(-0.1, -0.0154097, 0.442644)
+attachments/3/point_index = 23
+attachments/3/spatial_attachment_path = NodePath("..")
+attachments/3/offset = Vector3(0.0999999, -0.0154097, 0.442644)
+attachments/4/point_index = 22
+attachments/4/spatial_attachment_path = NodePath("..")
+attachments/4/offset = Vector3(0.3, -0.0154097, 0.396826)
+attachments/5/point_index = 134
+attachments/5/spatial_attachment_path = NodePath("..")
+attachments/5/offset = Vector3(0.5, -0.0154095, 0.290703)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CharacterBody3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.928501, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Node3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.377795, 0)
+shape = SubResource("SphereShape3D_s0r2w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.381457, -0.784181, 0.489439, 0.482056, 0.620532, 0.618516, -0.788741, -2.35063e-08, 0.614726, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_34ks3")

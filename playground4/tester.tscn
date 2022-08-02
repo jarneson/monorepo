@@ -1,8 +1,101 @@
-[gd_scene load_steps=2 format=3 uid="uid://biry7gkjrf1tx"]
+[gd_scene load_steps=17 format=3 uid="uid://biry7gkjrf1tx"]
 
 [ext_resource type="Script" path="res://tester.gd" id="1_2yqw1"]
+[ext_resource type="Shader" path="res://normals.gdshader" id="2_deh7y"]
+[ext_resource type="Shader" path="res://normaloutline.gdshader" id="2_jj60m"]
+[ext_resource type="Shader" path="res://depth_outline.gdshader" id="4_df8kn"]
+[ext_resource type="Script" path="res://Gimbal.gd" id="5_3tx8n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpdml"]
+render_priority = 0
+shader = ExtResource("4_df8kn")
+
+[sub_resource type="BoxMesh" id="BoxMesh_oj0bl"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="Gradient" id="Gradient_l8yj0"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.294821, 0.828685)
+colors = PackedColorArray(1, 1, 1, 1, 0.729521, 0.729521, 0.729521, 1, 0.496094, 0.496094, 0.496094, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i45xm"]
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_4fyfp"]
+width = 1024
+height = 1024
+seamless = true
+color_ramp = SubResource("Gradient_l8yj0")
+noise = SubResource("FastNoiseLite_i45xm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nego4"]
+render_priority = 0
+shader = ExtResource("2_jj60m")
+shader_param/albedo = SubResource("NoiseTexture_4fyfp")
+shader_param/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jclxn"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nego4")
+shader = ExtResource("2_deh7y")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ymjf4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3mm72"]
+render_priority = 0
+shader = ExtResource("2_jj60m")
+shader_param/albedo = SubResource("NoiseTexture_4fyfp")
+shader_param/tint = Color(0.223529, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0s6q7"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_3mm72")
+shader = ExtResource("2_deh7y")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d5avl"]
+radial_segments = 6
+rings = 6
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource( "1_2yqw1" )
+script = ExtResource("1_2yqw1")
 
 [node name="Node" type="Node" parent="."]
+
+[node name="DepthShader" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("ShaderMaterial_xpdml")
+mesh = SubResource("BoxMesh_oj0bl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.833056, 0, -0.553188, 0.195213, 0.935666, 0.293975, 0.517599, -0.352887, 0.779463, -0.294734, 0.521682, 0.27761)
+material_override = SubResource("ShaderMaterial_jclxn")
+mesh = SubResource("BoxMesh_ymjf4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334857, 0.342015, -0.916976)
+material_override = SubResource("ShaderMaterial_0s6q7")
+mesh = SubResource("BoxMesh_ymjf4")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.468925, 1.36086, 1.10563)
+material_override = SubResource("ShaderMaterial_0s6q7")
+mesh = SubResource("SphereMesh_d5avl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.871325, -1.29838e-08, -0.490706, 0.367852, 0.661849, 0.653178, 0.324773, -0.749638, 0.576685, -1.68254, 1.24231, 1.48099)
+visible = false
+shadow_enabled = true
+shadow_blur = 0.0
+
+[node name="Gimbal" type="Node3D" parent="."]
+script = ExtResource("5_3tx8n")
+
+[node name="Camera3D" type="Camera3D" parent="Gimbal"]
+transform = Transform3D(1, 0, 0, 0, 0.862893, 0.505386, 0, -0.505386, 0.862893, 0, 4.80042, 7.7581)
+current = true
+fov = 28.2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.03639, 2.08315)
+shadow_enabled = true
+omni_range = 5.796
+omni_attenuation = 0.0
