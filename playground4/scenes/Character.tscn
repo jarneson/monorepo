@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dv77owmdll7h1"]
+[gd_scene load_steps=25 format=3 uid="uid://dv77owmdll7h1"]
 
 [ext_resource type="Script" path="res://scripts/character_controller.gd" id="1_1gqo8"]
 [ext_resource type="Shader" path="res://shaders/postprocess.gdshader" id="2_fahc8"]
@@ -42,6 +42,8 @@ gradient = SubResource("Gradient_oqsg1")
 width = 4
 height = 4
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_47rbe"]
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
 transform = Transform3D(-0.0697565, -0.00696425, -0.99754, 2.32831e-10, 0.999976, -0.00698126, 0.997564, -0.000486989, -0.0697548, 0, 0, 0)
 collision_layer = 18
@@ -70,6 +72,7 @@ current = true
 
 [node name="PostProcessQuad" type="MeshInstance3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.965699)
+visible = false
 mesh = SubResource("QuadMesh_vtg18")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_4dkks")
@@ -163,3 +166,7 @@ script = ExtResource("15_gpbkt")
 
 [node name="Zip" type="Node" parent="Movement"]
 script = ExtResource("17_57yts")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_47rbe")

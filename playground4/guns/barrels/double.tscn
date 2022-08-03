@@ -6,4 +6,4 @@
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.275697)
-mesh = ExtResource( "1_7y7wb" )
+mesh = ExtResource("1_7y7wb")

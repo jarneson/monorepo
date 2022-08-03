@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://da0xli25jq1d8"]
+
+[ext_resource type="Shader" path="res://normaloutline.gdshader" id="1_sk8kf"]
+[ext_resource type="Shader" path="res://normals.gdshader" id="2_pxjsm"]
+
+[sub_resource type="Gradient" id="Gradient_l8hhn"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.756646, 0.932515, 1)
+colors = PackedColorArray(0.466667, 0.698039, 1, 1, 0.733916, 0.985071, 1, 1, 0.573167, 0.702739, 0.624166, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qk1uj"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_mqiau"]
+seamless = true
+color_ramp = SubResource("Gradient_l8hhn")
+noise = SubResource("FastNoiseLite_qk1uj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0yd3y"]
+render_priority = 0
+shader = ExtResource("1_sk8kf")
+shader_param/albedo = SubResource("NoiseTexture_mqiau")
+shader_param/albedo_scale = 1.0
+shader_param/color_threshold = 0.1
+shader_param/color_width = 0.1
+shader_param/depth_threshold = 0.9
+shader_param/depth_width = 1.5
+shader_param/normal_threshold = 0.9
+shader_param/normal_width = 1.0
+shader_param/tint = Color(0.59375, 0.59375, 0.59375, 1)
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_0yd3y")
+shader = ExtResource("2_pxjsm")
