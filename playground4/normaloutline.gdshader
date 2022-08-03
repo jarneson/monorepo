@@ -113,5 +113,6 @@ void fragment() {
 void light() {
 	float att = clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION;
 	float influence = step(0.2, att);
+	
 	DIFFUSE_LIGHT = max(DIFFUSE_LIGHT, influence * mix(ALBEDO, LIGHT_COLOR, influence*0.5));
 }

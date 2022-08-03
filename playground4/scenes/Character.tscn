@@ -42,7 +42,7 @@ gradient = SubResource("Gradient_oqsg1")
 width = 4
 height = 4
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_47rbe"]
+[sub_resource type="BoxMesh" id="BoxMesh_ayend"]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 transform = Transform3D(-0.0697565, -0.00696425, -0.99754, 2.32831e-10, 0.999976, -0.00698126, 0.997564, -0.000486989, -0.0697548, 0, 0, 0)
@@ -169,4 +169,5 @@ script = ExtResource("17_57yts")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_47rbe")
+cast_shadow = 3
+mesh = SubResource("BoxMesh_ayend")

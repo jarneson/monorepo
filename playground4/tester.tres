@@ -5,11 +5,10 @@
 
 [sub_resource type="Gradient" id="Gradient_l8hhn"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.756646, 0.932515, 1)
+offsets = PackedFloat32Array(0, 0.762781, 0.932515, 1)
 colors = PackedColorArray(0.466667, 0.698039, 1, 1, 0.733916, 0.985071, 1, 1, 0.573167, 0.702739, 0.624166, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qk1uj"]
-noise_type = 0
 
 [sub_resource type="NoiseTexture" id="NoiseTexture_mqiau"]
 seamless = true
@@ -20,7 +19,7 @@ noise = SubResource("FastNoiseLite_qk1uj")
 render_priority = 0
 shader = ExtResource("1_sk8kf")
 shader_param/albedo = SubResource("NoiseTexture_mqiau")
-shader_param/albedo_scale = 1.0
+shader_param/albedo_scale = 3.0
 shader_param/color_threshold = 0.1
 shader_param/color_width = 0.1
 shader_param/depth_threshold = 0.9

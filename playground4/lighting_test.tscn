@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://blq2275skwmbt"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nyi1l"]
+size = Vector2(32, 32)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4sck7"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_nyi1l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75794, 0)
+mesh = SubResource("CapsuleMesh_4sck7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.815532, 0.578712, 0, -0.578712, 0.815532, 0, 1.75555, 0)
+shadow_enabled = true
+shadow_blur = 0.0
