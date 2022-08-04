@@ -1,6 +1,8 @@
 @tool
 extends Control
 
+const working_on_gui = false
+
 signal selection_mode_changed(mode)
 signal gizmo_mode_changed(mode)
 
@@ -55,6 +57,7 @@ var plugin: EditorPlugin
 @onready var face_set_shape_7 = $"Scroll/Content/FaceTools/Surfaces/7"
 @onready var face_set_shape_8 = $"Scroll/Content/FaceTools/Surfaces/8"
 @onready var face_set_shape_9 = $"Scroll/Content/FaceTools/Surfaces/9"
+@onready var face_color_picker = $Scroll/Content/FaceTools/VertexColorPicker
 
 @onready var edge_tools = $Scroll/Content/EdgeTools
 @onready var edge_select_loop = $Scroll/Content/EdgeTools/SelectLoop
@@ -63,6 +66,7 @@ var plugin: EditorPlugin
 @onready var edge_collapse = $Scroll/Content/EdgeTools/Collapse
 
 @onready var vertex_tools = $Scroll/Content/VertexTools
+@onready var vertex_color_picker = $Scroll/Content/VertexTools/VertexColorPicker
 
 
 func _ready() -> void:
@@ -87,6 +91,7 @@ func _ready() -> void:
 	mesh_invert_normals.connect("pressed",Callable(self,"_mesh_invert_normals"))
 	mesh_generators.connect("pressed",Callable(self,"_open_generators_modal"))
 	generators_modal.connect("confirmed",Callable(self,"_on_generators_modal_confirmed"))
+	face_color_picker.connect("color_changed",Callable(self,"_on_face_color_changed"))
 
 	face_set_shape_1.connect("pressed",Callable(self,"_set_face_surface"),[0])
 	face_set_shape_2.connect("pressed",Callable(self,"_set_face_surface"),[1])
@@ -109,6 +114,8 @@ func _ready() -> void:
 	edge_cut_loop.connect("pressed",Callable(self,"_edge_cut_loop"))
 	edge_subdivide.connect("pressed",Callable(self,"_edge_subdivide"))
 	edge_collapse.connect("pressed",Callable(self,"_edge_collapse"))
+	
+	vertex_color_picker.connect("color_changed",Callable(self,"_on_vertex_color_changed"))
 
 
 func _process(_delta) -> void:
@@ -134,10 +141,10 @@ func _update_gizmo_mode(selected, mode) -> void:
 
 
 func _update_tool_visibility() -> void:
-	mesh_tools.visible = selection_mesh.is_pressed()
-	face_tools.visible = selection_face.is_pressed()
-	edge_tools.visible = selection_edge.is_pressed()
-	vertex_tools.visible = selection_vertex.is_pressed()
+	mesh_tools.visible = selection_mesh.is_pressed() or working_on_gui
+	face_tools.visible = selection_face.is_pressed() or working_on_gui
+	edge_tools.visible = selection_edge.is_pressed() or working_on_gui
+	vertex_tools.visible = selection_vertex.is_pressed() or working_on_gui
 
 
 func set_selection_mode(mode) -> void:
@@ -474,3 +481,23 @@ func _mesh_invert_normals():
 	var pre_edit = plugin.selection.ply_mesh.begin_edit()
 	Invert.normals(plugin.selection.ply_mesh)
 	plugin.selection.ply_mesh.commit_edit("Invert Normals", plugin.get_undo_redo(), pre_edit)
+
+func _on_face_color_changed(color: Color):
+	if (
+		not plugin.selection
+		or selection_mode != SelectionMode.FACE
+		or plugin.selection.selected_faces.size() == 0
+	):
+		return
+	for f_idx in plugin.selection.selected_faces:
+		plugin.selection.ply_mesh.set_face_color(f_idx, color)
+
+func _on_vertex_color_changed(color: Color):
+	if (
+		not plugin.selection
+		or selection_mode != SelectionMode.VERTEX
+		or plugin.selection.selected_vertices.size() == 0
+	):
+		return
+	for v_idx in plugin.selection.selected_vertices:
+		plugin.selection.ply_mesh.set_vertex_color(v_idx, color)
