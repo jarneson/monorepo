@@ -573,7 +573,20 @@ text = "Vertex Color"
 offset_top = 435.0
 offset_right = 200.0
 offset_bottom = 466.0
-text = " "
+text = " asdf"
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="Label" type="Label" parent="Scroll/Content/FaceTools/VertexColorPicker"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Multiple"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_layout_mode = 1
 
 [node name="EdgeTools" type="VBoxContainer" parent="Scroll/Content"]
 visible = false
@@ -698,5 +711,18 @@ offset_top = 30.0
 offset_right = 200.0
 offset_bottom = 61.0
 text = " "
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="Label" type="Label" parent="Scroll/Content/VertexTools/VertexColorPicker"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Multiple"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_layout_mode = 1
 
 [node name="GeneratorsModal" parent="Scroll/Content" instance=ExtResource("16")]

@@ -148,18 +148,22 @@ func set_face_surface(idx: int, s: int):
 
 func begin_edit() -> Array:
 	return [
-		vertexes.duplicate(), vertex_edges.duplicate(), edge_vertexes.duplicate(), edge_faces.duplicate(), edge_edges.duplicate(), face_edges.duplicate(), face_surfaces.duplicate()
+		vertexes.duplicate(), vertex_edges.duplicate(), vertex_colors.duplicate(),
+		edge_vertexes.duplicate(), edge_faces.duplicate(), edge_edges.duplicate(),
+		face_edges.duplicate(), face_surfaces.duplicate(), face_colors.duplicate()
 	]
 
 
 func reject_edit(pre_edits: Array, emit: bool = true) -> void:
 	vertexes = pre_edits[0].duplicate()
 	vertex_edges = pre_edits[1].duplicate()
-	edge_vertexes = pre_edits[2].duplicate()
-	edge_faces = pre_edits[3].duplicate()
-	edge_edges = pre_edits[4].duplicate()
-	face_edges = pre_edits[5].duplicate()
-	face_surfaces = pre_edits[6].duplicate()
+	vertex_colors = pre_edits[2].duplicate()
+	edge_vertexes = pre_edits[3].duplicate()
+	edge_faces = pre_edits[4].duplicate()
+	edge_edges = pre_edits[5].duplicate()
+	face_edges = pre_edits[6].duplicate()
+	face_surfaces = pre_edits[7].duplicate()
+	face_colors = pre_edits[8].duplicate()
 	if emit:
 		emit_change_signal()
 
@@ -212,16 +216,20 @@ func commit_edit(name: String, undo_redo: UndoRedo, pre_edits: Array) -> void:
 	undo_redo.add_undo_property(self, "vertexes", pre_edits[0])
 	undo_redo.add_do_property(self, "vertex_edges", vertex_edges)
 	undo_redo.add_undo_property(self, "vertex_edges", pre_edits[1])
+	undo_redo.add_do_property(self, "vertex_colors", vertex_colors)
+	undo_redo.add_undo_property(self, "vertex_colors", pre_edits[2])
 	undo_redo.add_do_property(self, "edge_vertexes", edge_vertexes)
-	undo_redo.add_undo_property(self, "edge_vertexes", pre_edits[2])
+	undo_redo.add_undo_property(self, "edge_vertexes", pre_edits[3])
 	undo_redo.add_do_property(self, "edge_faces", edge_faces)
-	undo_redo.add_undo_property(self, "edge_faces", pre_edits[3])
+	undo_redo.add_undo_property(self, "edge_faces", pre_edits[4])
 	undo_redo.add_do_property(self, "edge_edges", edge_edges)
-	undo_redo.add_undo_property(self, "edge_edges", pre_edits[4])
+	undo_redo.add_undo_property(self, "edge_edges", pre_edits[5])
 	undo_redo.add_do_property(self, "face_edges", face_edges)
-	undo_redo.add_undo_property(self, "face_edges", pre_edits[5])
+	undo_redo.add_undo_property(self, "face_edges", pre_edits[6])
 	undo_redo.add_do_property(self, "face_surfaces", face_surfaces)
-	undo_redo.add_undo_property(self, "face_surfaces", pre_edits[6])
+	undo_redo.add_undo_property(self, "face_surfaces", pre_edits[7])
+	undo_redo.add_do_property(self, "face_colors", face_colors)
+	undo_redo.add_undo_property(self, "face_colors", pre_edits[8])
 	undo_redo.add_do_method(self, "emit_change_signal")
 	undo_redo.add_undo_method(self, "emit_change_signal")
 	undo_redo.commit_action()
@@ -402,6 +410,10 @@ func set_vertex_all(idx, pos, edge) -> void:
 
 func set_vertex_color(idx, color) -> void:
 	vertex_colors[idx] = color
+
+
+func get_vertex_color(idx) -> Color:
+	return vertex_colors[idx]
 
 
 func expand_vertexes(more) -> void:
@@ -675,6 +687,10 @@ func get_face_edges(idx):
 
 func set_face_color(f, color):
 	face_colors[f] = color
+
+
+func get_face_color(f):
+	return face_colors[f]
 
 
 func face_vertex_indexes(idx):

@@ -75,48 +75,107 @@ func _ready() -> void:
 	if err == OK:
 		var version = config.get_value("plugin", "version")
 		$TitleLabel/MarginContainer/HBoxContainer/Version.text = version
-	selection_mesh.connect("toggled",Callable(self,"_update_selection_mode"),[SelectionMode.MESH])
-	selection_face.connect("toggled",Callable(self,"_update_selection_mode"),[SelectionMode.FACE])
-	selection_edge.connect("toggled",Callable(self,"_update_selection_mode"),[SelectionMode.EDGE])
-	selection_vertex.connect("toggled",Callable(self,"_update_selection_mode"),[SelectionMode.VERTEX])
+		
+	selection_mesh.toggled.connect(_update_selection_mode.bind(SelectionMode.MESH))
+	selection_face.toggled.connect(_update_selection_mode.bind(SelectionMode.FACE))
+	selection_edge.toggled.connect(_update_selection_mode.bind(SelectionMode.EDGE))
+	selection_vertex.toggled.connect(_update_selection_mode.bind(SelectionMode.VERTEX))
 
-	gizmo_global.connect("toggled",Callable(self,"_update_gizmo_mode"),[GizmoMode.GLOBAL])
-	gizmo_local.connect("toggled",Callable(self,"_update_gizmo_mode"),[GizmoMode.LOCAL])
-	gizmo_normal.connect("toggled",Callable(self,"_update_gizmo_mode"),[GizmoMode.NORMAL])
+	gizmo_global.toggled.connect(_update_gizmo_mode.bind(GizmoMode.GLOBAL))
+	gizmo_local.toggled.connect(_update_gizmo_mode.bind(GizmoMode.LOCAL))
+	gizmo_normal.toggled.connect(_update_gizmo_mode.bind(GizmoMode.NORMAL))
 
-	mesh_export_to_obj.connect("pressed",Callable(self,"_export_to_obj"))
-	mesh_import.connect("pressed",Callable(self,"_import_mesh"))
-	mesh_subdivide.connect("pressed",Callable(self,"_mesh_subdivide"))
-	mesh_triangulate.connect("pressed",Callable(self,"_mesh_triangulate"))
-	mesh_invert_normals.connect("pressed",Callable(self,"_mesh_invert_normals"))
-	mesh_generators.connect("pressed",Callable(self,"_open_generators_modal"))
-	generators_modal.connect("confirmed",Callable(self,"_on_generators_modal_confirmed"))
-	face_color_picker.connect("color_changed",Callable(self,"_on_face_color_changed"))
-
-	face_set_shape_1.connect("pressed",Callable(self,"_set_face_surface"),[0])
-	face_set_shape_2.connect("pressed",Callable(self,"_set_face_surface"),[1])
-	face_set_shape_3.connect("pressed",Callable(self,"_set_face_surface"),[2])
-	face_set_shape_4.connect("pressed",Callable(self,"_set_face_surface"),[3])
-	face_set_shape_5.connect("pressed",Callable(self,"_set_face_surface"),[4])
-	face_set_shape_6.connect("pressed",Callable(self,"_set_face_surface"),[5])
-	face_set_shape_7.connect("pressed",Callable(self,"_set_face_surface"),[6])
-	face_set_shape_8.connect("pressed",Callable(self,"_set_face_surface"),[7])
-	face_set_shape_9.connect("pressed",Callable(self,"_set_face_surface"),[8])
-
-	face_select_loop_1.connect("pressed",Callable(self,"_face_select_loop"),[0])
-	face_select_loop_2.connect("pressed",Callable(self,"_face_select_loop"),[1])
-	face_extrude.connect("pressed",Callable(self,"_face_extrude"))
-	face_connect.connect("pressed",Callable(self,"_face_connect"))
-	face_subdivide.connect("pressed",Callable(self,"_face_subdivide"))
-	face_triangulate.connect("pressed",Callable(self,"_face_triangulate"))
-
-	edge_select_loop.connect("pressed",Callable(self,"_edge_select_loop"))
-	edge_cut_loop.connect("pressed",Callable(self,"_edge_cut_loop"))
-	edge_subdivide.connect("pressed",Callable(self,"_edge_subdivide"))
-	edge_collapse.connect("pressed",Callable(self,"_edge_collapse"))
+	mesh_export_to_obj.pressed.connect(_export_to_obj)
+	mesh_import.pressed.connect(_import_mesh)
+	mesh_subdivide.pressed.connect(_mesh_subdivide)
+	mesh_triangulate.pressed.connect(_mesh_triangulate)
+	mesh_invert_normals.pressed.connect(_mesh_invert_normals)
+	mesh_generators.pressed.connect(_open_generators_modal)
+	generators_modal.confirmed.connect(_on_generators_modal_confirmed)
 	
-	vertex_color_picker.connect("color_changed",Callable(self,"_on_vertex_color_changed"))
+	face_color_picker.color_changed.connect(_on_face_color_changed)
+	face_color_picker.pressed.connect(_on_face_color_pressed)
+	face_color_picker.popup_closed.connect(_on_face_color_closed)
 
+	face_set_shape_1.pressed.connect(_set_face_surface.bind(0))
+	face_set_shape_2.pressed.connect(_set_face_surface.bind(1))
+	face_set_shape_3.pressed.connect(_set_face_surface.bind(2))
+	face_set_shape_4.pressed.connect(_set_face_surface.bind(3))
+	face_set_shape_5.pressed.connect(_set_face_surface.bind(4))
+	face_set_shape_6.pressed.connect(_set_face_surface.bind(5))
+	face_set_shape_7.pressed.connect(_set_face_surface.bind(6))
+	face_set_shape_8.pressed.connect(_set_face_surface.bind(7))
+	face_set_shape_9.pressed.connect(_set_face_surface.bind(8))
+
+	face_select_loop_1.pressed.connect(_face_select_loop.bind(0))
+	face_select_loop_2.pressed.connect(_face_select_loop.bind(1))
+	face_extrude.pressed.connect(_face_extrude)
+	face_connect.pressed.connect(_face_connect)
+	face_subdivide.pressed.connect(_face_subdivide)
+	face_triangulate.pressed.connect(_face_triangulate)
+	
+	edge_select_loop.pressed.connect(_edge_select_loop)
+	edge_cut_loop.pressed.connect(_edge_cut_loop)
+	edge_subdivide.pressed.connect(_edge_subdivide)
+	edge_collapse.pressed.connect(_edge_collapse)
+	
+	vertex_color_picker.color_changed.connect(_on_vertex_color_changed)
+	vertex_color_picker.pressed.connect(_on_face_color_pressed)
+	vertex_color_picker.popup_closed.connect(_on_face_color_closed)
+	
+	if plugin:
+		plugin.selection_changed.connect(_on_selection_changed)
+
+var selected_mesh
+func _on_selection_changed(selection):
+	if selected_mesh:
+		selected_mesh.selection_changed.disconnect(_on_geometry_selection_changed)
+	selected_mesh = selection
+	if selected_mesh:
+		selected_mesh.selection_changed.connect(_on_geometry_selection_changed)
+
+func _on_geometry_selection_changed():
+	match selection_mode:
+		SelectionMode.FACE:
+			var color
+			var many = false
+			for f_idx in selected_mesh.selected_faces:
+				var f_color = selected_mesh.ply_mesh.get_face_color(f_idx)
+				if color == null:
+					color = f_color
+				if !color.is_equal_approx(f_color):
+					many = true
+
+			if color == null:
+				color = Color.WHITE
+			
+			if many:
+				face_color_picker.color = Color.WHITE
+				face_color_picker.get_node("Label").visible = true
+			else:
+				face_color_picker.color = color
+				face_color_picker.get_node("Label").visible = false
+		SelectionMode.EDGE:
+			pass # TODO
+		SelectionMode.VERTEX:
+			var color
+			var many = false
+			for v_idx in selected_mesh.selected_vertices:
+				var v_color = selected_mesh.ply_mesh.get_vertex_color(v_idx)
+				if color == null:
+					color = v_color
+				if !color.is_equal_approx(v_color):
+					many = true
+
+			if color == null:
+				color = Color.WHITE
+
+			if many:
+				vertex_color_picker.color = Color.WHITE
+				vertex_color_picker.get_node("Label").visible = true
+			else:
+				vertex_color_picker.color = color
+				vertex_color_picker.get_node("Label").visible = false
 
 func _process(_delta) -> void:
 	_update_tool_visibility()
@@ -482,6 +541,14 @@ func _mesh_invert_normals():
 	Invert.normals(plugin.selection.ply_mesh)
 	plugin.selection.ply_mesh.commit_edit("Invert Normals", plugin.get_undo_redo(), pre_edit)
 
+var color_pre_edit
+
+func _on_face_color_pressed():
+	color_pre_edit = plugin.selection.ply_mesh.begin_edit()
+
+func _on_face_color_closed():
+	plugin.selection.ply_mesh.commit_edit("Color Faces", plugin.get_undo_redo(), color_pre_edit)
+
 func _on_face_color_changed(color: Color):
 	if (
 		not plugin.selection
@@ -491,6 +558,13 @@ func _on_face_color_changed(color: Color):
 		return
 	for f_idx in plugin.selection.selected_faces:
 		plugin.selection.ply_mesh.set_face_color(f_idx, color)
+	plugin.selection.ply_mesh.emit_change_signal()
+
+func _on_vertex_color_pressed():
+	color_pre_edit = plugin.selection.ply_mesh.begin_edit()
+
+func _on_vertex_color_closed():
+	plugin.selection.ply_mesh.commit_edit("Color Vertices", plugin.get_undo_redo(), color_pre_edit)
 
 func _on_vertex_color_changed(color: Color):
 	if (
@@ -501,3 +575,4 @@ func _on_vertex_color_changed(color: Color):
 		return
 	for v_idx in plugin.selection.selected_vertices:
 		plugin.selection.ply_mesh.set_vertex_color(v_idx, color)
+	plugin.selection.ply_mesh.emit_change_signal()

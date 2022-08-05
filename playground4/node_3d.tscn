@@ -1,3 +1,40 @@
-[gd_scene format=3 uid="uid://ccykjh6nv1a8k"]
+[gd_scene load_steps=5 format=3 uid="uid://ccykjh6nv1a8k"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qrqu4"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mngnw"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_qrqu4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_smiby"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k24gf"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 4.51757)
+material_override = SubResource("StandardMaterial3D_mngnw")
+mesh = SubResource("PlaneMesh_smiby")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 367.0
+offset_bottom = 346.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(367, 346)
+render_target_update_mode = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+mesh = SubResource("BoxMesh_k24gf")
+skeleton = NodePath("../../..")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.28438)
+current = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
