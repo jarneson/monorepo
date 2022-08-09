@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 uniform float color_width = 0.1;
 uniform float color_threshold = 0.1;
@@ -58,5 +59,4 @@ float color_sobel(sampler2D tex, vec2 uv, vec2 texel) {
 void fragment() {
 	float line_weight = color_sobel(TEXTURE, UV, SCREEN_PIXEL_SIZE * color_width);
 	COLOR.rgb = vec3(1.0 - line_weight) * texture(TEXTURE, UV).rgb;
-	
 }

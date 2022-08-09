@@ -147,7 +147,3 @@ action_zip={
 [physics]
 
 3d/default_gravity=29.4
-
-[rendering]
-
-shadows/directional_shadow/size=16384

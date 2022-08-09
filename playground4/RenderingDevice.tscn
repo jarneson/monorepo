@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwbb1n7k2l1wk"]
+
+[ext_resource type="Shader" path="res://RenderingDevice_Reader.gdshader" id="1_y1vwt"]
+[ext_resource type="Script" path="res://MeshInstance3D3.gd" id="2_kfe23"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pf3fq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ap1wr"]
+size = Vector3(8, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3kyi"]
+render_priority = 0
+shader = ExtResource("1_y1vwt")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pf3fq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.919287, 1.49306, 0)
+mesh = SubResource("BoxMesh_pf3fq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ap1wr")
+surface_material_override/0 = SubResource("ShaderMaterial_d3kyi")
+script = ExtResource("2_kfe23")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.51129e-06, 0, -7.40007)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.972272, 0.233853, 0, -0.233853, -0.972272, 0, 22.3158, -32.1846)

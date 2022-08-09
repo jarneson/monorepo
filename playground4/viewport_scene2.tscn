@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://bibavfkv04hpi"]
+
+[ext_resource type="Script" path="res://SubViewport.gd" id="1_7aeqy"]
+[ext_resource type="PackedScene" uid="uid://blq2275skwmbt" path="res://lighting_test.tscn" id="2_2s77f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wt26o"]
+albedo_color = Color(1, 0.482353, 0.615686, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7bws"]
+material = SubResource("StandardMaterial3D_wt26o")
+size = Vector3(2, 2, 2)
+
+[node name="Node2D" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1915.0
+offset_bottom = 1075.0
+color = Color(1, 0, 1, 1)
+
+[node name="HBoxContainer" type="GridContainer" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1915.0
+offset_bottom = 1075.0
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Normal" type="SubViewportContainer" parent="HBoxContainer"]
+offset_right = 955.0
+offset_bottom = 1070.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/Normal"]
+handle_input_locally = false
+debug_draw = 5
+size = Vector2i(748, 512)
+render_target_update_mode = 4
+script = ExtResource("1_7aeqy")
+
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/Normal/SubViewport"]
+transform = Transform3D(0.132256, 0.4684, -0.873562, 0, 0.881303, 0.472551, 0.991216, -0.0624977, 0.116558, -7.68995, 4.80042, 1.02606)
+cull_mask = 1048063
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HBoxContainer/Normal/SubViewport"]
+mesh = SubResource("BoxMesh_j7bws")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="HBoxContainer/Normal/SubViewport"]
+transform = Transform3D(0.769322, 0, 0.638862, 0, 1, 0, -0.638862, 0, 0.769322, 0, 3.16085, 0)
+mesh = SubResource("BoxMesh_j7bws")
+skeleton = NodePath("")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="HBoxContainer/Normal/SubViewport"]
+transform = Transform3D(0.5, 0.433013, -0.75, 0, 0.866025, 0.5, 0.866025, -0.25, 0.433013, 0, 3.71021, 3.41309)
+
+[node name="Node3D" parent="HBoxContainer/Normal/SubViewport" instance=ExtResource("2_2s77f")]

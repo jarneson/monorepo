@@ -1,34 +1,167 @@
-[gd_scene load_steps=4 format=3 uid="uid://c88wdulsnk0el"]
+[gd_scene load_steps=17 format=3 uid="uid://c88wdulsnk0el"]
 
-[ext_resource type="Shader" path="res://viewport_scene.gdshader" id="1_2l0pc"]
-[ext_resource type="PackedScene" uid="uid://biry7gkjrf1tx" path="res://tester.tscn" id="1_adtqu"]
+[ext_resource type="Shader" path="res://canvas_sobel.gdshader" id="1_h488f"]
+[ext_resource type="Script" path="res://SubViewport.gd" id="1_rqag0"]
+[ext_resource type="Material" uid="uid://da0xli25jq1d8" path="res://tester.tres" id="2_7htrd"]
+[ext_resource type="Shader" path="res://viewport_scene_depth_buffer.gdshader" id="2_bao1i"]
+[ext_resource type="Shader" path="res://screen_color.gdshader" id="2_xdaus"]
+[ext_resource type="Script" path="res://Gimbal.gd" id="4_p6l64"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpwf4"]
-shader = ExtResource("1_2l0pc")
-shader_param/color_threshold = 0.1
-shader_param/color_width = 0.1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iyjgh"]
+shader = ExtResource("1_h488f")
+line_width = null
 
-[node name="Node2D" type="MarginContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="QuadMesh" id="QuadMesh_p2nab"]
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wl0h"]
+render_priority = 0
+shader = ExtResource("2_xdaus")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wt26o"]
+albedo_color = Color(1, 0.482353, 0.615686, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7bws"]
+material = SubResource("StandardMaterial3D_wt26o")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6mi8w"]
+size = Vector2(64, 64)
+
+[sub_resource type="Environment" id="Environment_451qn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vggow"]
+shader = ExtResource("1_h488f")
+line_width = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iahce"]
+render_priority = 0
+shader = ExtResource("2_bao1i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdt6e"]
+shader = ExtResource("1_h488f")
+line_width = 20.0
+
+[node name="Node2D" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Normal" type="SubViewportContainer" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_iyjgh")
+offset_right = 1280.0
+offset_bottom = 1024.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource("ShaderMaterial_cpwf4")
-offset_right = 1920.0
-offset_bottom = 1080.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Normal"]
 handle_input_locally = false
-size = Vector2i(1920, 1080)
+size = Vector2i(1280, 1024)
+render_target_update_mode = 4
+script = ExtResource("1_rqag0")
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Normal/SubViewport"]
+transform = Transform3D(0.132256, 0.4684, -0.873562, 0, 0.881303, 0.472551, 0.991216, -0.0624977, 0.116558, -7.68995, 4.80042, 1.02606)
+cull_mask = 1047809
+current = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CanvasLayer/Normal/SubViewport/Camera3D"]
+transform = Transform3D(1, -5.96046e-08, 2.23517e-08, 3.72529e-09, 1, -1.81608e-07, 2.23517e-08, 2.18861e-08, 1, 0, 0, -1)
+layers = 256
+mesh = SubResource("QuadMesh_p2nab")
+skeleton = NodePath("../../../../../CanvasLayer2/Depth/SubViewport2/Camera3D")
+surface_material_override/0 = SubResource("ShaderMaterial_1wl0h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/Normal/SubViewport"]
+mesh = SubResource("BoxMesh_j7bws")
+skeleton = NodePath("../../../../World/SubViewport")
+surface_material_override/0 = ExtResource("2_7htrd")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="CanvasLayer/Normal/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.538)
+mesh = SubResource("BoxMesh_j7bws")
+skeleton = NodePath("../../../../World/SubViewport")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CanvasLayer/Normal/SubViewport"]
+transform = Transform3D(0.769322, 0, 0.638862, 0, 1, 0, -0.638862, 0, 0.769322, 0, 3.16085, 0)
+mesh = SubResource("BoxMesh_j7bws")
+skeleton = NodePath("../../../../World/SubViewport")
+surface_material_override/0 = ExtResource("2_7htrd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Normal/SubViewport"]
+transform = Transform3D(0.5, 0.433013, -0.75, 0, 0.866025, 0.5, 0.866025, -0.25, 0.433013, 0, 3.71021, 3.41309)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="CanvasLayer/Normal/SubViewport"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 20.2241, 0, 0)
+mesh = SubResource("QuadMesh_6mi8w")
+surface_material_override/0 = ExtResource("2_7htrd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="CanvasLayer/Normal/SubViewport"]
+environment = SubResource("Environment_451qn")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Depth" type="SubViewportContainer" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_vggow")
+offset_right = 1280.0
+offset_bottom = 1024.0
+
+[node name="SubViewport2" type="SubViewport" parent="CanvasLayer2/Depth"]
+handle_input_locally = false
+size = Vector2i(1280, 1024)
 render_target_update_mode = 4
 
-[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_adtqu")]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer2/Depth/SubViewport2"]
+transform = Transform3D(0.132256, 0.4684, -0.873562, 0, 0.881303, 0.472551, 0.991216, -0.0624977, 0.116558, -7.68995, 4.80042, 1.02606)
+cull_mask = 1048065
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer2/Depth/SubViewport2/Camera3D"]
+transform = Transform3D(1, -5.58794e-08, 2.23517e-08, 3.72529e-09, 1, -1.81608e-07, 2.23517e-08, 2.23517e-08, 1, 0, 0, -1)
+layers = 512
+mesh = SubResource("QuadMesh_p2nab")
+surface_material_override/0 = SubResource("ShaderMaterial_iahce")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="Color" type="SubViewportContainer" parent="CanvasLayer3"]
+material = SubResource("ShaderMaterial_mdt6e")
+offset_right = 1280.0
+offset_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewport2" type="SubViewport" parent="CanvasLayer3/Color"]
+handle_input_locally = false
+size = Vector2i(1280, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer3/Color/SubViewport2"]
+transform = Transform3D(0.132256, 0.4684, -0.873562, 0, 0.881303, 0.472551, 0.991216, -0.0624977, 0.116558, -7.68995, 4.80042, 1.02606)
+cull_mask = 1047553
+
+[node name="World" type="SubViewportContainer" parent="."]
+offset_right = 748.0
+offset_bottom = 512.0
+
+[node name="SubViewport" type="SubViewport" parent="World"]
+handle_input_locally = false
+size = Vector2i(1280, 1024)
+render_target_update_mode = 4
+
+[node name="Gimbal" type="Node3D" parent="World/SubViewport"]
+transform = Transform3D(0.132256, 0, -0.991216, 0, 1, 0, 0.991216, 0, 0.132256, 0, 0, 0)
+script = ExtResource("4_p6l64")
+
+[node name="Camera3D" type="Camera3D" parent="World/SubViewport/Gimbal"]
+transform = Transform3D(1, 3.72529e-09, -1.49012e-08, 0, 0.881303, 0.472551, 0, -0.472551, 0.881303, 0, 4.80042, 7.7581)
+cull_mask = 1047553
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="World/SubViewport/Gimbal/Camera3D"]
+remote_path = NodePath("../../../../../CanvasLayer/Normal/SubViewport/Camera3D")
+
+[node name="RemoteTransform3D2" type="RemoteTransform3D" parent="World/SubViewport/Gimbal/Camera3D"]
+remote_path = NodePath("../../../../../CanvasLayer2/Depth/SubViewport2/Camera3D")
+
+[node name="RemoteTransform3D3" type="RemoteTransform3D" parent="World/SubViewport/Gimbal/Camera3D"]
+remote_path = NodePath("../../../../../CanvasLayer3/Color/SubViewport2/Camera3D")

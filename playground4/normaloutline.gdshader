@@ -102,12 +102,7 @@ float normal_sobel(sampler2D tex, vec2 uv, vec2 texel) {
 
 void fragment() {
 	vec2 screen_size = vec2(textureSize(SCREEN_TEXTURE, 1));
-	float fresnel = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 1.2);
-	float line_weight = max(//max(
-		normal_sobel(SCREEN_TEXTURE, SCREEN_UV, vec2(normal_width) / screen_size),
-		//color_sobel(albedo, UV/albedo_scale, vec2(color_width) / screen_size)),
-		depth_sobel(DEPTH_TEXTURE, SCREEN_UV, vec2(depth_width) / screen_size, INV_PROJECTION_MATRIX));
-	ALBEDO = vec3(1.0 - line_weight) * texture(albedo, UV/albedo_scale).rgb * tint.rgb * COLOR.rgb;
+	ALBEDO = texture(albedo, UV/albedo_scale).rgb * tint.rgb;
 }
 
 void light() {
