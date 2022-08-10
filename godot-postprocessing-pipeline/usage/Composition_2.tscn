@@ -1,0 +1,266 @@
+[gd_scene load_steps=20 format=3 uid="uid://csnws2hopdsnc"]
+
+[ext_resource type="PackedScene" uid="uid://cj6l3fj26x0qq" path="res://demos/cubes/cubes.tscn" id="1_wjcf3"]
+[ext_resource type="Script" path="res://usage/DirectionalLight3D.gd" id="2_i5u8n"]
+[ext_resource type="PackedScene" uid="uid://br33jyr30a7to" path="res://color/color_buffer.tscn" id="3_aicj3"]
+[ext_resource type="Texture2D" uid="uid://1qoojc28g01r" path="res://noise/1024_1024/LDR_RGBA_0.png" id="4_810ii"]
+[ext_resource type="Shader" path="res://postprocessing/stipple.gdshader" id="5_2ggp1"]
+[ext_resource type="Shader" path="res://postprocessing/bw_to_b_alpha.gdshader" id="6_5iufm"]
+[ext_resource type="Shader" path="res://postprocessing/magnitude_threshold_uv.gdshader" id="6_38eq4"]
+[ext_resource type="Shader" path="res://postprocessing/hysteresis_uv.gdshader" id="6_255ox"]
+[ext_resource type="Shader" path="res://postprocessing/sobel_uv.gdshader" id="6_mtyua"]
+[ext_resource type="Shader" path="res://postprocessing/double_threshold_uv.gdshader" id="6_vtqqj"]
+[ext_resource type="PackedScene" uid="uid://cha6pkd8vn75n" path="res://depth/depth_buffer.tscn" id="7_1wg7c"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sa0of"]
+
+[sub_resource type="Environment" id="Environment_d1e4i"]
+background_mode = 1
+background_color = Color(0.862745, 0.862745, 0.862745, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.47451, 0.47451, 0.47451, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0vtp"]
+shader = ExtResource("5_2ggp1")
+noise = ExtResource("4_810ii")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7cb8s"]
+shader = ExtResource("6_5iufm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3f3a"]
+shader = ExtResource("6_255ox")
+weight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f3ki2"]
+shader = ExtResource("6_vtqqj")
+high_threshold = 0.5
+low_threshold = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m8pf8"]
+shader = ExtResource("6_38eq4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6ub1"]
+shader = ExtResource("6_mtyua")
+line_width = null
+
+[node name="Composition" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="Cubes" parent="SubViewportContainer2/SubViewport" instance=ExtResource("1_wjcf3")]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8.71763, 26.3411)
+cull_mask = 524287
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
+transform = Transform3D(0.209619, -0.536825, 0.817238, 0, 0.835807, 0.549023, -0.977783, -0.115085, 0.175201, 0, 0, 0)
+script = ExtResource("2_i5u8n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, -1.5249)
+mesh = SubResource("SphereMesh_sa0of")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer2/SubViewport"]
+environment = SubResource("Environment_d1e4i")
+
+[node name="SubViewportContainer4" type="SubViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer4"]
+handle_input_locally = false
+size = Vector2i(256, 150)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" parent="SubViewportContainer4/SubViewport" instance=ExtResource("3_aicj3")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../SubViewportContainer2/SubViewport/Camera3D")
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="SubViewportContainer4/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer4/SubViewport/CanvasLayer4"]
+material = SubResource("ShaderMaterial_u0vtp")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_7cb8s")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(256, 150)
+render_target_update_mode = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_q3f3a")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer/SubViewport/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_f3ki2")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport"]
+material = SubResource("ShaderMaterial_m8pf8")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_v6ub1")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="depth_buffer" parent="SubViewportContainer/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport" instance=ExtResource("7_1wg7c")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer2/SubViewport/Camera3D")
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_7cb8s")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3"]
+handle_input_locally = false
+size = Vector2i(256, 150)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubViewportContainer3/SubViewport"]
+material = SubResource("ShaderMaterial_q3f3a")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3/SubViewport/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_f3ki2")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport"]
+material = SubResource("ShaderMaterial_m8pf8")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_v6ub1")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" parent="SubViewportContainer3/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport/SubViewportContainer/SubViewport/SubViewportContainer2/SubViewport" instance=ExtResource("3_aicj3")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer2/SubViewport/Camera3D")

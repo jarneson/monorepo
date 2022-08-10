@@ -1,0 +1,237 @@
+[gd_scene load_steps=22 format=3 uid="uid://dyx0ay4npnd0v"]
+
+[ext_resource type="PackedScene" uid="uid://cj6l3fj26x0qq" path="res://demos/cubes/cubes.tscn" id="1_67wfu"]
+[ext_resource type="Script" path="res://usage/DirectionalLight3D.gd" id="2_0ftin"]
+[ext_resource type="Shader" path="res://postprocessing/bw_to_b_alpha.gdshader" id="2_7kciw"]
+[ext_resource type="PackedScene" uid="uid://cha6pkd8vn75n" path="res://depth/depth_buffer.tscn" id="2_a3u6r"]
+[ext_resource type="Shader" path="res://postprocessing/magnitude_threshold.gdshader" id="2_l208g"]
+[ext_resource type="Shader" path="res://postprocessing/sobel.gdshader" id="3_2y4tg"]
+[ext_resource type="Texture2D" uid="uid://1qoojc28g01r" path="res://noise/1024_1024/LDR_RGBA_0.png" id="3_82apa"]
+[ext_resource type="Shader" path="res://postprocessing/double_threshold.gdshader" id="5_0c8t6"]
+[ext_resource type="Shader" path="res://postprocessing/hysteresis.gdshader" id="6_k3yed"]
+[ext_resource type="PackedScene" uid="uid://br33jyr30a7to" path="res://color/color_buffer.tscn" id="8_rvjd6"]
+[ext_resource type="Shader" path="res://postprocessing/stipple.gdshader" id="9_tfnne"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sa0of"]
+
+[sub_resource type="Environment" id="Environment_d1e4i"]
+background_mode = 1
+background_color = Color(0.862745, 0.862745, 0.862745, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.47451, 0.47451, 0.47451, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0vtp"]
+shader = ExtResource("9_tfnne")
+noise = ExtResource("3_82apa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oes00"]
+shader = ExtResource("2_7kciw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1s25s"]
+shader = ExtResource("3_2y4tg")
+line_width = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4tmp"]
+shader = ExtResource("2_l208g")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4xgh"]
+shader = ExtResource("5_0c8t6")
+high_threshold = 0.5
+low_threshold = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4noy"]
+shader = ExtResource("6_k3yed")
+weight = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sl215"]
+shader = ExtResource("2_7kciw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pukqo"]
+shader = ExtResource("6_k3yed")
+weight = 5.0
+
+[node name="Composition" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="Cubes" parent="SubViewportContainer2/SubViewport" instance=ExtResource("1_67wfu")]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8.71763, 26.3411)
+cull_mask = 524287
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
+transform = Transform3D(0.209619, -0.536825, 0.817238, 0, 0.835807, 0.549023, -0.977783, -0.115085, 0.175201, 0, 0, 0)
+script = ExtResource("2_0ftin")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, -1.5249)
+mesh = SubResource("SphereMesh_sa0of")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer2/SubViewport"]
+environment = SubResource("Environment_d1e4i")
+
+[node name="SubViewportContainer4" type="SubViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer4"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" parent="SubViewportContainer4/SubViewport" instance=ExtResource("8_rvjd6")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../SubViewportContainer2/SubViewport/Camera3D")
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="SubViewportContainer4/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer4/SubViewport/CanvasLayer4"]
+material = SubResource("ShaderMaterial_u0vtp")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_oes00")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="depth_buffer" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_a3u6r")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../SubViewportContainer2/SubViewport/Camera3D")
+metadata/_edit_layout_mode = 1
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CanvasLayer4"]
+material = SubResource("ShaderMaterial_1s25s")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CanvasLayer"]
+material = SubResource("ShaderMaterial_m4tmp")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CanvasLayer2"]
+material = SubResource("ShaderMaterial_q4xgh")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CanvasLayer3"]
+material = SubResource("ShaderMaterial_e4noy")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer3" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_sl215")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+metadata/_edit_layout_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer3"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer" parent="SubViewportContainer3/SubViewport" instance=ExtResource("8_rvjd6")]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+remote_camera_path = NodePath("../../../SubViewportContainer2/SubViewport/Camera3D")
+
+[node name="CanvasLayer4" type="CanvasLayer" parent="SubViewportContainer3/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer3/SubViewport/CanvasLayer4"]
+material = SubResource("ShaderMaterial_1s25s")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer3/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer3/SubViewport/CanvasLayer"]
+material = SubResource("ShaderMaterial_m4tmp")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="SubViewportContainer3/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer3/SubViewport/CanvasLayer2"]
+material = SubResource("ShaderMaterial_q4xgh")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="SubViewportContainer3/SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer3/SubViewport/CanvasLayer3"]
+material = SubResource("ShaderMaterial_pukqo")
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
