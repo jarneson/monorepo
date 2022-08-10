@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://chc8jjpf748xu"]
+
+[ext_resource type="Script" path="res://depth/depth_buffer.gd" id="1_q7r1w"]
+[ext_resource type="Script" path="res://normal/SubViewport.gd" id="2_s3t7m"]
+
+[node name="SubViewportContainer" type="SubViewportContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_q7r1w")
+remote_camera_path = NodePath("")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+debug_draw = 5
+size = Vector2i(569, 512)
+render_target_update_mode = 4
+script = ExtResource("2_s3t7m")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+cull_mask = 1
+current = true

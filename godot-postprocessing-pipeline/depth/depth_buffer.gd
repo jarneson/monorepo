@@ -1,4 +1,3 @@
-@tool
 extends SubViewportContainer
 
 @export var remote_camera_path: NodePath

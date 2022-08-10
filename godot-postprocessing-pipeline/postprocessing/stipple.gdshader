@@ -28,11 +28,10 @@ void fragment() {
 	float d = texture(depth_texture, SCREEN_UV).r;
 	float stipple = smoothstep(-0.2, 1.2, texture(stipple_noise, fract(SCREEN_UV*stipple_weight/d)).r);
 	float stroke = texture(stroke_noise, fract(SCREEN_UV*stroke_weight+vec2(hsv.x, hsv.x)/2.0)).g;
-	float luminance = px.r * 0.0721 + px.g * 0.7154 + px.b * 0.2125;
+	float luminance = hsv.z;
 	hsv.z = 1.0;
-	hsv.y = 1.0 - luminance;
 	px = hsv2rgb(hsv);
-	COLOR = vec4(step(stipple*sqrt(d), luminance) * (vec3(1.) - (vec3(1.) - px)/stroke), 1.0);
+	COLOR = vec4(step(step(0.03, d)*stipple, luminance) * (vec3(1.) - (vec3(1.) - px)/stroke), 1.0);
 	// COLOR = vec4(step(stipple, luminance) * (vec3(1.) - (vec3(1.) - px)*(1.-stroke)), 1.0);
 	// COLOR = vec4(vec3(hsv.y), 1.0);
 }

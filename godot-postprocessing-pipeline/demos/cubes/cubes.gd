@@ -18,7 +18,7 @@ func make_cubes():
 		inst.mesh.size = Vector3(1,1,1)
 		inst.name = "Box_"+str(i)
 		inst.material_override = StandardMaterial3D.new()
-		inst.material_override.albedo_color = Color(randf(), randf(), randf(), 1.0)
+		inst.material_override.albedo_color = Color.from_hsv(randf(), 1.0, 1.0);
 		add_child(inst)
 		var r = radius * sqrt(randf())
 		var theta = randf() * 2 * PI
