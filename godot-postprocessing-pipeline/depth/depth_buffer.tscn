@@ -15,6 +15,7 @@ size = Vector2(2, 2)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_p1k6e")
+remote_camera_path = NodePath("")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false

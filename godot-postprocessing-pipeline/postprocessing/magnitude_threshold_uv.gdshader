@@ -16,14 +16,16 @@ float magnitude_threshold(sampler2D tex, vec2 uv, vec2 texel) {
 	for (int i = 0; i < 9; i++){
 		colorSamples[i] = texture(tex, uvSamples[i]).r;
 	}
-	return step(colorSamples[0], colorSamples[4]) * 
+	return
+		//step(colorSamples[0], colorSamples[4]) * 
 		step(colorSamples[1], colorSamples[4]) * 
-		step(colorSamples[2], colorSamples[4]) * 
+		//step(colorSamples[2], colorSamples[4]) * 
 		step(colorSamples[3], colorSamples[4]) * 
 		step(colorSamples[5], colorSamples[4]) * 
-		step(colorSamples[6], colorSamples[4]) * 
+		// step(colorSamples[6], colorSamples[4]) * 
 		step(colorSamples[7], colorSamples[4]) *  
-		step(colorSamples[8], colorSamples[4]) * colorSamples[4];
+		// step(colorSamples[8], colorSamples[4]) *
+		colorSamples[4];
 }
 
 void fragment() {
