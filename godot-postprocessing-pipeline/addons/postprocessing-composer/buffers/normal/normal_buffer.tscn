@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdhqjemme0mam"]
+
+[ext_resource type="Script" path="res://addons/postprocessing-composer/buffers/normal/SubViewport.gd" id="2_s3t7m"]
+
+[node name="NormalBuffer" type="SubViewport"]
+handle_input_locally = false
+debug_draw = 5
+size = Vector2i(569, 512)
+render_target_update_mode = 4
+script = ExtResource("2_s3t7m")
+remote_camera_path = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+cull_mask = 1
+current = true

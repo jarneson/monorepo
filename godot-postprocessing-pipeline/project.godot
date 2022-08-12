@@ -8,8 +8,28 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Control",
+"class": &"PostprocessingComposer",
+"language": &"GDScript",
+"path": "res://addons/postprocessing-composer/nodes/postprocessing_composer.gd"
+}, {
+"base": "Control",
+"class": &"PostprocessingLayer",
+"language": &"GDScript",
+"path": "res://addons/postprocessing-composer/nodes/layer.gd"
+}]
+_global_script_class_icons={
+"PostprocessingComposer": "",
+"PostprocessingLayer": ""
+}
+
 [application]
 
 config/name="godot-postprocessing-pipeline"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/postprocessing-composer/plugin.cfg")

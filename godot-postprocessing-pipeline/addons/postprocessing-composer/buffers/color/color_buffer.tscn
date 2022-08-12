@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://mp4avd8xnj1p"]
+
+[ext_resource type="Script" path="res://addons/postprocessing-composer/buffers/camera_copy.gd" id="1_xq8ki"]
+
+[node name="SubViewport" type="SubViewport"]
+handle_input_locally = false
+size = Vector2i(569, 512)
+render_target_update_mode = 4
+script = ExtResource("1_xq8ki")
+remote_camera_path = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+cull_mask = 1
+current = true

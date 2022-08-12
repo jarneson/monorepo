@@ -1,17 +1,16 @@
-[gd_scene load_steps=34 format=3 uid="uid://csnws2hopdsnc"]
+[gd_scene load_steps=29 format=3 uid="uid://crtwv4u1f02wa"]
 
 [ext_resource type="PackedScene" uid="uid://cj6l3fj26x0qq" path="res://demos/cubes/cubes.tscn" id="1_wjcf3"]
 [ext_resource type="Script" path="res://usage/DirectionalLight3D.gd" id="2_i5u8n"]
-[ext_resource type="PackedScene" uid="uid://br33jyr30a7to" path="res://color/color_buffer.tscn" id="3_aicj3"]
-[ext_resource type="Texture2D" uid="uid://1qoojc28g01r" path="res://noise/1024_1024/LDR_RGBA_0.png" id="4_810ii"]
-[ext_resource type="Shader" path="res://postprocessing/stipple.gdshader" id="5_2ggp1"]
+[ext_resource type="Script" path="res://usage/Camera3D.gd" id="2_mqmis"]
+[ext_resource type="PackedScene" path="res://addons/postprocessing-composer/buffers/color/color_buffer.tscn" id="3_aicj3"]
 [ext_resource type="Shader" path="res://postprocessing/bw_to_b_alpha.gdshader" id="6_5iufm"]
 [ext_resource type="Shader" path="res://postprocessing/magnitude_threshold_uv.gdshader" id="6_38eq4"]
 [ext_resource type="Shader" path="res://postprocessing/hysteresis_uv.gdshader" id="6_255ox"]
 [ext_resource type="Shader" path="res://postprocessing/sobel_uv.gdshader" id="6_mtyua"]
 [ext_resource type="Shader" path="res://postprocessing/double_threshold_uv.gdshader" id="6_vtqqj"]
-[ext_resource type="PackedScene" uid="uid://cha6pkd8vn75n" path="res://depth/depth_buffer.tscn" id="7_1wg7c"]
-[ext_resource type="PackedScene" uid="uid://chc8jjpf748xu" path="res://normal/normal_buffer.tscn" id="13_trcfy"]
+[ext_resource type="PackedScene" uid="uid://daypkq18xjrx2" path="res://addons/postprocessing-composer/buffers/depth/depth_buffer.tscn" id="7_1wg7c"]
+[ext_resource type="PackedScene" path="res://addons/postprocessing-composer/buffers/normal/normal_buffer.tscn" id="13_trcfy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tyvli"]
 albedo_color = Color(1, 0.8145, 0.47, 1)
@@ -31,34 +30,6 @@ background_mode = 2
 sky = SubResource("Sky_pbeic")
 ambient_light_source = 2
 ambient_light_color = Color(0.54902, 0.54902, 0.54902, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_y74kl"]
-viewport_path = NodePath("Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2/DepthViewport")
-
-[sub_resource type="Gradient" id="Gradient_mtv58"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.158273, 0.42446, 0.532374, 1)
-colors = PackedColorArray(0.356957, 0.356957, 0.356957, 1, 0.590083, 0.590083, 0.590083, 1, 0.720731, 0.720731, 0.720731, 1, 0.85993, 0.85993, 0.85993, 1, 0.99234, 0.99234, 0.99234, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_eqsnd"]
-noise_type = 2
-domain_warp_enabled = true
-domain_warp_type = 2
-domain_warp_fractal_type = 0
-
-[sub_resource type="NoiseTexture" id="NoiseTexture_857hx"]
-seamless = true
-color_ramp = SubResource("Gradient_mtv58")
-noise = SubResource("FastNoiseLite_eqsnd")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0vtp"]
-resource_local_to_scene = true
-shader = ExtResource("5_2ggp1")
-depth_texture = SubResource("ViewportTexture_y74kl")
-stipple_noise = ExtResource("4_810ii")
-stipple_weight = 0.7
-stroke_noise = SubResource("NoiseTexture_857hx")
-stroke_weight = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7cb8s"]
 shader = ExtResource("6_5iufm")
@@ -84,6 +55,9 @@ shader = ExtResource("6_mtyua")
 depth = SubResource("ViewportTexture_ndn0r")
 depth_weight = 1.5
 line_width = 3.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pkeh7"]
+viewport_path = NodePath("DepthViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_n4r4k"]
 viewport_path = NodePath("Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2/DepthViewport")
@@ -143,38 +117,7 @@ line_width = 3.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
-handle_input_locally = false
-size = Vector2i(1024, 600)
-render_target_update_mode = 4
-
-[node name="Cubes" parent="SubViewportContainer2/SubViewport" instance=ExtResource("1_wjcf3")]
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8.71763, 26.3411)
-cull_mask = 524287
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
-transform = Transform3D(0.209619, -0.536825, 0.817238, 0, 0.835807, 0.549023, -0.977783, -0.115085, 0.175201, 0, 0, 0)
-script = ExtResource("2_i5u8n")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer2/SubViewport/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, -1.5249)
-material_override = SubResource("StandardMaterial3D_tyvli")
-mesh = SubResource("SphereMesh_sa0of")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer2/SubViewport"]
-environment = SubResource("Environment_d1e4i")
-
-[node name="Watercolor" type="SubViewportContainer" parent="."]
-visible = false
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -182,29 +125,30 @@ grow_vertical = 2
 stretch = true
 metadata/_edit_layout_mode = 1
 
-[node name="SubViewport" type="SubViewport" parent="Watercolor"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(1024, 600)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
-[node name="SubViewportContainer" parent="Watercolor/SubViewport" instance=ExtResource("3_aicj3")]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-remote_camera_path = NodePath("../../../SubViewportContainer2/SubViewport/Camera3D")
+[node name="Cubes" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_wjcf3")]
 
-[node name="CanvasLayer4" type="CanvasLayer" parent="Watercolor/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8.71763, 26.3411)
+cull_mask = 524287
+current = true
+script = ExtResource("2_mqmis")
 
-[node name="ColorRect" type="ColorRect" parent="Watercolor/SubViewport/CanvasLayer4"]
-material = SubResource("ShaderMaterial_u0vtp")
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(0.209619, -0.536825, 0.817238, 0, 0.835807, 0.549023, -0.977783, -0.115085, 0.175201, 0, 0, 0)
+script = ExtResource("2_i5u8n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, -1.5249)
+material_override = SubResource("StandardMaterial3D_tyvli")
+mesh = SubResource("SphereMesh_sa0of")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_d1e4i")
 
 [node name="Depth" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_7cb8s")
@@ -267,21 +211,17 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="DepthViewport" type="SubViewport" parent="Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2"]
+[node name="SubViewport" type="SubViewport" parent="Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2"]
 handle_input_locally = false
 size = Vector2i(1024, 600)
 render_target_update_mode = 4
 
-[node name="depth_buffer" parent="Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2/DepthViewport" instance=ExtResource("7_1wg7c")]
+[node name="ColorRect" type="TextureRect" parent="Depth/DepthHysteresis/SubViewportContainer/DepthDoubleMag/SubViewportContainer2/DepthMagnitude/SubViewportContainer/DepthSobel/SubViewportContainer2/SubViewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = true
-remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer2/SubViewport/Camera3D")
-metadata/_edit_layout_mode = 1
+texture = SubResource("ViewportTexture_pkeh7")
 
 [node name="Color" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_7cb8s")
@@ -357,7 +297,7 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer2/SubViewport/Camera3D")
+remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer/SubViewport/Camera3D")
 
 [node name="Normal" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_7cb8s")
@@ -433,4 +373,13 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer2/SubViewport/Camera3D")
+remote_camera_path = NodePath("../../../../../../../../../../../SubViewportContainer/SubViewport/Camera3D")
+
+[node name="DepthViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+
+[node name="depth_buffer" parent="DepthViewport" instance=ExtResource("7_1wg7c")]
+remote_camera_path = NodePath("../../SubViewportContainer/SubViewport/Camera3D")
+metadata/_edit_layout_mode = 1

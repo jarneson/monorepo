@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://l77nhequd14x"]
+
+[ext_resource type="Script" path="res://addons/postprocessing-composer/buffers/camera_copy.gd" id="1_4fsfw"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/buffers/depth/depth_buffer.gdshader" id="2_4wpci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iccjk"]
+render_priority = 0
+shader = ExtResource("2_4wpci")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dyyqc"]
+material = SubResource("ShaderMaterial_iccjk")
+size = Vector2(2, 2)
+
+[node name="DepthBuffer" type="SubViewport"]
+handle_input_locally = false
+size = Vector2i(1024, 600)
+render_target_update_mode = 4
+script = ExtResource("1_4fsfw")
+remote_camera_path = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+cull_mask = 524289
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.80893)
+layers = 524288
+mesh = SubResource("QuadMesh_dyyqc")
