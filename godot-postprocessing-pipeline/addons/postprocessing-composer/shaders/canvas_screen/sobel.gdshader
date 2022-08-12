@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform float line_width = 1.0;
+uniform float depth_weight = 1.0;
 uniform sampler2D depth_buffer;
 
 float sobel(sampler2D tex, vec2 uv, vec2 texel) {
@@ -26,6 +27,6 @@ float sobel(sampler2D tex, vec2 uv, vec2 texel) {
 }
 
 void fragment() {
-	float s = sobel(SCREEN_TEXTURE, SCREEN_UV, SCREEN_PIXEL_SIZE * line_width * texture(depth_buffer, UV).r);
+	float s = sobel(SCREEN_TEXTURE, SCREEN_UV, SCREEN_PIXEL_SIZE * line_width * pow(texture(depth_buffer, UV).r, depth_weight));
 	COLOR = vec4(vec3(s),1.);
 }

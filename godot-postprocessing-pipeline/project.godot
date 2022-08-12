@@ -33,3 +33,7 @@ config/icon="res://icon.png"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/postprocessing-composer/plugin.cfg")
+
+[rendering]
+
+shadows/directional_shadow/size=16384

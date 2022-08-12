@@ -25,8 +25,8 @@ vec3 hsv2rgb(vec3 c) {
 void fragment() {
 	vec3 px = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
 	vec3 hsv = rgb2hsv(px);
-	float d = texture(depth_texture, SCREEN_UV).r;
-	float stipple = smoothstep(-0.2, 1.2, texture(stipple_noise, fract(SCREEN_UV*stipple_weight/d)).r);
+	float d = round(10. * texture(depth_texture, SCREEN_UV).r) / 10.;
+	float stipple = smoothstep(0., 1., texture(stipple_noise, fract(SCREEN_UV*stipple_weight/d)).r);
 	float stroke = texture(stroke_noise, fract(SCREEN_UV*stroke_weight+vec2(hsv.x, hsv.x)/2.0)).g;
 	float luminance = hsv.z;
 	hsv.z = 1.0;

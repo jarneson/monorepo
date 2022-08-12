@@ -19,6 +19,7 @@ func make_cubes():
 		inst.name = "Box_"+str(i)
 		inst.material_override = StandardMaterial3D.new()
 		inst.material_override.albedo_color = Color.from_hsv(randf(), 1.0, 1.0);
+		inst.material_override.diffuse_mode = StandardMaterial3D.DIFFUSE_TOON
 		add_child(inst)
 		var r = radius * sqrt(randf())
 		var theta = randf() * 2 * PI

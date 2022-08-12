@@ -22,16 +22,18 @@ enum Buffer {
 		_shaders_storage = value
 		create_tree()
 
-@export var _shaders_storage: Array[ShaderMaterial]
 
 @onready var composer = get_parent()
 
 @export var root_shader: ShaderMaterial : 
 	get:
-		return root_shader
+		return _root_shader_storage
 	set(value):
-		root_shader = value
+		_root_shader_storage = value
 		create_tree()
+
+@export var _shaders_storage: Array[ShaderMaterial]
+@export var _root_shader_storage: ShaderMaterial
 
 func drop_tree():
 	for c in get_children():
@@ -55,13 +57,12 @@ func create_tree():
 	sv.add_child(vp)
 	vp.set_owner(self.get_owner())
 	
-	var next_parent = self
 	var tr = TextureRect.new()
-	
 	tr.set_anchors_preset(Control.PRESET_FULL_RECT)
 	var tex = ViewportTexture.new()
 	tex.viewport_path = self.get_owner().get_path_to(buf)
 	tr.texture = tex
+	tr.ignore_texture_size = true
 	vp.add_child(tr)
 	tr.set_owner(self.get_owner())
 	

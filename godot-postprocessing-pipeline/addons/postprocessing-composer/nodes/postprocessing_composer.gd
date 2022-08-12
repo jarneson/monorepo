@@ -31,10 +31,16 @@ const buffer_names = {
 
 func get_buffer(buf: Buffer):
 	if existing_buffers[buf] == null:
-		existing_buffers[buf] = buffer_scenes[buf].instantiate()
+		existing_buffers[buf] = SubViewportContainer.new()
 		existing_buffers[buf].name = buffer_names[buf]
+		existing_buffers[buf].stretch = true
+		existing_buffers[buf].set_anchors_preset(Control.PRESET_FULL_RECT)
 		add_child(existing_buffers[buf])
 		move_child(existing_buffers[buf], 0)
 		existing_buffers[buf].set_owner(self.get_owner())
-		existing_buffers[buf].remote_camera_path = existing_buffers[buf].get_path_to(primary_camera)
-	return existing_buffers[buf]
+		var bs = buffer_scenes[buf].instantiate()
+		bs.name = "Buffer"
+		existing_buffers[buf].add_child(bs)
+		bs.set_owner(self.get_owner())
+		bs.remote_camera_path = bs.get_path_to(primary_camera)
+	return existing_buffers[buf].get_node("Buffer")
