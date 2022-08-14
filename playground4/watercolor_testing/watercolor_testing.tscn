@@ -1,0 +1,202 @@
+[gd_scene load_steps=6 format=3 uid="uid://dojhhass3gyrl"]
+
+[ext_resource type="Material" uid="uid://n8bckmpleq1u" path="res://watercolor_testing/watercolor_testing.tres" id="1_qfx60"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mc56e"]
+size = Vector2(256, 256)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_55yyp"]
+data = PackedVector3Array(128, 0, 128, -128, 0, 128, 128, 0, -128, -128, 0, 128, -128, 0, -128, 128, 0, -128)
+
+[sub_resource type="Environment" id="Environment_xgx3w"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8kpx"]
+
+[node name="WatercolorTesting" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("PlaneMesh_mc56e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_55yyp")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0177145, 1.49055, 12.1851)
+light_color = Color(0.247059, 0.458824, 1, 1)
+light_energy = 0.103
+shadow_enabled = true
+shadow_blur = 10.0
+omni_attenuation = -0.5
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.385, 0)
+shadow_enabled = true
+shadow_blur = 10.0
+omni_range = 7.547
+omni_attenuation = -0.5
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129849, 0)
+visible = false
+mesh = SubResource("PlaneMesh_mc56e")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 33.565, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xgx3w")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 7.02124, 0)
+light_color = Color(0, 1, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.5, 0.612372, -0.612373, 0, 0.707107, 0.707106, 0.866025, 0.353553, -0.353554, 0, 7.02124, 0)
+light_color = Color(1, 0, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.5, -0.612372, 0.612373, 0, 0.707107, 0.707106, -0.866025, 0.353553, -0.353554, 0, 7.02124, 0)
+light_color = Color(0, 0, 1, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="."]
+transform = Transform3D(0.306659, 0.673038, -0.673038, 0, 0.707107, 0.707107, 0.951819, -0.216841, 0.216841, 0, 7.02124, 0)
+light_color = Color(0, 1, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.977629, -0.14873, 0.14873, 0, 0.707107, 0.707106, -0.210336, 0.691288, -0.691289, 0, 7.02124, 0)
+light_color = Color(1, 0, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="."]
+transform = Transform3D(0.67097, -0.524308, 0.524309, 0, 0.707107, 0.707106, -0.741484, -0.474447, 0.474448, 0, 7.02124, 0)
+light_color = Color(0, 0, 1, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.891948, 0.31971, -0.31971, 0, 0.707107, 0.707107, 0.452139, 0.630702, -0.630702, 0, 7.02124, 0)
+light_color = Color(0, 1, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="."]
+transform = Transform3D(0.0544103, -0.706059, 0.70606, 1.98209e-08, 0.707107, 0.707106, -0.998519, -0.0384739, 0.0384739, 0, 7.02124, 0)
+light_color = Color(1, 0, 0, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="."]
+transform = Transform3D(0.837538, 0.386348, -0.386349, -2.2098e-08, 0.707107, 0.707106, 0.54638, -0.592228, 0.592229, 0, 7.02124, 0)
+light_color = Color(0, 0, 1, 1)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_transmittance_bias = 0.1
+shadow_blur = 10.0
+spot_range = 23.669
+spot_attenuation = -0.5
+spot_angle = 33.23
+spot_angle_attenuation = 0.5
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.5, -0.612372, 0.612373, -2.4869e-14, 0.707107, 0.707106, -0.866025, 0.353553, -0.353554, -3.84538, 29.4882, 0.672461)
+visible = false
+light_color = Color(0, 0, 0, 1)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, 0, 0.5, 7.81666)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(6.94764, 0, 1.4349, 0, 1, 0, -1.74409, 0, 5.71597, 12.0247, 0.499999, 5.15522)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, 2.94994, 0.5, 1.76623)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, -6.94249, 0.5, 0.0263786)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, -0.79241, 0.499999, -5.74785)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, 6.75956, 0.499999, -5.03086)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969906, 0, 0.24348, 0, 1, 0, -0.24348, 0, 0.969906, -5.48904, 0.499999, 4.65386)
+material_override = ExtResource("1_qfx60")
+mesh = SubResource("BoxMesh_x8kpx")

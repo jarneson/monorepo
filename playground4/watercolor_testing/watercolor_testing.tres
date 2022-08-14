@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://n8bckmpleq1u"]
+
+[ext_resource type="Shader" path="res://watercolor_testing/watercolor_testing.gdshader" id="1_mqjnh"]
+
+[sub_resource type="Gradient" id="Gradient_2t3vp"]
+offsets = PackedFloat32Array(0.0448718, 0.217949, 0.294118, 0.772059, 0.838235)
+colors = PackedColorArray(0, 0, 0, 1, 0.183594, 0.17441, 0.182268, 1, 0.132813, 0.132813, 0.132813, 1, 0.45, 0.45, 0.45, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gad06"]
+gradient = SubResource("Gradient_2t3vp")
+width = 512
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1pgjb"]
+fractal_type = 2
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_167wd"]
+width = 2056
+height = 2056
+seamless = true
+noise = SubResource("FastNoiseLite_1pgjb")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_mqjnh")
+color = Color(1, 1, 1, 1)
+color_ramp = SubResource("GradientTexture1D_gad06")
+shadow_noise = SubResource("NoiseTexture_167wd")
