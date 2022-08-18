@@ -1,0 +1,15 @@
+[gd_resource type="NoiseTexture" load_steps=3 format=3 uid="uid://dietku5v0lbdh"]
+
+[sub_resource type="Gradient" id="Gradient_tm1i6"]
+colors = PackedColorArray(0.653107, 0.653107, 0.653107, 1, 0.952087, 0.952087, 0.952087, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bt36l"]
+noise_type = 2
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+
+[resource]
+seamless = true
+color_ramp = SubResource("Gradient_tm1i6")
+noise = SubResource("FastNoiseLite_bt36l")

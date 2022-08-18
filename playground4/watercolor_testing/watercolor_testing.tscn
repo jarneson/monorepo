@@ -163,7 +163,6 @@ spot_angle_attenuation = 0.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.5, -0.612372, 0.612373, -2.4869e-14, 0.707107, 0.707106, -0.866025, 0.353553, -0.353554, -3.84538, 29.4882, 0.672461)
-visible = false
 light_color = Color(0, 0, 0, 1)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]

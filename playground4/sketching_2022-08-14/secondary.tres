@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cyvdtbi45xt22"]
+
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="1_3lv25"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3lv25")
+color = Color(0.541176, 0.737255, 0.262745, 1)

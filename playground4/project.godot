@@ -19,6 +19,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://addons/ply/resources/ply_mesh.gd"
 }, {
+"base": "Control",
+"class": &"PostprocessingComposer",
+"language": &"GDScript",
+"path": "res://addons/postprocessing-composer/nodes/postprocessing_composer.gd"
+}, {
+"base": "Control",
+"class": &"PostprocessingLayer",
+"language": &"GDScript",
+"path": "res://addons/postprocessing-composer/nodes/layer.gd"
+}, {
 "base": "Node",
 "class": &"StateMachine",
 "language": &"GDScript",
@@ -42,6 +52,8 @@ _global_script_classes=[{
 _global_script_class_icons={
 "GunModBase": "",
 "PlyMesh": "",
+"PostprocessingComposer": "",
+"PostprocessingLayer": "",
 "StateMachine": "",
 "StateMachineState": "",
 "WFCOption": "",
@@ -66,7 +78,7 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/wfc/plugin.cfg", "res://addons/ply/plugin.cfg")
+enabled=PackedStringArray("res://addons/wfc/plugin.cfg", "res://addons/ply/plugin.cfg", "res://addons/postprocessing-composer/plugin.cfg")
 
 [filesystem]
 
@@ -150,6 +162,6 @@ action_zip={
 
 [rendering]
 
-shadows/positional_shadow/soft_shadow_filter_quality=5
-shadows/positional_shadow/atlas_size=16384
-shadows/positional_shadow/atlas_16_bits=false
+shadows/directional_shadow/size=16384
+shadows/directional_shadow/soft_shadow_filter_quality=0
+shadows/positional_shadow/soft_shadow_filter_quality=0

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dmcla1j7is58"]
+
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="1_c3tm8"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_c3tm8")
+color = Color(0.737255, 0.262745, 0.541176, 1)

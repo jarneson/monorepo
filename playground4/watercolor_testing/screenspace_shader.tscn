@@ -1,0 +1,584 @@
+[gd_scene load_steps=47 format=3]
+
+[ext_resource type="Script" path="res://watercolor_testing/Node3D.gd" id="1_ekvgg"]
+[ext_resource type="Shader" path="res://watercolor_testing/screenspace_shader.gdshader" id="1_flen7"]
+[ext_resource type="Script" path="res://addons/postprocessing-composer/nodes/postprocessing_composer.gd" id="2_dykhh"]
+[ext_resource type="Texture2D" uid="uid://dietku5v0lbdh" path="res://watercolor_testing/albedo_noise.tres" id="2_ludro"]
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="2_ryf0x"]
+[ext_resource type="PackedScene" uid="uid://bdhqjemme0mam" path="res://addons/postprocessing-composer/buffers/normal/normal_buffer.tscn" id="3_0pi2m"]
+[ext_resource type="PackedScene" uid="uid://mp4avd8xnj1p" path="res://addons/postprocessing-composer/buffers/color/color_buffer.tscn" id="3_6udcj"]
+[ext_resource type="Script" path="res://addons/postprocessing-composer/nodes/layer.gd" id="3_8ytbm"]
+[ext_resource type="PackedScene" uid="uid://l77nhequd14x" path="res://addons/postprocessing-composer/buffers/depth/depth_buffer.tscn" id="3_38b56"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/invisible.gdshader" id="3_q3s28"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/bw_to_b_alpha.gdshader" id="6_3qvj5"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/canvas_screen/sobel.gdshader" id="6_8wvlt"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/canvas_screen/magnitude_threshold.gdshader" id="7_sjbdf"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/canvas_screen/double_threshold.gdshader" id="8_lneev"]
+[ext_resource type="Shader" path="res://addons/postprocessing-composer/shaders/canvas_screen/hysteresis.gdshader" id="9_4jptn"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_q261j"]
+
+[sub_resource type="Sky" id="Sky_xe5yv"]
+sky_material = SubResource("PhysicalSkyMaterial_q261j")
+
+[sub_resource type="Environment" id="Environment_kfxjw"]
+background_mode = 2
+sky = SubResource("Sky_xe5yv")
+ambient_light_source = 2
+ambient_light_color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7grg3"]
+size = Vector2(32, 32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqib2"]
+diffuse_mode = 3
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prf7y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqk60"]
+render_priority = 0
+shader = ExtResource("2_ryf0x")
+color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kbivc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wciuj"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1lc0"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 1, 0.0509804, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcr4e"]
+render_priority = 0
+shader = ExtResource("2_ryf0x")
+color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_276tm"]
+albedo_color = Color(1, 0.635294, 0, 1)
+albedo_texture = ExtResource("2_ludro")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_go1sy"]
+top_radius = 1.0
+height = 5.604
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nuaxh"]
+shader = ExtResource("3_q3s28")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tgi5q"]
+shader = ExtResource("3_q3s28")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t85im"]
+shader = ExtResource("3_q3s28")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8xxok"]
+viewport_path = NodePath("Post-Processing Composer/DepthBuffer/Buffer")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qqkv2"]
+noise_type = 0
+frequency = 0.005
+fractal_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture" id="NoiseTexture_egsms"]
+width = 1024
+height = 1024
+in_3d_space = true
+seamless = true
+bump_strength = 3.0
+noise = SubResource("FastNoiseLite_qqkv2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4v1cu"]
+resource_local_to_scene = true
+shader = ExtResource("1_flen7")
+depth = SubResource("ViewportTexture_8xxok")
+depth_weight = 1.0
+paint_noise = SubResource("NoiseTexture_egsms")
+paint_weight = 25.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2e88b"]
+viewport_path = NodePath("Post-Processing Composer/ColorBuffer/Buffer")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ynpvp"]
+viewport_path = NodePath("Post-Processing Composer/DepthBuffer/Buffer")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e25r5"]
+resource_local_to_scene = true
+shader = ExtResource("6_8wvlt")
+depth_buffer = SubResource("ViewportTexture_ynpvp")
+depth_weight = 1.0
+line_width = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x8uki"]
+shader = ExtResource("7_sjbdf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i8gdq"]
+shader = ExtResource("8_lneev")
+high_threshold = null
+low_threshold = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ibdmm"]
+shader = ExtResource("9_4jptn")
+weight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_736i8"]
+shader = ExtResource("6_3qvj5")
+strength = null
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tlgxc"]
+viewport_path = NodePath("Post-Processing Composer/DepthBuffer/Buffer")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uphcv"]
+viewport_path = NodePath("Post-Processing Composer/NormalBuffer/Buffer")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nyo30"]
+shader = ExtResource("6_3qvj5")
+strength = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sjkio"]
+viewport_path = NodePath("Post-Processing Composer/ColorBuffer/Buffer")
+
+[node name="screenspace_shader" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(3840, 2160)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_kfxjw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.810737, 0.585411, 0, -0.585411, 0.810737, 0, 2.39641, 2.72205)
+light_color = Color(0.54902, 0.54902, 0.54902, 1)
+shadow_enabled = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+mesh = SubResource("PlaneMesh_7grg3")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.750111, 0, 0.661312, 0, 1, 0, -0.661312, 0, 0.750111, 0, 0, 0)
+script = ExtResource("1_ekvgg")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Node3D"]
+transform = Transform3D(0.99945, 0.0176676, -0.0280557, 0, 0.846193, 0.532876, 0.0331552, -0.532583, 0.845728, 0.265, 3.976, 5)
+cull_mask = 524287
+
+[node name="Cubes" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("ShaderMaterial_oqk60")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="Cubes" type="Node3D" parent="SubViewportContainer/SubViewport/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.80322, 2.84433, -9.0436)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("StandardMaterial3D_m1lc0")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="Cubes" type="Node3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9022, -1.61633, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("StandardMaterial3D_m1lc0")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="Cubes" type="Node3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.900143, 15.2373)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("StandardMaterial3D_m1lc0")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="Cubes" type="Node3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7372, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("StandardMaterial3D_m1lc0")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes/Cubes/Cubes/Cubes/Cubes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="Cubes2" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265, 2.639, 2.602)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 1.0576, 0)
+material_override = SubResource("StandardMaterial3D_eqib2")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35454, 0.510526, 1.24633)
+material_override = SubResource("ShaderMaterial_wcr4e")
+mesh = SubResource("SphereMesh_kbivc")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Cubes2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.627076, 0.694309, 0.449147)
+material_override = SubResource("StandardMaterial3D_wciuj")
+mesh = SubResource("BoxMesh_prf7y")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.97218, 2.39614, 0)
+material_override = SubResource("StandardMaterial3D_276tm")
+mesh = SubResource("CylinderMesh_go1sy")
+
+[node name="Post-Processing Composer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_dykhh")
+primary_camera_path = NodePath("../SubViewportContainer/SubViewport/Node3D/Camera3D")
+
+[node name="ColorBuffer" type="SubViewportContainer" parent="Post-Processing Composer"]
+material = SubResource("ShaderMaterial_nuaxh")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="Buffer" parent="Post-Processing Composer/ColorBuffer" instance=ExtResource("3_6udcj")]
+size = Vector2i(1920, 1080)
+remote_camera_path = NodePath("../../../SubViewportContainer/SubViewport/Node3D/Camera3D")
+
+[node name="NormalBuffer" type="SubViewportContainer" parent="Post-Processing Composer"]
+material = SubResource("ShaderMaterial_tgi5q")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="Buffer" parent="Post-Processing Composer/NormalBuffer" instance=ExtResource("3_0pi2m")]
+size = Vector2i(1920, 1080)
+remote_camera_path = NodePath("../../../SubViewportContainer/SubViewport/Node3D/Camera3D")
+
+[node name="DepthBuffer" type="SubViewportContainer" parent="Post-Processing Composer"]
+material = SubResource("ShaderMaterial_t85im")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="Buffer" parent="Post-Processing Composer/DepthBuffer" instance=ExtResource("3_38b56")]
+size = Vector2i(1920, 1080)
+remote_camera_path = NodePath("../../../SubViewportContainer/SubViewport/Node3D/Camera3D")
+
+[node name="Post-Processing Layer3" type="Control" parent="Post-Processing Composer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8ytbm")
+shaders = []
+root_shader = SubResource("ShaderMaterial_4v1cu")
+_shaders_storage = []
+_root_shader_storage = SubResource("ShaderMaterial_4v1cu")
+metadata/_edit_layout_mode = 1
+
+[node name="@@18314" type="SubViewportContainer" parent="Post-Processing Composer/Post-Processing Layer3"]
+material = SubResource("ShaderMaterial_4v1cu")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="18315" type="SubViewport" parent="Post-Processing Composer/Post-Processing Layer3/@@18314"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
+
+[node name="@@18316" type="TextureRect" parent="Post-Processing Composer/Post-Processing Layer3/@@18314/18315"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("ViewportTexture_2e88b")
+ignore_texture_size = true
+
+[node name="Post-Processing Layer" type="Control" parent="Post-Processing Composer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8ytbm")
+buffer = 1
+shaders = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+root_shader = SubResource("ShaderMaterial_736i8")
+_shaders_storage = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+_root_shader_storage = SubResource("ShaderMaterial_736i8")
+metadata/_edit_layout_mode = 1
+
+[node name="66270" type="SubViewportContainer" parent="Post-Processing Composer/Post-Processing Layer"]
+material = SubResource("ShaderMaterial_736i8")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="@@66271" type="SubViewport" parent="Post-Processing Composer/Post-Processing Layer/66270"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="@@66272" type="TextureRect" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("ViewportTexture_tlgxc")
+ignore_texture_size = true
+
+[node name="@@66273" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271"]
+copy_mode = 2
+
+[node name="@@66274" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66273"]
+
+[node name="@@66275" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66273/@@66274"]
+material = SubResource("ShaderMaterial_e25r5")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@66276" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271"]
+copy_mode = 2
+
+[node name="@@66277" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66276"]
+
+[node name="@@66278" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66276/@@66277"]
+material = SubResource("ShaderMaterial_x8uki")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@66279" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271"]
+copy_mode = 2
+
+[node name="@@66280" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66279"]
+
+[node name="@@66281" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66279/@@66280"]
+material = SubResource("ShaderMaterial_i8gdq")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@66282" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271"]
+copy_mode = 2
+
+[node name="@@66283" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66282"]
+
+[node name="@@66284" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer/66270/@@66271/@@66282/@@66283"]
+material = SubResource("ShaderMaterial_ibdmm")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Post-Processing Layer2" type="Control" parent="Post-Processing Composer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8ytbm")
+buffer = 2
+shaders = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+root_shader = SubResource("ShaderMaterial_736i8")
+_shaders_storage = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+_root_shader_storage = SubResource("ShaderMaterial_736i8")
+metadata/_edit_layout_mode = 1
+
+[node name="@@69086" type="SubViewportContainer" parent="Post-Processing Composer/Post-Processing Layer2"]
+material = SubResource("ShaderMaterial_736i8")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="@@69087" type="SubViewport" parent="Post-Processing Composer/Post-Processing Layer2/@@69086"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="@@69088" type="TextureRect" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("ViewportTexture_uphcv")
+ignore_texture_size = true
+
+[node name="@@69089" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087"]
+copy_mode = 2
+
+[node name="@@69090" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69089"]
+
+[node name="@@69091" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69089/@@69090"]
+material = SubResource("ShaderMaterial_e25r5")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@69092" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087"]
+copy_mode = 2
+
+[node name="@@69093" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69092"]
+
+[node name="@@69094" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69092/@@69093"]
+material = SubResource("ShaderMaterial_x8uki")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@69095" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087"]
+copy_mode = 2
+
+[node name="@@69096" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69095"]
+
+[node name="@@69097" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69095/@@69096"]
+material = SubResource("ShaderMaterial_i8gdq")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@69098" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087"]
+copy_mode = 2
+
+[node name="@@69099" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69098"]
+
+[node name="@@69100" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer2/@@69086/@@69087/@@69098/@@69099"]
+material = SubResource("ShaderMaterial_ibdmm")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Post-Processing Layer4" type="Control" parent="Post-Processing Composer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8ytbm")
+shaders = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+root_shader = SubResource("ShaderMaterial_nyo30")
+_shaders_storage = [SubResource("ShaderMaterial_e25r5"), SubResource("ShaderMaterial_x8uki"), SubResource("ShaderMaterial_i8gdq"), SubResource("ShaderMaterial_ibdmm")]
+_root_shader_storage = SubResource("ShaderMaterial_nyo30")
+metadata/_edit_layout_mode = 1
+
+[node name="@@38313" type="SubViewportContainer" parent="Post-Processing Composer/Post-Processing Layer4"]
+material = SubResource("ShaderMaterial_nyo30")
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="@@38314" type="SubViewport" parent="Post-Processing Composer/Post-Processing Layer4/@@38313"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="@@38315" type="TextureRect" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("ViewportTexture_sjkio")
+ignore_texture_size = true
+
+[node name="@@38316" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314"]
+copy_mode = 2
+
+[node name="@@38317" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38316"]
+
+[node name="@@38318" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38316/@@38317"]
+material = SubResource("ShaderMaterial_e25r5")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@38319" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314"]
+copy_mode = 2
+
+[node name="@@38320" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38319"]
+
+[node name="@@38321" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38319/@@38320"]
+material = SubResource("ShaderMaterial_x8uki")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@38322" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314"]
+copy_mode = 2
+
+[node name="@@38323" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38322"]
+
+[node name="@@38324" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38322/@@38323"]
+material = SubResource("ShaderMaterial_i8gdq")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="@@38325" type="BackBufferCopy" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314"]
+copy_mode = 2
+
+[node name="@@38326" type="CanvasLayer" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38325"]
+
+[node name="@@38327" type="ColorRect" parent="Post-Processing Composer/Post-Processing Layer4/@@38313/@@38314/@@38325/@@38326"]
+material = SubResource("ShaderMaterial_ibdmm")
+anchor_right = 1.0
+anchor_bottom = 1.0
